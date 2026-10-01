@@ -169,14 +169,12 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <h2 class="section-title" style="margin-bottom:8px">Mira cómo funciona</h2>
 <p style="color:var(--text-mid);font-size:.92rem;margin-bottom:20px">Sin cuenta, sin compromiso — dale al botón y mira la IA en acción</p>
 <div class="mock-demo" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:left;max-width:500px;margin:0 auto">
-<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-<span class="demo-chip" onclick="runDemo('Albañil','Miguel Reformas','Alicante','Reforma de baños, alicatado, impermeabilización','15')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">🧱 Albañil</span>
-<span class="demo-chip" onclick="runDemo('Fotógrafo','Laura Shots','Madrid','Bodas, eventos, books, producto','8')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">📸 Fotógrafo</span>
-<span class="demo-chip" onclick="runDemo('Peluquera','Ana Style','Valencia','Cortes, tintes, mechas, alisados','12')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">💇 Peluquera</span>
-<span class="demo-chip" onclick="runDemo('Entrenador personal','Carlos Fit','Barcelona','Pérdida de peso, musculación, nutrición','6')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">💪 Entrenador</span>
+<div style="display:flex;gap:8px;margin-bottom:12px">
+<input type="text" id="demo-trade" placeholder="Ej: Fotógrafo, Peluquera, Albañil..." style="flex:1;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.92rem;background:var(--bg);color:var(--text)">
+<button onclick="runDemoFromInput()" style="background:var(--accent);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap">Generar</button>
 </div>
 <div id="demo-output" style="min-height:60px">
-<p style="color:var(--text-light);font-size:.88rem">👆 Elige un oficio y mira la IA generar marketing en tiempo real</p>
+<p style="color:var(--text-light);font-size:.88rem">Escribe tu oficio y mira la IA generar marketing en tiempo real</p>
 </div>
 </div>
 </div>
@@ -737,6 +735,12 @@ async function prefillForm() {
 }
 
 // ========== LIVE DEMO ==========
+function runDemoFromInput() {
+  var trade = document.getElementById('demo-trade').value.trim();
+  if (!trade) { document.getElementById('demo-trade').focus(); return; }
+  runDemo(trade, trade + ' Pro', 'Tu zona', 'Servicios profesionales de ' + trade.toLowerCase(), '10');
+}
+
 async function runDemo(trade, name, zone, services, years) {
   var out = document.getElementById('demo-output');
   out.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.85rem;color:var(--text-mid)">Generando marketing para ' + name + '...</span></div><div id="demo-stream" style="font-size:.85rem;color:var(--text);line-height:1.7;white-space:pre-wrap"></div>';
