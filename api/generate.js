@@ -8,15 +8,16 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { name, trade, zone, services, years, lang, userId, demo } = req.body;
+    const { name, trade, zone, services, years, lang, userId } = req.body;
     if (!name || !trade || !zone || !services) return res.status(400).json({ error: 'Missing fields' });
 
-    if (userId && !demo) {
+    // Check user plan and limits
+    if (userId) {
       const { data: profile } = await supabase.from('profiles').select('plan').eq('id', userId).single();
       if (profile?.plan === 'free') {
         const { count } = await supabase.from('generations').select('*', { count: 'exact', head: true })
           .eq('user_id', userId).eq('type', 'marketing');
-        if (count >= 1) return res.status(403).json({ error: 'free_limit' });
+        if (count >= 1) return res.status(403).json({ error: 'free_limit', message: 'Free plan limit reached' });
       }
     }
 
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
       ? 'Responde en español de España, con tono profesional pero cercano.'
       : 'Respond in English, with a professional but friendly tone.';
 
-    const prompt = `You are a marketing expert for self-employed professionals.
+    const prompt = `You are a marketing expert for self-employed tradespeople in the construction and trades sector.
 
 A professional gives you these details:
 - Name: ${name}
@@ -50,46 +51,31 @@ Generate EXACTLY this:
 
 Format each section with its title in CAPS. No markdown. Be concrete and direct, no empty generic phrases.`;
 
-    // Stream response
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-
-    let fullText = '';
-
-    const stream = await anthropic.messages.stream({
+    const message = await anthropic.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1500,
       messages: [{ role: 'user', content: prompt }],
     });
 
-    for await (const event of stream) {
-      if (event.type === 'content_block_delta' && event.delta?.text) {
-        fullText += event.delta.text;
-        res.write(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`);
-      }
-    }
+    const text = message.content.map(b => b.text || '').join('\n');
 
-    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
-
-    // Save to DB after streaming
-    if (userId && !demo) {
+    // Save to DB
+    if (userId) {
       await supabase.from('generations').insert({
-        user_id: userId, type: 'marketing',
+        user_id: userId,
+        type: 'marketing',
         input: { name, trade, zone, services, years, lang },
-        output: fullText
+        output: text
       });
+      // Update profile with trade info
       await supabase.from('profiles').update({
-        business_name: name, trade, zone, services,
-        years_experience: years ? parseInt(years) : null,
-        updated_at: new Date().toISOString()
+        business_name: name, trade, zone, services, years_experience: years ? parseInt(years) : null, updated_at: new Date().toISOString()
       }).eq('id', userId);
     }
 
-    res.end();
+    res.status(200).json({ text });
   } catch (err) {
     console.error(err);
-    res.write(`data: ${JSON.stringify({ error: 'Generation failed' })}\n\n`);
-    res.end();
+    res.status(500).json({ error: 'AI generation failed' });
   }
 }
