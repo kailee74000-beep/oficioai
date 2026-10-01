@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -166,6 +165,21 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <p>Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.</p>
 <button class="cta-main" onclick="showPage('auth')">Empezar gratis</button>
 </div>
+<div class="demo-section" style="padding:36px 0;text-align:center">
+<h2 class="section-title" style="margin-bottom:8px">Mira cómo funciona</h2>
+<p style="color:var(--text-mid);font-size:.92rem;margin-bottom:20px">Sin cuenta, sin compromiso — dale al botón y mira la IA en acción</p>
+<div class="mock-demo" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:left;max-width:500px;margin:0 auto">
+<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+<span class="demo-chip" onclick="runDemo('Albañil','Miguel Reformas','Alicante','Reforma de baños, alicatado, impermeabilización','15')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">🧱 Albañil</span>
+<span class="demo-chip" onclick="runDemo('Fotógrafo','Laura Shots','Madrid','Bodas, eventos, books, producto','8')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">📸 Fotógrafo</span>
+<span class="demo-chip" onclick="runDemo('Peluquera','Ana Style','Valencia','Cortes, tintes, mechas, alisados','12')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">💇 Peluquera</span>
+<span class="demo-chip" onclick="runDemo('Entrenador personal','Carlos Fit','Barcelona','Pérdida de peso, musculación, nutrición','6')" style="cursor:pointer;font-size:.82rem;padding:6px 14px;border-radius:20px;background:var(--border);color:var(--text);font-weight:500;transition:all .15s">💪 Entrenador</span>
+</div>
+<div id="demo-output" style="min-height:60px">
+<p style="color:var(--text-light);font-size:.88rem">👆 Elige un oficio y mira la IA generar marketing en tiempo real</p>
+</div>
+</div>
+</div>
 <div class="how-section">
 <h2 class="section-title">Cómo funciona</h2>
 <div class="steps">
@@ -212,6 +226,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="dash-card" onclick="goGenerate()"><h3>📝 Generar marketing</h3><p>Bio profesional, anuncios y respuestas para clientes</p></div>
 <div class="dash-card" id="dash-analyze" onclick="goAnalyze()"><h3>📊 Analizar cliente</h3><p>Pega un mensaje y descubre si el cliente es serio</p></div>
 <div class="dash-card" id="dash-tips" onclick="goTips()"><h3>💡 Consejos</h3><p>Tips de marketing, negociación y cómo ganar más</p></div>
+<div class="dash-card" onclick="showPage('public-profile')"><h3>🌐 Tu página web</h3><p>Crea tu página pública con bio, servicios y botón de WhatsApp</p></div>
 <div class="history-section" id="history-section"><h3>Últimas generaciones</h3><div id="history-list"></div></div>
 </div>
 </div>
@@ -230,7 +245,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="form-group"><label>Zona de trabajo</label><input type="text" id="inp-zone" placeholder="Ej: Alicante y alrededores"></div>
 <div class="form-group"><label>Servicios principales</label><textarea id="inp-services" placeholder="Ej: Reforma de baños, alicatado, tabiquería, pequeñas reparaciones"></textarea><p class="hint">Escribe hasta 5 servicios que ofrezcas</p></div>
 <div class="form-group"><label>Años de experiencia</label><input type="number" id="inp-years" placeholder="Ej: 12" min="0"></div>
-<button class="generate-btn" onclick="generateContent()">Generar mi marketing</button>
+<button class="generate-btn" onclick="generateContentStream()">Generar mi marketing</button>
 </div>
 <div id="loading-section" style="display:none"><div class="loading"><div class="spinner"></div><p>Creando tu material de marketing...</p></div></div>
 <div id="results-section" class="results-section" style="display:none">
@@ -276,6 +291,23 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="account-card"><h3>Plan actual</h3><p id="acc-plan">—</p><div id="acc-upgrade-btn"></div></div>
 <div class="account-card"><h3>Generaciones realizadas</h3><p id="acc-gens">—</p></div>
 <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+</div>
+</div>
+</div>
+
+<!-- PUBLIC PROFILE -->
+<div id="page-public-profile" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2>Tu página web pública</h2>
+<p class="subtitle">Crea una página profesional que puedes compartir con clientes. Incluye tu bio, servicios y botón de WhatsApp.</p>
+<div class="form-group"><label>URL de tu página</label><div style="display:flex;align-items:center;gap:4px"><span style="font-size:.88rem;color:var(--text-light)">oficioai.website/p/</span><input type="text" id="profile-slug" placeholder="miguel-reformas" style="flex:1"></div><p class="hint">Solo letras, números y guiones. Ejemplo: juan-fontanero</p></div>
+<div class="form-group"><label>Frase de presentación</label><input type="text" id="profile-tagline" placeholder="Ej: Tu albañil de confianza en Alicante"></div>
+<div class="form-group"><label>Teléfono</label><input type="tel" id="profile-phone" placeholder="Ej: 612 345 678"></div>
+<div class="form-group"><label>WhatsApp (con prefijo)</label><input type="tel" id="profile-whatsapp" placeholder="Ej: 34612345678"></div>
+<button class="generate-btn" onclick="savePublicProfile()">Crear mi página</button>
+<div id="profile-result"></div>
 </div>
 </div>
 </div>
@@ -701,6 +733,136 @@ async function prefillForm() {
     const opts = Array.from(sel.options);
     const match = opts.find(o => tradeNames.es[o.value] === userProfile.trade || tradeNames.en[o.value] === userProfile.trade);
     if (match) sel.value = match.value;
+  }
+}
+
+// ========== LIVE DEMO ==========
+async function runDemo(trade, name, zone, services, years) {
+  var out = document.getElementById('demo-output');
+  out.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.85rem;color:var(--text-mid)">Generando marketing para ' + name + '...</span></div><div id="demo-stream" style="font-size:.85rem;color:var(--text);line-height:1.7;white-space:pre-wrap"></div>';
+
+  try {
+    var response = await fetch('/api/generate-stream', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, trade: trade, zone: zone, services: services, years: years, lang: currentLang, demo: true })
+    });
+
+    var reader = response.body.getReader();
+    var decoder = new TextDecoder();
+    var streamEl = document.getElementById('demo-stream');
+    var buffer = '';
+
+    while (true) {
+      var result = await reader.read();
+      if (result.done) break;
+      buffer += decoder.decode(result.value, { stream: true });
+      var lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (line.startsWith('data: ')) {
+          try {
+            var data = JSON.parse(line.substring(6));
+            if (data.text) streamEl.textContent += data.text;
+            if (data.done) {
+              out.querySelector('.spinner')?.parentElement?.remove();
+              streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:var(--accent);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer">Crear mi cuenta gratis</button></div>');
+            }
+          } catch(e) {}
+        }
+      }
+    }
+  } catch(err) {
+    out.innerHTML = '<p style="color:var(--text-mid);font-size:.88rem">Error al generar. Inténtalo de nuevo.</p>';
+  }
+}
+
+// ========== STREAMING GENERATE ==========
+async function generateContentStream() {
+  var name = document.getElementById('inp-name').value.trim();
+  var tradeVal = document.getElementById('inp-trade').value;
+  var otherTrade = document.getElementById('inp-other-trade').value.trim();
+  var zone = document.getElementById('inp-zone').value.trim();
+  var services = document.getElementById('inp-services').value.trim();
+  var years = document.getElementById('inp-years').value.trim();
+  if (!name || !tradeVal || !zone || !services) { alert('Rellena al menos nombre, oficio, zona y servicios.'); return; }
+  var oficio = tradeVal === 'other' ? otherTrade : (tradeNames[currentLang][tradeVal] || tradeVal);
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').innerHTML = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Generando tu marketing...</h2><div style="display:flex;align-items:center;gap:8px;margin-bottom:16px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.88rem;color:var(--text-mid)">La IA está trabajando...</span></div><div id="stream-output" style="font-size:.9rem;color:var(--text-mid);line-height:1.7;white-space:pre-wrap;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px"></div>';
+
+  try {
+    var response = await fetch('/api/generate-stream', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, trade: oficio, zone: zone, services: services, years: years, lang: currentLang, userId: currentUser?.id })
+    });
+
+    if (response.status === 403) {
+      document.getElementById('results-section').innerHTML = '<div class="lock-overlay"><h3>Has alcanzado el límite del plan gratuito</h3><p>Mejora a Básico para generar marketing ilimitado.</p><button onclick="goUpgrade(\'basic\')">Mejorar a Básico — 20€/mes</button></div>';
+      return;
+    }
+
+    var reader = response.body.getReader();
+    var decoder = new TextDecoder();
+    var streamEl = document.getElementById('stream-output');
+    var buffer = '';
+    var fullText = '';
+
+    while (true) {
+      var result = await reader.read();
+      if (result.done) break;
+      buffer += decoder.decode(result.value, { stream: true });
+      var lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (line.startsWith('data: ')) {
+          try {
+            var data = JSON.parse(line.substring(6));
+            if (data.text) { fullText += data.text; streamEl.textContent += data.text; }
+            if (data.done) {
+              var p = userProfile?.plan || 'free';
+              var bioMatch = fullText.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
+              var adsMatch = fullText.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
+              var waMatch = fullText.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
+              var html = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Tu marketing listo</h2>';
+              html += '<div class="result-block"><h3>Bio profesional</h3><div class="content" id="result-bio">' + (bioMatch ? bioMatch[1].trim().replace(/</g,'&lt;') : '') + '</div><button class="copy-btn" onclick="copyText(\'result-bio\')">Copiar</button></div>';
+              html += '<div class="result-block"><h3>Anuncios</h3><div class="content" id="result-ads">' + (adsMatch ? adsMatch[1].trim().replace(/</g,'&lt;') : '') + '</div><button class="copy-btn" onclick="copyText(\'result-ads\')">Copiar</button></div>';
+              if (p === 'basic' || p === 'pro') {
+                html += '<div class="result-block"><h3>Respuestas WhatsApp</h3><div class="content" id="result-wa">' + (waMatch ? waMatch[1].trim().replace(/</g,'&lt;') : '') + '</div><button class="copy-btn" onclick="copyText(\'result-wa\')">Copiar</button></div>';
+              } else {
+                html += '<div class="lock-overlay"><p>🔒 Las respuestas de WhatsApp están disponibles en el plan Básico</p><button onclick="goUpgrade(\'basic\')">Desbloquear — 20€/mes</button></div>';
+              }
+              document.getElementById('results-section').innerHTML = html;
+            }
+          } catch(e) {}
+        }
+      }
+    }
+  } catch(err) {
+    console.error(err);
+    document.getElementById('results-section').innerHTML = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><p style="color:var(--text-mid)">Error al generar. Inténtalo de nuevo.</p>';
+  }
+}
+
+// ========== PUBLIC PROFILE ==========
+async function savePublicProfile() {
+  var slug = document.getElementById('profile-slug').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  var phone = document.getElementById('profile-phone').value.trim();
+  var whatsapp = document.getElementById('profile-whatsapp').value.trim();
+  var tagline = document.getElementById('profile-tagline').value.trim();
+  if (!slug) { alert('Pon un nombre para tu URL'); return; }
+
+  var response = await fetch('/api/profile', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId: currentUser.id, slug: slug, phone: phone, whatsapp: whatsapp, tagline: tagline })
+  });
+  var data = await response.json();
+  if (data.error === 'slug_taken') { alert('Esa URL ya está cogida, prueba otra'); return; }
+  if (data.url) {
+    document.getElementById('profile-result').innerHTML = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;text-align:center"><p style="font-size:.88rem;color:var(--text-mid);margin-bottom:8px">Tu página pública está lista:</p><a href="' + data.url + '" target="_blank" style="font-size:1rem;font-weight:700;color:var(--accent)">' + data.url + '</a></div>';
+    await loadProfile();
   }
 }
 
