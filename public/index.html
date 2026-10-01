@@ -226,7 +226,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="dash-card" id="dash-analyze" onclick="goAnalyze()"><h3>📊 Analizar cliente</h3><p>Pega un mensaje y descubre si el cliente es serio</p></div>
 <div class="dash-card" id="dash-tips" onclick="goTips()"><h3>💡 Consejos</h3><p>Tips de marketing, negociación y cómo ganar más</p></div>
 <div class="dash-card" id="dash-quote" onclick="goQuote()"><h3>📄 Presupuesto PDF</h3><p>Genera un presupuesto profesional y descárgalo en PDF</p></div>
-<div class="dash-card" onclick="showPage('public-profile')"><h3>🌐 Tu página web</h3><p>Crea tu página pública con bio, servicios y botón de WhatsApp</p></div>
+<div class="dash-card" id="dash-profile" onclick="goPublicProfile()"><h3>🌐 Tu página web</h3><p>Crea tu página pública con bio, servicios y botón de WhatsApp</p></div>
 <div class="history-section" id="history-section"><h3>Últimas generaciones</h3><div id="history-list"></div></div>
 </div>
 </div>
@@ -539,6 +539,9 @@ async function renderDashboard() {
   var quoteCard = document.getElementById('dash-quote');
   quoteCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
   quoteCard.onclick = (p === 'basic' || p === 'pro') ? () => goQuote() : () => goUpgrade('basic');
+  var profileCard = document.getElementById('dash-profile');
+  profileCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  profileCard.onclick = (p === 'basic' || p === 'pro') ? () => goPublicProfile() : () => goUpgrade('basic');
 
   // Load history
   const { data: gens } = await sb.from('generations').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(5);
@@ -1076,6 +1079,13 @@ function downloadQuotePDF() {
 }
 
 // ========== PUBLIC PROFILE ==========
+function goPublicProfile() {
+  if (!currentUser) { showPage('auth'); return; }
+  var p = userProfile?.plan || 'free';
+  if (p === 'free') { goUpgrade('basic'); return; }
+  showPage('public-profile');
+}
+
 async function savePublicProfile() {
   var slug = document.getElementById('profile-slug').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
   var phone = document.getElementById('profile-phone').value.trim();
