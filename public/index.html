@@ -6,6 +6,7 @@
 <title>OficioAI</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{--bg:#ffffff;--surface:#ffffff;--primary:#111827;--primary-light:#374151;--accent:#4F46E5;--accent-hover:#4338CA;--text:#111827;--text-mid:#6B7280;--text-light:#9CA3AF;--border:#E5E7EB;--gauge-red:#EF4444;--gauge-orange:#F59E0B;--gauge-green:#10B981;--gauge-great:#4F46E5;--radius:12px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0f10;--surface:#1a1a1c;--text:#f1f1f1;--text-mid:#a1a1aa;--text-light:#71717a;--border:#2e2e32;--primary:#818CF8;--primary-light:#A5B4FC;--accent:#818CF8;--accent-hover:#6366F1}}
@@ -224,6 +225,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="dash-card" onclick="goGenerate()"><h3>📝 Generar marketing</h3><p>Bio profesional, anuncios y respuestas para clientes</p></div>
 <div class="dash-card" id="dash-analyze" onclick="goAnalyze()"><h3>📊 Analizar cliente</h3><p>Pega un mensaje y descubre si el cliente es serio</p></div>
 <div class="dash-card" id="dash-tips" onclick="goTips()"><h3>💡 Consejos</h3><p>Tips de marketing, negociación y cómo ganar más</p></div>
+<div class="dash-card" id="dash-quote" onclick="goQuote()"><h3>📄 Presupuesto PDF</h3><p>Genera un presupuesto profesional y descárgalo en PDF</p></div>
 <div class="dash-card" onclick="showPage('public-profile')"><h3>🌐 Tu página web</h3><p>Crea tu página pública con bio, servicios y botón de WhatsApp</p></div>
 <div class="history-section" id="history-section"><h3>Últimas generaciones</h3><div id="history-list"></div></div>
 </div>
@@ -289,6 +291,39 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="account-card"><h3>Plan actual</h3><p id="acc-plan">—</p><div id="acc-upgrade-btn"></div></div>
 <div class="account-card"><h3>Generaciones realizadas</h3><p id="acc-gens">—</p></div>
 <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+</div>
+</div>
+</div>
+
+<!-- QUOTE BUILDER -->
+<div id="page-quote" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2>Presupuesto profesional</h2>
+<p class="subtitle">Describe el trabajo y la IA genera un presupuesto desglosado. Descárgalo como PDF.</p>
+<div class="form-group"><label>Tu nombre o negocio</label><input type="text" id="q-name" placeholder="Ej: Miguel Reformas"></div>
+<div class="form-group"><label>Tu oficio</label><input type="text" id="q-trade" placeholder="Ej: Albañil"></div>
+<div class="form-group"><label>Tu teléfono</label><input type="text" id="q-phone" placeholder="Ej: 612 345 678"></div>
+<div class="form-group"><label>Nombre del cliente</label><input type="text" id="q-client" placeholder="Ej: María López"></div>
+<div class="form-group"><label>Describe el trabajo</label><textarea id="q-desc" rows="4" placeholder="Ej: Reforma completa del baño de 6m2, cambiar bañera por plato de ducha, alicatar paredes y suelo, instalar mueble de baño y espejo"></textarea></div>
+<button class="generate-btn" id="btn-quote" onclick="generateQuote()">Generar presupuesto</button>
+<div id="quote-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>Generando presupuesto...</p></div></div>
+<div id="quote-result" style="display:none">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px">
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--primary)" id="q-title"></h3>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem" id="q-table">
+<thead><tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:8px 0;color:var(--text-mid)">Concepto</th><th style="text-align:right;padding:8px 0;color:var(--text-mid)">Precio</th></tr></thead>
+<tbody id="q-items"></tbody>
+<tfoot><tr style="border-top:2px solid var(--border)"><td style="padding:10px 0;font-weight:700;font-size:1rem">TOTAL</td><td style="padding:10px 0;font-weight:700;font-size:1rem;text-align:right;color:var(--accent)" id="q-total"></td></tr></tfoot>
+</table>
+<p style="font-size:.82rem;color:var(--text-light);margin-top:12px" id="q-notes"></p>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px">
+<button onclick="downloadQuotePDF()" style="flex:1;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer">Descargar PDF</button>
+<button onclick="editQuoteItems()" style="flex:1;padding:13px;background:transparent;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;color:var(--text)">Editar precios</button>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -501,6 +536,9 @@ async function renderDashboard() {
   analyzeCard.onclick = p === 'pro' ? () => goAnalyze() : () => goUpgrade('pro');
   tipsCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
   tipsCard.onclick = (p === 'basic' || p === 'pro') ? () => goTips() : () => goUpgrade('basic');
+  var quoteCard = document.getElementById('dash-quote');
+  quoteCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  quoteCard.onclick = (p === 'basic' || p === 'pro') ? () => goQuote() : () => goUpgrade('basic');
 
   // Load history
   const { data: gens } = await sb.from('generations').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(5);
@@ -850,6 +888,191 @@ async function generateContentStream() {
     document.getElementById('loading-section').style.display = 'none';
     document.getElementById('form-section').style.display = 'block';
   }
+}
+
+// ========== QUOTE BUILDER ==========
+var currentQuote = null;
+
+function goQuote() {
+  if (!currentUser) { showPage('auth'); return; }
+  var p = userProfile?.plan || 'free';
+  if (p === 'free') { goUpgrade('basic'); return; }
+  showPage('quote');
+  // Prefill from profile
+  if (userProfile?.business_name) document.getElementById('q-name').value = userProfile.business_name;
+  if (userProfile?.trade) document.getElementById('q-trade').value = userProfile.trade;
+  if (userProfile?.phone) document.getElementById('q-phone').value = userProfile.phone;
+}
+
+async function generateQuote() {
+  var trade = document.getElementById('q-trade').value.trim();
+  var desc = document.getElementById('q-desc').value.trim();
+  if (!trade || !desc) { alert('Rellena tu oficio y la descripción del trabajo.'); return; }
+
+  document.getElementById('btn-quote').disabled = true;
+  document.getElementById('quote-loading').style.display = 'block';
+  document.getElementById('quote-result').style.display = 'none';
+
+  try {
+    var response = await fetch('/api/generate-quote', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ trade: trade, description: desc, userId: currentUser?.id, lang: currentLang })
+    });
+    var data = await response.json();
+    if (data.error === 'plan_required') { goUpgrade('basic'); return; }
+    if (data.error) throw new Error(data.error);
+
+    currentQuote = data.quote;
+    document.getElementById('q-title').textContent = currentQuote.title || 'Presupuesto';
+
+    var total = 0;
+    var itemsHtml = '';
+    for (var i = 0; i < currentQuote.items.length; i++) {
+      var item = currentQuote.items[i];
+      total += item.price;
+      itemsHtml += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0">' + item.description + '</td><td style="padding:8px 0;text-align:right;font-weight:600">' + item.price + ' €</td></tr>';
+    }
+    document.getElementById('q-items').innerHTML = itemsHtml;
+    document.getElementById('q-total').textContent = total + ' €';
+    document.getElementById('q-notes').textContent = (currentQuote.notes || '') + ' ' + (currentQuote.validity || '');
+
+    document.getElementById('quote-loading').style.display = 'none';
+    document.getElementById('quote-result').style.display = 'block';
+  } catch(err) {
+    console.error(err);
+    alert('Error al generar. Inténtalo de nuevo.');
+    document.getElementById('quote-loading').style.display = 'none';
+  }
+  document.getElementById('btn-quote').disabled = false;
+}
+
+function editQuoteItems() {
+  if (!currentQuote) return;
+  var items = currentQuote.items;
+  for (var i = 0; i < items.length; i++) {
+    var newPrice = prompt(items[i].description + ' — Precio actual: ' + items[i].price + '€\nNuevo precio:', items[i].price);
+    if (newPrice !== null) items[i].price = parseInt(newPrice) || items[i].price;
+  }
+  // Re-render
+  var total = 0;
+  var itemsHtml = '';
+  for (var i = 0; i < items.length; i++) {
+    total += items[i].price;
+    itemsHtml += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0">' + items[i].description + '</td><td style="padding:8px 0;text-align:right;font-weight:600">' + items[i].price + ' €</td></tr>';
+  }
+  document.getElementById('q-items').innerHTML = itemsHtml;
+  document.getElementById('q-total').textContent = total + ' €';
+}
+
+function downloadQuotePDF() {
+  if (!currentQuote) return;
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF();
+  var name = document.getElementById('q-name').value.trim() || 'Profesional';
+  var phone = document.getElementById('q-phone').value.trim();
+  var client = document.getElementById('q-client').value.trim() || 'Cliente';
+  var today = new Date().toLocaleDateString('es-ES');
+
+  // Header - accent bar
+  doc.setFillColor(79, 70, 229);
+  doc.rect(0, 0, 210, 4, 'F');
+
+  // Business name
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(17, 24, 39);
+  doc.text(name, 20, 28);
+
+  // Contact
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  if (phone) doc.text(phone, 20, 36);
+
+  // PRESUPUESTO title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(79, 70, 229);
+  doc.text('PRESUPUESTO', 150, 20);
+
+  // Date and client
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  doc.text('Fecha: ' + today, 150, 28);
+  doc.text('Cliente: ' + client, 150, 36);
+
+  // Divider
+  doc.setDrawColor(229, 231, 235);
+  doc.line(20, 45, 190, 45);
+
+  // Title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.setTextColor(17, 24, 39);
+  doc.text(currentQuote.title || 'Presupuesto', 20, 58);
+
+  // Table header
+  var y = 70;
+  doc.setFillColor(249, 250, 251);
+  doc.rect(20, y - 6, 170, 10, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(107, 114, 128);
+  doc.text('CONCEPTO', 22, y);
+  doc.text('PRECIO', 178, y, { align: 'right' });
+
+  // Items
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(55, 65, 81);
+  var total = 0;
+  y += 12;
+
+  for (var i = 0; i < currentQuote.items.length; i++) {
+    var item = currentQuote.items[i];
+    total += item.price;
+    doc.text(item.description, 22, y);
+    doc.setFont('helvetica', 'bold');
+    doc.text(item.price + ' €', 178, y, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setDrawColor(243, 244, 246);
+    doc.line(20, y + 4, 190, y + 4);
+    y += 12;
+  }
+
+  // Total
+  y += 4;
+  doc.setFillColor(249, 250, 251);
+  doc.rect(120, y - 6, 70, 12, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(17, 24, 39);
+  doc.text('TOTAL', 122, y);
+  doc.setTextColor(79, 70, 229);
+  doc.text(total + ' €', 178, y, { align: 'right' });
+
+  // Notes
+  if (currentQuote.notes || currentQuote.validity) {
+    y += 24;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(156, 163, 175);
+    var notes = (currentQuote.notes || '') + ' ' + (currentQuote.validity || '');
+    var splitNotes = doc.splitTextToSize(notes, 170);
+    doc.text(splitNotes, 20, y);
+  }
+
+  // Footer
+  doc.setFontSize(7);
+  doc.setTextColor(156, 163, 175);
+  doc.text('Generado con OficioAI', 105, 285, { align: 'center' });
+
+  // Bottom bar
+  doc.setFillColor(79, 70, 229);
+  doc.rect(0, 293, 210, 4, 'F');
+
+  doc.save('presupuesto-' + client.toLowerCase().replace(/\s+/g, '-') + '.pdf');
 }
 
 // ========== PUBLIC PROFILE ==========
