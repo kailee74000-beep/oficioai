@@ -743,45 +743,37 @@ function runDemoFromInput() {
 
 async function runDemo(trade, name, zone, services, years) {
   var out = document.getElementById('demo-output');
-  out.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.85rem;color:var(--text-mid)">Generando marketing para ' + name + '...</span></div><div id="demo-stream" style="font-size:.85rem;color:var(--text);line-height:1.7;white-space:pre-wrap"></div>';
+  out.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.85rem;color:var(--text-mid)">Generando marketing para ' + trade + '...</span></div><div id="demo-stream" style="font-size:.85rem;color:var(--text);line-height:1.7;white-space:pre-wrap"></div>';
 
   try {
-    var response = await fetch('/api/generate-stream', {
+    var response = await fetch('/api/generate', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, trade: trade, zone: zone, services: services, years: years, lang: currentLang, demo: true })
+      body: JSON.stringify({ name: name, trade: trade, zone: zone, services: services, years: years, lang: currentLang })
     });
+    var data = await response.json();
+    if (data.error) throw new Error(data.error);
 
-    var reader = response.body.getReader();
-    var decoder = new TextDecoder();
     var streamEl = document.getElementById('demo-stream');
-    var buffer = '';
+    var text = data.text;
+    var i = 0;
+    out.querySelector('.spinner').parentElement.remove();
 
-    while (true) {
-      var result = await reader.read();
-      if (result.done) break;
-      buffer += decoder.decode(result.value, { stream: true });
-      var lines = buffer.split('\n');
-      buffer = lines.pop();
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-        if (line.startsWith('data: ')) {
-          try {
-            var data = JSON.parse(line.substring(6));
-            if (data.text) streamEl.textContent += data.text;
-            if (data.done) {
-              out.querySelector('.spinner')?.parentElement?.remove();
-              streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:var(--accent);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer">Crear mi cuenta gratis</button></div>');
-            }
-          } catch(e) {}
-        }
+    function typeChar() {
+      if (i < text.length) {
+        streamEl.textContent += text[i];
+        i++;
+        setTimeout(typeChar, 8);
+      } else {
+        streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:var(--accent);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer">Crear mi cuenta gratis</button></div>');
       }
     }
+    typeChar();
   } catch(err) {
     out.innerHTML = '<p style="color:var(--text-mid);font-size:.88rem">Error al generar. Inténtalo de nuevo.</p>';
   }
 }
 
-// ========== STREAMING GENERATE ==========
+// ========== GENERATE WITH TYPING EFFECT ==========
 async function generateContentStream() {
   var name = document.getElementById('inp-name').value.trim();
   var tradeVal = document.getElementById('inp-trade').value;
@@ -793,60 +785,70 @@ async function generateContentStream() {
   var oficio = tradeVal === 'other' ? otherTrade : (tradeNames[currentLang][tradeVal] || tradeVal);
 
   document.getElementById('form-section').style.display = 'none';
-  document.getElementById('results-section').style.display = 'block';
-  document.getElementById('results-section').innerHTML = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Generando tu marketing...</h2><div style="display:flex;align-items:center;gap:8px;margin-bottom:16px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.88rem;color:var(--text-mid)">La IA está trabajando...</span></div><div id="stream-output" style="font-size:.9rem;color:var(--text-mid);line-height:1.7;white-space:pre-wrap;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px"></div>';
+  document.getElementById('loading-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
 
   try {
-    var response = await fetch('/api/generate-stream', {
+    var response = await fetch('/api/generate', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name, trade: oficio, zone: zone, services: services, years: years, lang: currentLang, userId: currentUser?.id })
     });
+    var data = await response.json();
 
-    if (response.status === 403) {
+    if (data.error === 'free_limit') {
+      document.getElementById('loading-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
       document.getElementById('results-section').innerHTML = '<div class="lock-overlay"><h3>Has alcanzado el límite del plan gratuito</h3><p>Mejora a Básico para generar marketing ilimitado.</p><button onclick="goUpgrade(\'basic\')">Mejorar a Básico — 20€/mes</button></div>';
       return;
     }
+    if (data.error) throw new Error(data.error);
 
-    var reader = response.body.getReader();
-    var decoder = new TextDecoder();
-    var streamEl = document.getElementById('stream-output');
-    var buffer = '';
-    var fullText = '';
+    var text = data.text;
+    var bioMatch = text.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
+    var adsMatch = text.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
+    var waMatch = text.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
 
-    while (true) {
-      var result = await reader.read();
-      if (result.done) break;
-      buffer += decoder.decode(result.value, { stream: true });
-      var lines = buffer.split('\n');
-      buffer = lines.pop();
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-        if (line.startsWith('data: ')) {
-          try {
-            var data = JSON.parse(line.substring(6));
-            if (data.text) { fullText += data.text; streamEl.textContent += data.text; }
-            if (data.done) {
-              var p = userProfile?.plan || 'free';
-              var bioMatch = fullText.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
-              var adsMatch = fullText.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
-              var waMatch = fullText.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
-              var html = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Tu marketing listo</h2>';
-              html += '<div class="result-block"><h3>Bio profesional</h3><div class="content" id="result-bio">' + (bioMatch ? bioMatch[1].trim().replace(/</g,'&lt;') : '') + '</div><button class="copy-btn" onclick="copyText(\'result-bio\')">Copiar</button></div>';
-              html += '<div class="result-block"><h3>Anuncios</h3><div class="content" id="result-ads">' + (adsMatch ? adsMatch[1].trim().replace(/</g,'&lt;') : '') + '</div><button class="copy-btn" onclick="copyText(\'result-ads\')">Copiar</button></div>';
-              if (p === 'basic' || p === 'pro') {
-                html += '<div class="result-block"><h3>Respuestas WhatsApp</h3><div class="content" id="result-wa">' + (waMatch ? waMatch[1].trim().replace(/</g,'&lt;') : '') + '</div><button class="copy-btn" onclick="copyText(\'result-wa\')">Copiar</button></div>';
-              } else {
-                html += '<div class="lock-overlay"><p>🔒 Las respuestas de WhatsApp están disponibles en el plan Básico</p><button onclick="goUpgrade(\'basic\')">Desbloquear — 20€/mes</button></div>';
-              }
-              document.getElementById('results-section').innerHTML = html;
-            }
-          } catch(e) {}
-        }
-      }
+    var p = userProfile?.plan || 'free';
+    var html = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Tu marketing listo</h2>';
+    html += '<div class="result-block"><h3>Bio profesional</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText(\'result-bio\')">Copiar</button></div>';
+    html += '<div class="result-block"><h3>Anuncios</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText(\'result-ads\')">Copiar</button></div>';
+    if (p === 'basic' || p === 'pro') {
+      html += '<div class="result-block"><h3>Respuestas WhatsApp</h3><div class="content" id="result-wa"></div><button class="copy-btn" onclick="copyText(\'result-wa\')">Copiar</button></div>';
+    } else {
+      html += '<div class="lock-overlay"><p>🔒 Las respuestas de WhatsApp están disponibles en el plan Básico</p><button onclick="goUpgrade(\'basic\')">Desbloquear — 20€/mes</button></div>';
     }
+
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'block';
+    document.getElementById('results-section').innerHTML = html;
+
+    // Typing effect
+    function typeInto(elId, text, cb) {
+      var el = document.getElementById(elId);
+      if (!el || !text) { if (cb) cb(); return; }
+      var i = 0;
+      function t() {
+        if (i < text.length) { el.textContent += text[i]; i++; setTimeout(t, 6); }
+        else { if (cb) cb(); }
+      }
+      t();
+    }
+
+    var bioText = bioMatch ? bioMatch[1].trim() : '';
+    var adsText = adsMatch ? adsMatch[1].trim() : '';
+    var waText = waMatch ? waMatch[1].trim() : '';
+
+    typeInto('result-bio', bioText, function() {
+      typeInto('result-ads', adsText, function() {
+        if (p === 'basic' || p === 'pro') typeInto('result-wa', waText);
+      });
+    });
+
   } catch(err) {
     console.error(err);
-    document.getElementById('results-section').innerHTML = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><p style="color:var(--text-mid)">Error al generar. Inténtalo de nuevo.</p>';
+    alert('Error al generar. Inténtalo de nuevo.');
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
   }
 }
 
