@@ -38,18 +38,18 @@ ${langInstruction}
 
 Generate EXACTLY this:
 
-1. PROFESSIONAL BIO (4-5 lines, for Google Business, social media or classified ads)
+1. PROFESSIONAL BIO (2-3 lines MAXIMUM. Premium, clean, confident. Like a luxury brand tagline — short sentences, no filler words, no clichés. Example style: "Name. Trade in Area. X years turning [specific thing] into [specific result]. No shortcuts.")
 
-2. ADS (3 short texts, max 3 lines each, ready to post on social media or classifieds. Each with a different angle: one focused on experience, one on quality, one on local area)
+2. ADS (3 short texts, max 2 lines each. Punchy, direct, no generic adjectives. Each with a different angle: experience, quality, local trust)
 
-3. WHATSAPP REPLIES (5 template replies for the most common client messages:
-- When they ask for a price without giving details
-- When they ask about availability
-- When they ask if you do free quotes
-- When they ask for references of previous work
-- When they say someone else gave a lower price)
+3. WHATSAPP REPLIES (5 template replies, each max 2-3 lines. Professional but warm, never desperate. For:
+- Price request without details
+- Availability question
+- Free quote question
+- References request
+- "Someone else is cheaper")
 
-Format each section with its title in CAPS. No markdown. Be concrete and direct, no empty generic phrases.`;
+Format each section with its title in CAPS. No markdown. Write like a premium brand — short, confident, zero fluff.`;
 
     const message = await anthropic.messages.create({
       model: 'claude-haiku-4-5-20251001',
