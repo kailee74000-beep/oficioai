@@ -848,57 +848,206 @@ function toggleLang() {
   applyTranslations();
 }
 
-function applyTranslations() {
-  var t = UI_TEXT[currentLang];
+var TEXT_MAP = [
   // Nav
-  var nd = document.getElementById('nav-dash'); if(nd) nd.textContent = t.nav_panel;
-  var ng = document.getElementById('nav-gen'); if(ng) ng.textContent = t.nav_gen;
-  var na = document.getElementById('nav-analyze'); if(na) na.textContent = t.nav_analyze;
-  var nt = document.getElementById('nav-tips'); if(nt) nt.textContent = t.nav_tips;
-  var nl = document.getElementById('nav-login-btn'); if(nl) nl.textContent = t.enter;
-  var nu = document.getElementById('nav-user-btn'); if(nu) nu.textContent = t.my_account;
+  ['Panel','Dashboard'],['Generar','Generate'],['Analizar','Analyze'],['Consejos','Tips'],
+  ['Entrar','Sign in'],['Mi cuenta','My account'],
   // Hero
-  var heroT = document.getElementById('hero-title'); if(heroT) heroT.innerHTML = t.hero_title;
-  var heroS = document.getElementById('hero-sub'); if(heroS) heroS.textContent = t.hero_sub;
-  var heroC = document.getElementById('hero-cta'); if(heroC) heroC.textContent = t.hero_cta;
+  ['Tu departamento de marketing.','Your marketing department.'],
+  ['Por 20€ al mes.','For €20 a month.'],
+  ['Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.',
+   'Whatever your trade — enter your details and AI generates a professional bio, ads and responses to get more clients.'],
+  ['Empezar gratis','Start free'],
   // Demo
-  var demoT = document.getElementById('demo-title'); if(demoT) demoT.textContent = t.demo_title;
-  var demoS = document.getElementById('demo-sub'); if(demoS) demoS.textContent = t.demo_sub;
-  var demoI = document.getElementById('demo-trade'); if(demoI) demoI.placeholder = t.demo_placeholder;
-  var demoB = document.getElementById('demo-btn'); if(demoB) demoB.textContent = t.demo_btn;
+  ['Mira cómo funciona','See how it works'],
+  ['Sin cuenta, sin compromiso — dale al botón y mira la IA en acción','No account needed — hit the button and watch AI in action'],
+  ['Escribe tu oficio y mira la IA generar marketing en tiempo real','Type your trade and watch AI generate marketing in real time'],
   // How it works
-  var howT = document.getElementById('how-title'); if(howT) howT.textContent = t.how_title;
-  var s1t = document.getElementById('step1-t'); if(s1t) s1t.textContent = t.step1_t;
-  var s1d = document.getElementById('step1-d'); if(s1d) s1d.textContent = t.step1_d;
-  var s2t = document.getElementById('step2-t'); if(s2t) s2t.textContent = t.step2_t;
-  var s2d = document.getElementById('step2-d'); if(s2d) s2d.textContent = t.step2_d;
-  var s3t = document.getElementById('step3-t'); if(s3t) s3t.textContent = t.step3_t;
-  var s3d = document.getElementById('step3-d'); if(s3d) s3d.textContent = t.step3_d;
+  ['Cómo funciona','How it works'],
+  ['Rellena tus datos','Fill in your details'],
+  ['Nombre, oficio, zona y servicios. Nada más.','Name, trade, area and services. That\'s it.'],
+  ['La IA trabaja para ti','AI does the work'],
+  ['Genera tu bio, anuncios listos para publicar y respuestas para WhatsApp.','Generates your bio, ready-to-post ads and WhatsApp replies.'],
+  ['Copia, pega y gana','Copy, paste and win'],
+  ['Publica en redes, clasificados o responde a clientes en segundos.','Post on social media, classifieds or reply to clients in seconds.'],
   // Pricing
-  var prT = document.getElementById('pricing-title'); if(prT) prT.textContent = t.pricing;
+  ['Planes','Plans'],['Gratis','Free'],['Básico','Basic'],['Popular','Popular'],
+  ['Bio profesional de muestra','Sample professional bio'],
+  ['1 texto de anuncio','1 ad text'],
+  ['Probar ahora','Try now'],
+  ['Bio profesional completa','Full professional bio'],
+  ['Textos de anuncios ilimitados','Unlimited ad texts'],
+  ['Respuestas tipo para WhatsApp','WhatsApp reply templates'],
+  ['Consejos de marketing y negociación','Marketing & negotiation tips'],
+  ['Elegir Básico','Choose Basic'],
+  ['Todo lo del plan Básico','Everything in Basic'],
+  ['Medidor de compatibilidad de clientes','Client compatibility meter'],
+  ['Análisis de mensajes de clientes','Client message analysis'],
+  ['Respuesta sugerida para cerrar el trabajo','Suggested reply to close the job'],
+  ['Elegir Pro','Choose Pro'],
   // Auth
-  if(authMode === 'signup') {
-    var at = document.getElementById('auth-title'); if(at) at.textContent = t.auth_signup;
-    var as = document.getElementById('auth-sub'); if(as) as.textContent = t.auth_sub_signup;
-    var ab = document.getElementById('auth-btn'); if(ab) ab.textContent = t.auth_signup;
-  } else {
-    var at = document.getElementById('auth-title'); if(at) at.textContent = t.auth_login;
-    var as = document.getElementById('auth-sub'); if(as) as.textContent = t.auth_sub_login;
-    var ab = document.getElementById('auth-btn'); if(ab) ab.textContent = t.auth_login;
-  }
+  ['Crear cuenta','Create account'],['Iniciar sesión','Sign in'],
+  ['Empieza gratis — no necesitas tarjeta','Start free — no card required'],
+  ['Bienvenido de vuelta','Welcome back'],
+  ['Email','Email'],['Contraseña','Password'],
+  ['¿Ya tienes cuenta?','Already have an account?'],['Inicia sesión','Sign in'],
+  ['¿No tienes cuenta?','Don\'t have an account?'],['Créala gratis','Create one free'],
+  ['¿Has olvidado tu contraseña?','Forgot your password?'],
+  // Dashboard
+  ['📝 Generar marketing','📝 Generate marketing'],
+  ['Bio profesional, anuncios y respuestas para clientes','Professional bio, ads and client responses'],
+  ['📊 Analizar cliente','📊 Analyze client'],
+  ['Pega un mensaje y descubre si el cliente es serio','Paste a message and find out if the client is serious'],
+  ['💡 Consejos','💡 Tips'],
+  ['Tips de marketing, negociación y cómo ganar más','Marketing, negotiation and how to earn more'],
+  ['📄 Presupuesto PDF','📄 PDF Quote'],
+  ['Genera un presupuesto profesional y descárgalo en PDF','Generate a professional quote and download as PDF'],
+  ['🌐 Tu página web','🌐 Your web page'],
+  ['Crea tu página pública con bio, servicios y botón de WhatsApp','Create your public page with bio, services and WhatsApp button'],
+  ['Últimas generaciones','Latest generations'],
+  ['Desbloquea todo tu potencial','Unlock your full potential'],
+  ['Genera marketing ilimitado, respuestas WhatsApp y consejos profesionales','Generate unlimited marketing, WhatsApp replies and professional tips'],
+  ['Analiza tus clientes con IA','Analyze your clients with AI'],
+  ['Descubre qué clientes son serios y cómo responderles para cerrar más trabajos','Find out which clients are serious and how to respond to close more jobs'],
   // Generator
-  var ft = document.getElementById('form-title'); if(ft) ft.textContent = t.form_title;
-  var fs = document.getElementById('form-sub'); if(fs) fs.textContent = t.form_sub;
-  var gb = document.getElementById('gen-btn'); if(gb) gb.textContent = t.generate_btn;
+  ['Tu información','Your information'],
+  ['Rellena los datos de tu negocio y la IA hará el resto.','Fill in your business details and AI does the rest.'],
+  ['Nombre del profesional o negocio','Professional or business name'],
+  ['Oficio','Trade'],['Selecciona...','Select...'],
+  ['Zona de trabajo','Work area'],
+  ['Servicios principales','Main services'],
+  ['Escribe hasta 5 servicios que ofrezcas','List up to 5 services you offer'],
+  ['Años de experiencia','Years of experience'],
+  ['Generar mi marketing','Generate my marketing'],
+  ['Especifica tu oficio','Specify your trade'],
+  // Results
+  ['Tu marketing listo','Your marketing is ready'],
+  ['Bio profesional','Professional bio'],['Anuncios','Ads'],
+  ['Respuestas WhatsApp','WhatsApp replies'],['Copiar','Copy'],
+  ['← Modificar datos','← Edit details'],
   // Analyzer
-  var azt = document.getElementById('analyzer-title'); if(azt) azt.textContent = t.analyzer_title;
-  var azs = document.getElementById('analyzer-sub'); if(azs) azs.textContent = t.analyzer_sub;
+  ['Medidor de compatibilidad','Compatibility meter'],
+  ['Pega el mensaje de un cliente potencial y la IA te dice qué tipo de cliente es y cómo responderle.',
+   'Paste a potential client\'s message and AI tells you what kind of client they are and how to reply.'],
+  ['Tu oficio y servicios','Your trade and services'],
+  ['Mensaje del cliente','Client message'],
+  ['Analizar cliente','Analyze client'],
+  ['Análisis','Analysis'],['Respuesta sugerida','Suggested reply'],
+  ['Copiar respuesta','Copy reply'],
   // Tips
-  var tpt = document.getElementById('tips-title'); if(tpt) tpt.textContent = t.tips_title;
-  // Logout
-  var lo = document.getElementById('logout-btn'); if(lo) lo.textContent = t.logout;
-  // Back buttons
-  document.querySelectorAll('.back-btn').forEach(function(b){ b.textContent = t.back_panel; });
+  ['Consejos para ganar más','Tips to earn more'],
+  // Quote
+  ['Presupuesto profesional','Professional quote'],
+  ['Describe el trabajo y la IA genera un presupuesto desglosado. Descárgalo como PDF.',
+   'Describe the job and AI generates an itemized quote. Download as PDF.'],
+  ['Tu nombre o negocio','Your name or business'],['Tu oficio','Your trade'],
+  ['Tu teléfono','Your phone'],['Nombre del cliente','Client name'],
+  ['Describe el trabajo','Describe the job'],
+  ['Generar presupuesto','Generate quote'],
+  ['Descargar PDF','Download PDF'],['Editar precios','Edit prices'],
+  // Profile
+  ['Tu página web pública','Your public web page'],
+  ['Crea una página profesional que puedes compartir con clientes. Incluye tu bio, servicios y botón de WhatsApp.',
+   'Create a professional page to share with clients. Includes your bio, services and WhatsApp button.'],
+  ['URL de tu página','Your page URL'],
+  ['Solo letras, números y guiones. Ejemplo: juan-fontanero','Only letters, numbers and hyphens. Example: john-plumber'],
+  ['Frase de presentación','Tagline'],['Teléfono','Phone'],
+  ['Crear mi página','Create my page'],
+  // Account
+  ['Mi cuenta','My account'],['Email','Email'],
+  ['Plan actual','Current plan'],['Generaciones realizadas','Generations made'],
+  ['Cerrar sesión','Sign out'],
+  // Back
+  ['← Panel','← Dashboard'],['← Volver','← Back'],
+  // Legal
+  ['Aviso legal','Legal notice'],['Privacidad','Privacy'],['Cookies','Cookies'],
+  // Misc
+  ['Generando marketing para ','Generating marketing for '],
+  ['Creando tu material de marketing...','Creating your marketing material...'],
+  ['Analizando el mensaje...','Analyzing the message...'],
+  ['Generando presupuesto...','Generating quote...'],
+  ['Generando tu marketing...','Generating your marketing...'],
+  ['La IA está trabajando...','AI is working...'],
+  ['Crear mi cuenta gratis','Create my free account'],
+  ['Mejorar a Básico','Upgrade to Basic'],['Mejorar a Pro','Upgrade to Pro'],
+  ['Marketing generado','Generated marketing'],['Análisis de cliente','Client analysis'],
+];
+
+function applyTranslations() {
+  var direction = currentLang === 'en' ? 0 : 1; // 0=es→en, 1=en→es
+  var from = direction === 0 ? 0 : 1;
+  var to = direction === 0 ? 1 : 0;
+
+  // Walk all text elements
+  var els = document.querySelectorAll('h1,h2,h3,p,button,label,a,option,span,td,th,div.subtitle,div.hint,div.mock-label');
+  els.forEach(function(el) {
+    // Skip elements with children that are also translatable
+    if (el.querySelector('h1,h2,h3,p,button,label,span,em')) return;
+    var text = el.innerHTML.trim();
+    for (var i = 0; i < TEXT_MAP.length; i++) {
+      if (text === TEXT_MAP[i][from]) {
+        el.innerHTML = TEXT_MAP[i][to];
+        break;
+      }
+    }
+  });
+
+  // Handle elements with mixed content (like h1 with em)
+  var heroT = document.getElementById('hero-title');
+  if (heroT) {
+    if (currentLang === 'en') heroT.innerHTML = 'Your marketing department.<br><em>For €20 a month.</em>';
+    else heroT.innerHTML = 'Tu departamento de marketing.<br><em>Por 20€ al mes.</em>';
+  }
+
+  // Placeholders
+  var placeholders = {
+    es: {
+      'demo-trade': 'Ej: Fotógrafo, Peluquera, Albañil...',
+      'auth-email': 'tu@email.com',
+      'auth-pass': 'Mínimo 6 caracteres',
+      'inp-name': 'Ej: Juan Reformas, Pinturas López...',
+      'inp-zone': 'Ej: Alicante y alrededores',
+      'inp-services': 'Ej: Reforma de baños, alicatado, tabiquería, pequeñas reparaciones',
+      'inp-other-trade': 'Ej: Instalador de placas solares',
+      'q-name': 'Ej: Miguel Reformas',
+      'q-trade': 'Ej: Albañil',
+      'q-phone': 'Ej: 612 345 678',
+      'q-client': 'Ej: María López',
+      'q-desc': 'Ej: Reforma completa del baño de 6m2, cambiar bañera por plato de ducha, alicatar paredes y suelo, instalar mueble de baño y espejo',
+      'profile-slug': 'miguel-reformas',
+      'profile-tagline': 'Ej: Tu albañil de confianza en Alicante',
+      'profile-phone': 'Ej: 612 345 678',
+      'profile-whatsapp': 'Ej: 34612345678',
+    },
+    en: {
+      'demo-trade': 'E.g. Photographer, Hairdresser, Builder...',
+      'auth-email': 'you@email.com',
+      'auth-pass': 'Minimum 6 characters',
+      'inp-name': 'E.g. Mike\'s Plumbing, Smith Renovations...',
+      'inp-zone': 'E.g. London and surrounding areas',
+      'inp-services': 'E.g. Bathroom renovation, tiling, plastering, small repairs',
+      'inp-other-trade': 'E.g. Solar panel installer',
+      'q-name': 'E.g. Smith Renovations',
+      'q-trade': 'E.g. Builder',
+      'q-phone': 'E.g. +44 7123 456789',
+      'q-client': 'E.g. Sarah Johnson',
+      'q-desc': 'E.g. Full bathroom renovation 6sqm, replace bath with walk-in shower, tile walls and floor, install vanity unit and mirror',
+      'profile-slug': 'john-plumber',
+      'profile-tagline': 'E.g. Your trusted builder in London',
+      'profile-phone': 'E.g. +44 7123 456789',
+      'profile-whatsapp': 'E.g. 447123456789',
+    }
+  };
+  var ph = placeholders[currentLang];
+  for (var id in ph) {
+    var el = document.getElementById(id);
+    if (el) el.placeholder = ph[id];
+  }
+
+  // Tips
+  if (document.getElementById('tips-content') && document.getElementById('tips-content').innerHTML !== '') {
+    renderTips();
+  }
 }
 
 // ========== PRE-FILL FORM ==========
