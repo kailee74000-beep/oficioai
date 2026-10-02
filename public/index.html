@@ -162,14 +162,14 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="logo" onclick="goHome()">Oficio<span>AI</span></div>
 <div class="nav-right">
 <div class="nav-links" id="nav-logged-in" style="display:none">
-<button onclick="showPage('dashboard')" id="nav-dash">Panel</button>
-<button onclick="goGenerate()" id="nav-gen">Generar</button>
-<button onclick="goAnalyze()" id="nav-analyze">Analizar</button>
-<button onclick="goTips()" id="nav-tips">Consejos</button>
+<button onclick="showPage('dashboard')" id="nav-dash" data-t="nav_panel">Panel</button>
+<button onclick="goGenerate()" id="nav-gen" data-t="nav_gen">Generar</button>
+<button onclick="goAnalyze()" id="nav-analyze" data-t="nav_analyze">Analizar</button>
+<button onclick="goTips()" id="nav-tips" data-t="nav_tips">Consejos</button>
 </div>
 <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">EN</button>
-<button class="user-btn" id="nav-user-btn" style="display:none" onclick="showPage('account')">Mi cuenta</button>
-<button class="user-btn" id="nav-login-btn" onclick="showPage('auth')">Entrar</button>
+<button class="user-btn" id="nav-user-btn" style="display:none" onclick="showPage('account')" data-t="my_account">Mi cuenta</button>
+<button class="user-btn" id="nav-login-btn" onclick="showPage('auth')" data-t="enter">Entrar</button>
 </div>
 </div>
 </nav>
@@ -196,7 +196,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 </div>
 </div>
 <div class="how-section">
-<h2 class="section-title">Cómo funciona</h2>
+<h2 class="section-title" data-t="how_title">Cómo funciona</h2>
 <div class="steps">
 <div class="step"><div class="step-num">1</div><div><h3>Rellena tus datos</h3><p>Nombre, oficio, zona y servicios. Nada más.</p></div></div>
 <div class="step"><div class="step-num">2</div><div><h3>La IA trabaja para ti</h3><p>Genera tu bio, anuncios listos para publicar y respuestas para WhatsApp.</p></div></div>
@@ -204,7 +204,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 </div>
 </div>
 <div class="pricing-section">
-<h2 class="section-title">Planes</h2>
+<h2 class="section-title" data-t="pricing">Planes</h2>
 <div class="pricing-cards">
 <div class="price-card"><h3>Gratis</h3><div class="price">0€</div><ul><li>Bio profesional de muestra</li><li>1 texto de anuncio</li></ul><button class="btn-outline" onclick="showPage('auth')">Probar ahora</button></div>
 <div class="price-card"><h3>Básico</h3><div class="price">20€ <span>/mes</span></div><ul><li>Bio profesional completa</li><li>Textos de anuncios ilimitados</li><li>Respuestas tipo para WhatsApp</li><li>Consejos de marketing y negociación</li></ul><button class="btn-primary" onclick="goUpgrade('basic')">Elegir Básico</button></div>
@@ -789,9 +789,74 @@ function copyText(id) {
   });
 }
 
+var UI_TEXT = {
+  es: {
+    nav_panel: 'Panel', nav_gen: 'Generar', nav_analyze: 'Analizar', nav_tips: 'Consejos',
+    enter: 'Entrar', my_account: 'Mi cuenta',
+    hero_title: 'Tu departamento de marketing.<br><em>Por 20€ al mes.</em>',
+    hero_sub: 'Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.',
+    hero_cta: 'Empezar gratis',
+    demo_title: 'Mira cómo funciona', demo_sub: 'Sin cuenta, sin compromiso — dale al botón y mira la IA en acción',
+    demo_placeholder: 'Ej: Fotógrafo, Peluquera, Albañil...', demo_btn: 'Generar',
+    demo_hint: 'Escribe tu oficio y mira la IA generar marketing en tiempo real',
+    how_title: 'Cómo funciona',
+    step1_t: 'Rellena tus datos', step1_d: 'Nombre, oficio, zona y servicios. Nada más.',
+    step2_t: 'La IA trabaja para ti', step2_d: 'Genera tu bio, anuncios listos para publicar y respuestas para WhatsApp.',
+    step3_t: 'Copia, pega y gana', step3_d: 'Publica en redes, clasificados o responde a clientes en segundos.',
+    pricing: 'Planes', free: 'Gratis', basic: 'Básico', popular: 'Popular',
+    auth_signup: 'Crear cuenta', auth_login: 'Iniciar sesión',
+    auth_sub_signup: 'Empieza gratis — no necesitas tarjeta', auth_sub_login: 'Bienvenido de vuelta',
+    form_title: 'Tu información', form_sub: 'Rellena los datos de tu negocio y la IA hará el resto.',
+    generate_btn: 'Generar mi marketing', back_panel: '← Panel',
+    analyzer_title: 'Medidor de compatibilidad', analyzer_sub: 'Pega el mensaje de un cliente potencial y la IA te dice qué tipo de cliente es y cómo responderle.',
+    analyze_btn: 'Analizar cliente', tips_title: 'Consejos para ganar más',
+    quote_title: 'Presupuesto profesional', quote_sub: 'Describe el trabajo y la IA genera un presupuesto desglosado. Descárgalo como PDF.',
+    quote_btn: 'Generar presupuesto', download_pdf: 'Descargar PDF', edit_prices: 'Editar precios',
+    profile_title: 'Tu página web pública', profile_sub: 'Crea una página profesional que puedes compartir con clientes.',
+    profile_btn: 'Crear mi página', logout: 'Cerrar sesión', copy: 'Copiar'
+  },
+  en: {
+    nav_panel: 'Dashboard', nav_gen: 'Generate', nav_analyze: 'Analyze', nav_tips: 'Tips',
+    enter: 'Sign in', my_account: 'My account',
+    hero_title: 'Your marketing department.<br><em>For €20 a month.</em>',
+    hero_sub: 'Whatever your trade — enter your details and AI generates a professional bio, ads and client responses.',
+    hero_cta: 'Start free',
+    demo_title: 'See how it works', demo_sub: 'No account needed — hit the button and watch AI in action',
+    demo_placeholder: 'E.g. Photographer, Hairdresser, Builder...', demo_btn: 'Generate',
+    demo_hint: 'Type your trade and watch AI generate marketing in real time',
+    how_title: 'How it works',
+    step1_t: 'Fill in your details', step1_d: 'Name, trade, area and services. That\'s it.',
+    step2_t: 'AI does the work', step2_d: 'Generates your bio, ready-to-post ads and WhatsApp replies.',
+    step3_t: 'Copy, paste and win', step3_d: 'Post on social media, classifieds or reply to clients in seconds.',
+    pricing: 'Plans', free: 'Free', basic: 'Basic', popular: 'Popular',
+    auth_signup: 'Create account', auth_login: 'Sign in',
+    auth_sub_signup: 'Start free — no card required', auth_sub_login: 'Welcome back',
+    form_title: 'Your information', form_sub: 'Fill in your business details and AI does the rest.',
+    generate_btn: 'Generate my marketing', back_panel: '← Dashboard',
+    analyzer_title: 'Compatibility meter', analyzer_sub: 'Paste a potential client\'s message and AI tells you what kind of client they are.',
+    analyze_btn: 'Analyze client', tips_title: 'Tips to earn more',
+    quote_title: 'Professional quote', quote_sub: 'Describe the job and AI generates an itemized quote. Download as PDF.',
+    quote_btn: 'Generate quote', download_pdf: 'Download PDF', edit_prices: 'Edit prices',
+    profile_title: 'Your public web page', profile_sub: 'Create a professional page you can share with clients.',
+    profile_btn: 'Create my page', logout: 'Sign out', copy: 'Copy'
+  }
+};
+
 function toggleLang() {
   currentLang = currentLang === 'es' ? 'en' : 'es';
   document.getElementById('lang-btn').textContent = currentLang === 'es' ? 'EN' : 'ES';
+  applyTranslations();
+}
+
+function applyTranslations() {
+  var t = UI_TEXT[currentLang];
+  document.querySelectorAll('[data-t]').forEach(function(el) {
+    var key = el.getAttribute('data-t');
+    if (t[key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = t[key];
+      else el.innerHTML = t[key];
+    }
+  });
 }
 
 // ========== PRE-FILL FORM ==========
@@ -1150,6 +1215,7 @@ sb.auth.onAuthStateChange(async (event, session) => {
 });
 
 checkSession();
+applyTranslations();
 </script>
 </body>
 </html>
