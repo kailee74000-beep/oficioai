@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OficioAI</title>
+<title>OficioAI — Tu marketing con IA. Sea cual sea tu oficio.</title>
+<meta name="description" content="Genera bio profesional, anuncios, respuestas para WhatsApp y presupuestos en PDF con inteligencia artificial. Para autónomos de cualquier oficio. Pruébalo gratis.">
+<meta name="keywords" content="marketing autónomos, IA, inteligencia artificial, albañil, fontanero, pintor, electricista, presupuesto, anuncios, WhatsApp">
+<meta name="author" content="OficioAI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://oficioai.website">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oficioai.website">
+<meta property="og:title" content="OficioAI — Tu marketing con IA">
+<meta property="og:description" content="Genera bio profesional, anuncios y respuestas para clientes en 1 minuto. Para autónomos de cualquier oficio. Gratis.">
+<meta property="og:image" content="https://oficioai.website/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OficioAI — Tu marketing con IA">
+<meta name="twitter:description" content="Genera bio profesional, anuncios y respuestas para clientes en 1 minuto. Gratis.">
+<meta name="twitter:image" content="https://oficioai.website/og-image.png">
+<meta name="theme-color" content="#4F46E5">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -210,6 +226,7 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 <div class="form-group"><label>Contraseña</label><input type="password" id="auth-pass" placeholder="Mínimo 6 caracteres"></div>
 <button class="auth-btn" id="auth-btn" onclick="handleAuth()">Crear cuenta</button>
 <div class="auth-switch"><span id="auth-switch-text">¿Ya tienes cuenta?</span> <a onclick="toggleAuthMode()" id="auth-switch-link">Inicia sesión</a></div>
+<div class="auth-switch" id="forgot-link" style="display:none;margin-top:8px"><a onclick="handleForgotPassword()" style="color:var(--accent);cursor:pointer;text-decoration:underline">¿Has olvidado tu contraseña?</a></div>
 </div>
 </div>
 </div>
@@ -356,7 +373,13 @@ footer{text-align:center;padding:22px 20px;font-size:.78rem;color:var(--text-lig
 </div>
 </div>
 
-<footer><div class="container">OficioAI — Tu departamento de marketing con IA</div></footer>
+<footer><div class="container"><div style="margin-bottom:8px">OficioAI — Tu departamento de marketing con IA</div><div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a onclick="showPage('legal')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Aviso legal</a><a onclick="showPage('privacy')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Privacidad</a><a onclick="showPage('cookies')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Cookies</a></div></div></footer>
+
+<div id="page-legal" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Aviso legal</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Titular:</b> OficioAI</p><p><b>Sitio web:</b> oficioai.website</p><p><b>Email de contacto:</b> contacto@oficioai.website</p><p style="margin-top:12px">Este sitio web ofrece un servicio de generación de contenido de marketing con inteligencia artificial para profesionales autónomos. El uso de este servicio implica la aceptación de las presentes condiciones.</p><p style="margin-top:12px"><b>Propiedad intelectual:</b> Todo el contenido de este sitio (diseño, textos, código, marca) es propiedad de OficioAI. El contenido generado por la IA para cada usuario es propiedad del usuario.</p><p style="margin-top:12px"><b>Limitación de responsabilidad:</b> OficioAI genera contenido con inteligencia artificial como herramienta de apoyo. No garantizamos resultados comerciales específicos. El usuario es responsable del uso que haga del contenido generado.</p><p style="margin-top:12px"><b>Suscripciones y pagos:</b> Los pagos se procesan a través de Stripe. Las suscripciones se renuevan mensualmente. Puedes cancelar en cualquier momento desde tu panel de Stripe.</p></div></div></div>
+
+<div id="page-privacy" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de privacidad</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Responsable:</b> OficioAI</p><p><b>Datos que recogemos:</b> Email y contraseña (para tu cuenta), datos profesionales que introduces voluntariamente (nombre del negocio, oficio, zona, servicios) y datos de pago procesados por Stripe.</p><p style="margin-top:12px"><b>Finalidad:</b> Prestación del servicio de generación de contenido con IA y gestión de tu cuenta y suscripción.</p><p style="margin-top:12px"><b>Base legal:</b> Ejecución del contrato de servicio y consentimiento del usuario.</p><p style="margin-top:12px"><b>Almacenamiento:</b> Tus datos se almacenan en Supabase (servidores en la UE). Los pagos se procesan por Stripe. No vendemos ni compartimos tus datos con terceros.</p><p style="margin-top:12px"><b>Tus derechos:</b> Acceso, rectificación, supresión, limitación y portabilidad de tus datos. Puedes ejercerlos escribiendo a contacto@oficioai.website.</p><p style="margin-top:12px"><b>Conservación:</b> Tus datos se conservan mientras mantengas tu cuenta activa. Puedes solicitar la eliminación en cualquier momento.</p></div></div></div>
+
+<div id="page-cookies" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de cookies</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p>Este sitio web utiliza únicamente cookies técnicas necesarias para el funcionamiento del servicio:</p><p style="margin-top:12px"><b>Cookies de sesión:</b> Para mantener tu sesión iniciada. Se eliminan al cerrar el navegador o al cerrar sesión.</p><p style="margin-top:12px"><b>Cookies de Stripe:</b> Necesarias para procesar los pagos de forma segura.</p><p style="margin-top:12px">No utilizamos cookies de publicidad, analítica ni de seguimiento de terceros. Por este motivo, no es necesario mostrar un banner de aceptación de cookies según la normativa vigente (RGPD y LSSI-CE), ya que solo usamos cookies estrictamente necesarias.</p></div></div></div>
 
 <script>
 // ========== CONFIG ==========
@@ -450,6 +473,17 @@ function toggleAuthMode() {
   document.getElementById('auth-switch-text').textContent = authMode === 'signup' ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?';
   document.getElementById('auth-switch-link').textContent = authMode === 'signup' ? 'Inicia sesión' : 'Créala gratis';
   document.getElementById('auth-error').style.display = 'none';
+  document.getElementById('forgot-link').style.display = authMode === 'login' ? 'block' : 'none';
+}
+
+async function handleForgotPassword() {
+  var email = document.getElementById('auth-email').value.trim();
+  var errEl = document.getElementById('auth-error');
+  if (!email) { errEl.textContent = 'Pon tu email primero'; errEl.style.display = 'block'; return; }
+  var { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://oficioai.website' });
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+  errEl.style.display = 'block'; errEl.style.background = '#f0fdf4'; errEl.style.color = '#166534';
+  errEl.textContent = 'Te hemos enviado un email para restablecer tu contraseña. Revisa tu bandeja.';
 }
 
 async function handleLogout() {
