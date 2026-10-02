@@ -681,22 +681,14 @@ function backToForm() {
 
 // ========== ANALYZER ==========
 function renderAnalyzer() {
-  const p = userProfile?.plan || 'free';
-  const el = document.getElementById('analyzer-content');
+  var p = userProfile?.plan || 'free';
+  var el = document.getElementById('analyzer-content');
+  var isEn = currentLang === 'en';
   if (p !== 'pro') {
-    el.innerHTML = `<div class="lock-overlay"><h3>🔒 Función Pro</h3><p>El medidor de compatibilidad está disponible en el plan Pro. Analiza mensajes de clientes y descubre quién es serio.</p><button onclick="goUpgrade('pro')">Desbloquear — 30€/mes</button></div>`;
+    el.innerHTML = '<div class="lock-overlay"><h3>🔒 ' + (isEn ? 'Pro feature' : 'Función Pro') + '</h3><p>' + (isEn ? 'The compatibility meter is available on the Pro plan. Analyze client messages and find out who is serious.' : 'El medidor de compatibilidad está disponible en el plan Pro. Analiza mensajes de clientes y descubre quién es serio.') + '</p><button onclick="goUpgrade(\'pro\')">' + (isEn ? 'Unlock — €30/month' : 'Desbloquear — 30€/mes') + '</button></div>';
     return;
   }
-  el.innerHTML = `
-    <div class="form-group"><label>Tu oficio y servicios</label><textarea id="analyzer-context" rows="2" placeholder="Ej: Soy pintor en Valencia. Hago interiores, exteriores y lacados."></textarea></div>
-    <div class="form-group"><label>Mensaje del cliente</label><textarea id="analyzer-msg" rows="4" placeholder="Pega aquí el mensaje del cliente..."></textarea></div>
-    <button class="generate-btn" id="btn-analyze" onclick="analyzeClient()">Analizar cliente</button>
-    <div id="analysis-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>Analizando el mensaje...</p></div></div>
-    <div id="analysis-results" style="display:none">
-      <div class="gauge-container"><div class="gauge-score" id="gauge-score">—</div><div class="gauge-label" id="gauge-label"></div><div class="gauge-bar"><div class="gauge-fill" id="gauge-fill" style="width:0%"></div></div></div>
-      <div class="analysis-block"><h3>Análisis</h3><div class="content" id="analysis-detail"></div></div>
-      <div class="analysis-block" style="margin-top:12px"><h3>Respuesta sugerida</h3><div class="content" id="analysis-response"></div><button class="copy-btn" onclick="copyText('analysis-response')">Copiar respuesta</button></div>
-    </div>`;
+  el.innerHTML = '<div class="form-group"><label>' + (isEn ? 'Your trade and services' : 'Tu oficio y servicios') + '</label><textarea id="analyzer-context" rows="2" placeholder="' + (isEn ? 'E.g. I\'m a painter in London. I do interiors, exteriors and lacquer.' : 'Ej: Soy pintor en Valencia. Hago interiores, exteriores y lacados.') + '"></textarea></div><div class="form-group"><label>' + (isEn ? 'Client message' : 'Mensaje del cliente') + '</label><textarea id="analyzer-msg" rows="4" placeholder="' + (isEn ? 'Paste the client message here...' : 'Pega aquí el mensaje del cliente...') + '"></textarea></div><button class="generate-btn" id="btn-analyze" onclick="analyzeClient()">' + (isEn ? 'Analyze client' : 'Analizar cliente') + '</button><div id="analysis-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>' + (isEn ? 'Analyzing the message...' : 'Analizando el mensaje...') + '</p></div></div><div id="analysis-results" style="display:none"><div class="gauge-container"><div class="gauge-score" id="gauge-score">—</div><div class="gauge-label" id="gauge-label"></div><div class="gauge-bar"><div class="gauge-fill" id="gauge-fill" style="width:0%"></div></div></div><div class="analysis-block"><h3>' + (isEn ? 'Analysis' : 'Análisis') + '</h3><div class="content" id="analysis-detail"></div></div><div class="analysis-block" style="margin-top:12px"><h3>' + (isEn ? 'Suggested reply' : 'Respuesta sugerida') + '</h3><div class="content" id="analysis-response"></div><button class="copy-btn" onclick="copyText(\'analysis-response\')">' + (isEn ? 'Copy reply' : 'Copiar respuesta') + '</button></div></div>';
 }
 
 async function analyzeClient() {
@@ -978,11 +970,11 @@ function applyTranslations() {
   var from = direction === 0 ? 0 : 1;
   var to = direction === 0 ? 1 : 0;
 
-  // Walk all text elements
-  var els = document.querySelectorAll('h1,h2,h3,p,button,label,a,option,span,td,th,div.subtitle,div.hint,div.mock-label');
+  // Walk ALL text elements including li, .hint, .subtitle
+  var els = document.querySelectorAll('h1,h2,h3,p,button,label,a,option,span,td,th,li,.subtitle,.hint,.mock-label,.plan-badge,.badge,.auth-switch span,.auth-switch a,.stat-label,.gauge-label');
   els.forEach(function(el) {
-    // Skip elements with children that are also translatable
-    if (el.querySelector('h1,h2,h3,p,button,label,span,em')) return;
+    // Skip if has translatable children (except em/span inside)
+    if (el.querySelector('h1,h2,h3,p,button,label,li')) return;
     var text = el.innerHTML.trim();
     for (var i = 0; i < TEXT_MAP.length; i++) {
       if (text === TEXT_MAP[i][from]) {
@@ -990,13 +982,48 @@ function applyTranslations() {
         break;
       }
     }
+    // Also check textContent for elements with only text
+    var tc = el.textContent.trim();
+    if (tc !== text) {
+      for (var i = 0; i < TEXT_MAP.length; i++) {
+        if (tc === TEXT_MAP[i][from]) {
+          el.textContent = TEXT_MAP[i][to];
+          break;
+        }
+      }
+    }
   });
 
-  // Handle elements with mixed content (like h1 with em)
+  // Hero title (has em child)
   var heroT = document.getElementById('hero-title');
   if (heroT) {
     if (currentLang === 'en') heroT.innerHTML = 'Your marketing department.<br><em>For €20 a month.</em>';
     else heroT.innerHTML = 'Tu departamento de marketing.<br><em>Por 20€ al mes.</em>';
+  }
+
+  // Upgrade banner (dynamically rendered)
+  var banner = document.getElementById('upgrade-banner-container');
+  if (banner && banner.innerHTML !== '') {
+    var p = userProfile?.plan || 'free';
+    if (p === 'free') {
+      if (currentLang === 'en') banner.innerHTML = '<div class="upgrade-banner"><h3>Unlock your full potential</h3><p>Generate unlimited marketing, WhatsApp replies and professional tips</p><button onclick="goUpgrade(\'basic\')">Upgrade to Basic — €20/month</button></div>';
+      else banner.innerHTML = '<div class="upgrade-banner"><h3>Desbloquea todo tu potencial</h3><p>Genera marketing ilimitado, respuestas WhatsApp y consejos profesionales</p><button onclick="goUpgrade(\'basic\')">Mejorar a Básico — 20€/mes</button></div>';
+    } else if (p === 'basic') {
+      if (currentLang === 'en') banner.innerHTML = '<div class="upgrade-banner"><h3>Analyze your clients with AI</h3><p>Find out which clients are serious and how to respond to close more jobs</p><button onclick="goUpgrade(\'pro\')">Upgrade to Pro — €30/month</button></div>';
+      else banner.innerHTML = '<div class="upgrade-banner"><h3>Analiza tus clientes con IA</h3><p>Descubre qué clientes son serios y cómo responderles para cerrar más trabajos</p><button onclick="goUpgrade(\'pro\')">Mejorar a Pro — 30€/mes</button></div>';
+    }
+  }
+
+  // Analyzer (dynamically rendered)
+  var analyzerContent = document.getElementById('analyzer-content');
+  if (analyzerContent && analyzerContent.innerHTML !== '') {
+    renderAnalyzer();
+  }
+
+  // Tips (dynamically rendered)
+  var tipsContent = document.getElementById('tips-content');
+  if (tipsContent && tipsContent.innerHTML !== '') {
+    renderTips();
   }
 
   // Placeholders
@@ -1009,15 +1036,18 @@ function applyTranslations() {
       'inp-zone': 'Ej: Alicante y alrededores',
       'inp-services': 'Ej: Reforma de baños, alicatado, tabiquería, pequeñas reparaciones',
       'inp-other-trade': 'Ej: Instalador de placas solares',
+      'inp-years': 'Ej: 12',
       'q-name': 'Ej: Miguel Reformas',
       'q-trade': 'Ej: Albañil',
       'q-phone': 'Ej: 612 345 678',
       'q-client': 'Ej: María López',
-      'q-desc': 'Ej: Reforma completa del baño de 6m2, cambiar bañera por plato de ducha, alicatar paredes y suelo, instalar mueble de baño y espejo',
+      'q-desc': 'Ej: Reforma completa del baño de 6m2, cambiar bañera por plato de ducha',
       'profile-slug': 'miguel-reformas',
       'profile-tagline': 'Ej: Tu albañil de confianza en Alicante',
       'profile-phone': 'Ej: 612 345 678',
       'profile-whatsapp': 'Ej: 34612345678',
+      'analyzer-context': 'Ej: Soy pintor en Valencia. Hago interiores, exteriores y lacados.',
+      'analyzer-msg': 'Pega aquí el mensaje del cliente...',
     },
     en: {
       'demo-trade': 'E.g. Photographer, Hairdresser, Builder...',
@@ -1027,15 +1057,18 @@ function applyTranslations() {
       'inp-zone': 'E.g. London and surrounding areas',
       'inp-services': 'E.g. Bathroom renovation, tiling, plastering, small repairs',
       'inp-other-trade': 'E.g. Solar panel installer',
+      'inp-years': 'E.g. 12',
       'q-name': 'E.g. Smith Renovations',
       'q-trade': 'E.g. Builder',
       'q-phone': 'E.g. +44 7123 456789',
       'q-client': 'E.g. Sarah Johnson',
-      'q-desc': 'E.g. Full bathroom renovation 6sqm, replace bath with walk-in shower, tile walls and floor, install vanity unit and mirror',
+      'q-desc': 'E.g. Full bathroom renovation 6sqm, replace bath with walk-in shower',
       'profile-slug': 'john-plumber',
       'profile-tagline': 'E.g. Your trusted builder in London',
       'profile-phone': 'E.g. +44 7123 456789',
       'profile-whatsapp': 'E.g. 447123456789',
+      'analyzer-context': 'E.g. I\'m a painter in London. I do interiors, exteriors and lacquer.',
+      'analyzer-msg': 'Paste the client message here...',
     }
   };
   var ph = placeholders[currentLang];
@@ -1044,9 +1077,27 @@ function applyTranslations() {
     if (el) el.placeholder = ph[id];
   }
 
-  // Tips
-  if (document.getElementById('tips-content') && document.getElementById('tips-content').innerHTML !== '') {
-    renderTips();
+  // Select options for trades
+  var tradeSelect = document.getElementById('inp-trade');
+  if (tradeSelect) {
+    var optgroups = tradeSelect.querySelectorAll('optgroup');
+    var groupLabels = {
+      es: ['Construcción y oficios','Salud y bienestar','Estética y belleza','Motor y transporte','Creativos','Servicios'],
+      en: ['Construction & trades','Health & wellness','Beauty & aesthetics','Motor & transport','Creatives','Services']
+    };
+    optgroups.forEach(function(og, i) {
+      if (groupLabels[currentLang][i]) og.label = groupLabels[currentLang][i];
+    });
+    // Translate option texts
+    var optMap = {
+      es: {builder:'Albañil',painter:'Pintor',plumber:'Fontanero',electrician:'Electricista',carpenter:'Carpintero',renovation:'Reformas integrales',hvac:'Climatización',locksmith:'Cerrajero',gardener:'Jardinero',physiotherapist:'Fisioterapeuta',personal_trainer:'Entrenador personal',nutritionist:'Nutricionista',psychologist:'Psicólogo',dentist:'Dentista',hairdresser:'Peluquero/a',barber:'Barbero',beautician:'Esteticista',nail_tech:'Manicurista',mechanic:'Mecánico',tow_truck:'Grúa / asistencia',driver:'Transportista',photographer:'Fotógrafo',videographer:'Videógrafo',designer:'Diseñador gráfico',tattoo_artist:'Tatuador',cleaner:'Limpieza',tutor:'Profesor particular',pet_groomer:'Peluquería canina',vet:'Veterinario',accountant:'Asesor fiscal',lawyer:'Abogado',other:'Otro'},
+      en: {builder:'Builder',painter:'Painter',plumber:'Plumber',electrician:'Electrician',carpenter:'Carpenter',renovation:'Full renovations',hvac:'HVAC',locksmith:'Locksmith',gardener:'Gardener',physiotherapist:'Physiotherapist',personal_trainer:'Personal trainer',nutritionist:'Nutritionist',psychologist:'Psychologist',dentist:'Dentist',hairdresser:'Hairdresser',barber:'Barber',beautician:'Beautician',nail_tech:'Nail technician',mechanic:'Mechanic',tow_truck:'Tow truck / roadside',driver:'Driver / courier',photographer:'Photographer',videographer:'Videographer',designer:'Graphic designer',tattoo_artist:'Tattoo artist',cleaner:'Cleaner',tutor:'Tutor',pet_groomer:'Pet groomer',vet:'Veterinarian',accountant:'Accountant',lawyer:'Lawyer',other:'Other'}
+    };
+    tradeSelect.querySelectorAll('option[value]').forEach(function(opt) {
+      var v = opt.value;
+      if (v && optMap[currentLang][v]) opt.textContent = optMap[currentLang][v];
+      if (v === '') opt.textContent = currentLang === 'es' ? 'Selecciona...' : 'Select...';
+    });
   }
 }
 
