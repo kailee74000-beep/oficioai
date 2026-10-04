@@ -449,7 +449,8 @@ const SUPABASE_KEY = 'sb_publishable_2-IVhKvS8rSk0QlUNHPTig_L1M1QrYM';
 const STRIPE_BASIC = 'https://buy.stripe.com/3cI5kFeENdpb69W4uZ8Zq01';
 const STRIPE_PRO = 'https://buy.stripe.com/dRm6oJeENetf55SgdH8Zq00';
 
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var sb;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) { console.error('Supabase init error:', e); }
 
 let currentUser = null;
 let userProfile = null;
@@ -480,13 +481,16 @@ en:[
 
 // ========== AUTH ==========
 async function checkSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    currentUser = session.user;
-    await loadProfile();
-    showLoggedInUI();
-    showPage('dashboard');
-  }
+  if (!sb) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      currentUser = session.user;
+      await loadProfile();
+      showLoggedInUI();
+      showPage('dashboard');
+    }
+  } catch(e) { console.error('Session check error:', e); }
 }
 
 async function loadProfile() {
@@ -1532,14 +1536,18 @@ async function savePublicProfile() {
 }
 
 // ========== INIT ==========
-sb.auth.onAuthStateChange(async (event, session) => {
-  if (event === 'SIGNED_IN' && session) {
-    currentUser = session.user;
-    await loadProfile();
-    showLoggedInUI();
-    prefillForm();
-  }
-});
+if (sb) {
+  try {
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        currentUser = session.user;
+        await loadProfile();
+        showLoggedInUI();
+        prefillForm();
+      }
+    });
+  } catch(e) { console.error('Auth listener error:', e); }
+}
 
 checkSession();
 applyTranslations();
