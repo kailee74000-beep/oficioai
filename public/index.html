@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -186,9 +186,10 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 </head>
 <body>
 
-<nav>
+<a href="#main-content" style="position:absolute;top:-40px;left:0;background:var(--accent);color:#fff;padding:8px 16px;z-index:200;font-size:.85rem;border-radius:0 0 8px 0;transition:top .2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Saltar al contenido</a>
+<nav role="navigation" aria-label="Navegación principal">
 <div class="container">
-<div class="logo" onclick="goHome()">Oficio<span>AI</span></div>
+<div class="logo" onclick="goHome()" role="button" aria-label="Inicio">Oficio<span>AI</span></div>
 <div class="nav-right">
 <div class="nav-links" id="nav-logged-in" style="display:none">
 <button onclick="showPage('dashboard')" id="nav-dash" data-t="nav_panel">Panel</button>
@@ -196,7 +197,7 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 <button onclick="goAnalyze()" id="nav-analyze" data-t="nav_analyze">Analizar</button>
 <button onclick="goTips()" id="nav-tips" data-t="nav_tips">Consejos</button>
 </div>
-<button class="lang-toggle" onclick="toggleLang()" id="lang-btn">EN</button>
+<button class="lang-toggle" onclick="toggleLang()" id="lang-btn" aria-label="Cambiar idioma">EN</button>
 <button class="user-btn" id="nav-user-btn" style="display:none" onclick="showPage('account')" data-t="my_account">Mi cuenta</button>
 <button class="user-btn" id="nav-login-btn" onclick="showPage('auth')" data-t="enter">Entrar</button>
 </div>
@@ -204,7 +205,7 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 </nav>
 
 <!-- HOME (logged out) -->
-<div id="page-home" class="page active">
+<div id="page-home" class="page active" role="main" id="main-content">
 <div class="container">
 <div class="hero">
 <h1 id="hero-title">Tu departamento de marketing.<br><em>Por 20€ al mes.</em></h1>
@@ -253,7 +254,11 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 <div class="auth-error" id="auth-error"></div>
 <div class="form-group"><label>Email</label><input type="email" id="auth-email" placeholder="tu@email.com"></div>
 <div class="form-group"><label>Contraseña</label><input type="password" id="auth-pass" placeholder="Mínimo 6 caracteres"></div>
-<button class="auth-btn" id="auth-btn" onclick="handleAuth()">Crear cuenta</button>
+<div style="margin-top:12px;display:flex;gap:8px;align-items:flex-start" id="consent-group">
+<input type="checkbox" id="auth-consent" style="margin-top:4px;min-width:16px;accent-color:var(--accent)">
+<label for="auth-consent" style="font-size:.78rem;color:var(--text-mid);font-weight:400;line-height:1.4">Acepto la <a onclick="showPage('privacy')" style="color:var(--accent);cursor:pointer;text-decoration:underline">política de privacidad</a> y los <a onclick="showPage('terms')" style="color:var(--accent);cursor:pointer;text-decoration:underline">términos y condiciones</a></label>
+</div>
+<button class="auth-btn" id="auth-btn" onclick="handleAuth()" aria-label="Crear cuenta">Crear cuenta</button>
 <div class="auth-switch"><span id="auth-switch-text">¿Ya tienes cuenta?</span> <a onclick="toggleAuthMode()" id="auth-switch-link">Inicia sesión</a></div>
 <div class="auth-switch" id="forgot-link" style="display:none;margin-top:8px"><a onclick="handleForgotPassword()" style="color:var(--accent);cursor:pointer;text-decoration:underline">¿Has olvidado tu contraseña?</a></div>
 </div>
@@ -402,9 +407,13 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 </div>
 </div>
 
-<footer><div class="container"><div style="margin-bottom:8px">OficioAI — Tu departamento de marketing con IA</div><div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a onclick="showPage('legal')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Aviso legal</a><a onclick="showPage('privacy')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Privacidad</a><a onclick="showPage('cookies')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Cookies</a></div></div></footer>
+<footer role="contentinfo"><div class="container"><div style="margin-bottom:8px">OficioAI — Tu departamento de marketing con IA</div><div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap"><a onclick="showPage('legal')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Aviso legal</a><a onclick="showPage('terms')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Términos</a><a onclick="showPage('privacy')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Privacidad</a><a onclick="showPage('cookies')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Cookies</a><a onclick="showPage('refund')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Reembolsos</a></div></div></footer>
 
-<div id="page-legal" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Aviso legal</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Titular:</b> OficioAI</p><p><b>Sitio web:</b> oficioai.website</p><p><b>Email de contacto:</b> contacto@oficioai.website</p><p style="margin-top:12px">Este sitio web ofrece un servicio de generación de contenido de marketing con inteligencia artificial para profesionales autónomos. El uso de este servicio implica la aceptación de las presentes condiciones.</p><p style="margin-top:12px"><b>Propiedad intelectual:</b> Todo el contenido de este sitio (diseño, textos, código, marca) es propiedad de OficioAI. El contenido generado por la IA para cada usuario es propiedad del usuario.</p><p style="margin-top:12px"><b>Limitación de responsabilidad:</b> OficioAI genera contenido con inteligencia artificial como herramienta de apoyo. No garantizamos resultados comerciales específicos. El usuario es responsable del uso que haga del contenido generado.</p><p style="margin-top:12px"><b>Suscripciones y pagos:</b> Los pagos se procesan a través de Stripe. Las suscripciones se renuevan mensualmente. Puedes cancelar en cualquier momento desde tu panel de Stripe.</p></div></div></div>
+<div id="page-legal" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Aviso legal</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Titular:</b> Kai Jorge</p><p><b>Actividad:</b> Servicio de generación de contenido con IA</p><p><b>Sitio web:</b> oficioai.website</p><p><b>Email de contacto:</b> contacto@oficioai.website</p><p style="margin-top:12px">En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa que este sitio web ofrece un servicio de generación de contenido de marketing con inteligencia artificial para profesionales autónomos.</p><p style="margin-top:12px"><b>Propiedad intelectual:</b> El diseño, código fuente y marca OficioAI son propiedad del titular. El contenido generado por la IA para cada usuario es propiedad del usuario que lo genera.</p><p style="margin-top:12px"><b>Limitación de responsabilidad:</b> OficioAI es una herramienta de apoyo que utiliza inteligencia artificial para generar sugerencias de contenido. No garantizamos resultados comerciales específicos. El usuario es el único responsable del uso que haga del contenido generado, incluyendo la verificación de su exactitud y adecuación.</p><p style="margin-top:12px"><b>Jurisdicción:</b> Cualquier controversia se someterá a los tribunales de Alicante, España.</p></div></div></div>
+
+<div id="page-terms" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Términos y condiciones</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>1. Servicio:</b> OficioAI proporciona herramientas de generación de contenido de marketing mediante inteligencia artificial. El contenido generado son sugerencias que el usuario debe revisar antes de usar.</p><p style="margin-top:12px"><b>2. Registro:</b> Para acceder al servicio es necesario crear una cuenta con un email válido. Eres responsable de mantener la seguridad de tu cuenta y contraseña.</p><p style="margin-top:12px"><b>3. Planes y pagos:</b> Ofrecemos un plan gratuito limitado y planes de pago mensuales. Los pagos se procesan de forma segura a través de Stripe. Los precios incluyen IVA cuando corresponda.</p><p style="margin-top:12px"><b>4. Suscripciones:</b> Las suscripciones se renuevan automáticamente cada mes. Puedes cancelar en cualquier momento desde tu panel de Stripe o contactándonos por email. La cancelación es efectiva al final del período facturado.</p><p style="margin-top:12px"><b>5. Contenido generado:</b> El contenido que la IA genera para ti es de tu propiedad. Sin embargo, no garantizamos que sea exacto, completo o adecuado para todos los usos. Eres responsable de revisarlo antes de publicarlo o usarlo.</p><p style="margin-top:12px"><b>6. Uso aceptable:</b> No puedes usar OficioAI para generar contenido ilegal, engañoso, difamatorio o que infrinja derechos de terceros.</p><p style="margin-top:12px"><b>7. Disponibilidad:</b> Nos esforzamos por mantener el servicio disponible, pero no garantizamos un funcionamiento ininterrumpido. Podemos realizar mantenimiento o actualizaciones sin previo aviso.</p><p style="margin-top:12px"><b>8. Modificaciones:</b> Nos reservamos el derecho de modificar estos términos. Notificaremos cambios significativos por email. El uso continuado del servicio implica la aceptación de los términos actualizados.</p><p style="margin-top:12px"><b>9. Ley aplicable:</b> Estos términos se rigen por la legislación española. Para cualquier disputa, se someterán a los tribunales de Alicante, España.</p><p style="margin-top:12px"><b>Última actualización:</b> Octubre 2026</p></div></div></div>
+
+<div id="page-refund" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de reembolsos</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Prueba gratuita:</b> Puedes probar OficioAI de forma gratuita antes de contratar cualquier plan de pago. Te recomendamos usar la versión gratuita para asegurarte de que el servicio es útil para ti.</p><p style="margin-top:12px"><b>Cancelación:</b> Puedes cancelar tu suscripción en cualquier momento. La cancelación es efectiva al final del período de facturación actual. No se realizan cargos adicionales después de la cancelación.</p><p style="margin-top:12px"><b>Reembolsos:</b> Si no estás satisfecho con el servicio, puedes solicitar un reembolso completo dentro de los primeros 14 días naturales desde la fecha de tu primer pago, en cumplimiento con la normativa europea de protección al consumidor. Para solicitar un reembolso, envía un email a contacto@oficioai.website con tu email de registro y el motivo.</p><p style="margin-top:12px"><b>Excepciones:</b> No se realizarán reembolsos pasados los 14 días desde el pago, ni por períodos de suscripción ya consumidos.</p><p style="margin-top:12px"><b>Proceso:</b> Los reembolsos se procesan a través de Stripe al mismo método de pago utilizado. El plazo de devolución es de 5-10 días hábiles.</p><p style="margin-top:12px"><b>Contacto:</b> Para cualquier consulta sobre reembolsos, escribe a contacto@oficioai.website.</p></div></div></div>
 
 <div id="page-privacy" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de privacidad</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Responsable:</b> OficioAI</p><p><b>Datos que recogemos:</b> Email y contraseña (para tu cuenta), datos profesionales que introduces voluntariamente (nombre del negocio, oficio, zona, servicios) y datos de pago procesados por Stripe.</p><p style="margin-top:12px"><b>Finalidad:</b> Prestación del servicio de generación de contenido con IA y gestión de tu cuenta y suscripción.</p><p style="margin-top:12px"><b>Base legal:</b> Ejecución del contrato de servicio y consentimiento del usuario.</p><p style="margin-top:12px"><b>Almacenamiento:</b> Tus datos se almacenan en Supabase (servidores en la UE). Los pagos se procesan por Stripe. No vendemos ni compartimos tus datos con terceros.</p><p style="margin-top:12px"><b>Tus derechos:</b> Acceso, rectificación, supresión, limitación y portabilidad de tus datos. Puedes ejercerlos escribiendo a contacto@oficioai.website.</p><p style="margin-top:12px"><b>Conservación:</b> Tus datos se conservan mientras mantengas tu cuenta activa. Puedes solicitar la eliminación en cualquier momento.</p></div></div></div>
 
@@ -470,6 +479,7 @@ async function handleAuth() {
   errEl.style.display = 'none';
 
   if (!email || pass.length < 6) { errEl.textContent = 'Email válido y contraseña de 6+ caracteres'; errEl.style.display = 'block'; return; }
+  if (authMode === 'signup' && !document.getElementById('auth-consent').checked) { errEl.textContent = 'Debes aceptar la política de privacidad y los términos'; errEl.style.display = 'block'; return; }
 
   document.getElementById('auth-btn').disabled = true;
 
@@ -503,6 +513,7 @@ function toggleAuthMode() {
   document.getElementById('auth-switch-link').textContent = authMode === 'signup' ? 'Inicia sesión' : 'Créala gratis';
   document.getElementById('auth-error').style.display = 'none';
   document.getElementById('forgot-link').style.display = authMode === 'login' ? 'block' : 'none';
+  document.getElementById('consent-group').style.display = authMode === 'signup' ? 'flex' : 'none';
 }
 
 async function handleForgotPassword() {
@@ -866,6 +877,7 @@ var UI_TEXT = {
 function toggleLang() {
   currentLang = currentLang === 'es' ? 'en' : 'es';
   document.getElementById('lang-btn').textContent = currentLang === 'es' ? 'EN' : 'ES';
+  document.documentElement.lang = currentLang;
   applyTranslations();
 }
 
