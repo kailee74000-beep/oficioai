@@ -199,7 +199,7 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 </div>
 <button class="lang-toggle" onclick="toggleLang()" id="lang-btn" aria-label="Cambiar idioma">EN</button>
 <button class="user-btn" id="nav-user-btn" style="display:none" onclick="showPage('account')" data-t="my_account">Mi cuenta</button>
-<button class="user-btn" id="nav-login-btn" onclick="showPage('auth')" data-t="enter">Entrar</button>
+<button id="nav-login-btn" onclick="showPage('auth')" data-t="enter" style="background:none;border:none;color:var(--text-mid);font-family:inherit;font-size:.8rem;cursor:pointer;padding:6px 10px">Entrar</button><button class="user-btn" id="nav-signup-btn" onclick="showPage('auth')">Empezar gratis</button>
 </div>
 </div>
 </nav>
@@ -208,11 +208,11 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 <div id="page-home" class="page active" role="main" id="main-content">
 <div class="container">
 <div class="hero">
-<h1 id="hero-title">Tu departamento de marketing.<br><em>Por 20€ al mes.</em></h1>
-<p id="hero-sub">Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.</p>
-<button class="cta-main" onclick="showPage('auth')" id="hero-cta">Empezar gratis</button>
+<h1 id="hero-title">Tus clientes te están buscando.<br><em>Pero no te encuentran.</em></h1>
+<p id="hero-sub">La IA que genera tu marketing completo en 1 minuto. Bio profesional, anuncios, respuestas para clientes — todo listo para copiar y publicar.</p>
+<button class="cta-main" onclick="document.getElementById('demo-section').scrollIntoView({behavior:'smooth'})" id="hero-cta">Ver cómo funciona</button>
 </div>
-<div class="demo-section" style="padding:36px 0;text-align:center">
+<div class="demo-section" id="demo-section" style="padding:36px 0;text-align:center">
 <h2 class="section-title" id="demo-title" style="margin-bottom:8px">Mira cómo funciona</h2>
 <p id="demo-sub" style="color:var(--text-mid);font-size:.92rem;margin-bottom:20px">Sin cuenta, sin compromiso — dale al botón y mira la IA en acción</p>
 <div class="mock-demo" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:left;max-width:500px;margin:0 auto">
@@ -239,7 +239,30 @@ footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-lig
 <div class="price-card"><h3>Gratis</h3><div class="price">0€</div><ul><li>Bio profesional de muestra</li><li>1 texto de anuncio</li></ul><button class="btn-outline" onclick="showPage('auth')">Probar ahora</button></div>
 <div class="price-card"><h3>Básico</h3><div class="price">20€ <span>/mes</span></div><ul><li>Bio profesional completa</li><li>Textos de anuncios ilimitados</li><li>Respuestas tipo para WhatsApp</li><li>Consejos de marketing y negociación</li></ul><button class="btn-primary" onclick="goUpgrade('basic')">Elegir Básico</button></div>
 <div class="price-card featured"><div class="badge">Popular</div><h3>Pro</h3><div class="price">30€ <span>/mes</span></div><ul><li>Todo lo del plan Básico</li><li>Medidor de compatibilidad de clientes</li><li>Análisis de mensajes de clientes</li><li>Respuesta sugerida para cerrar el trabajo</li></ul><button class="btn-accent" onclick="goUpgrade('pro')">Elegir Pro</button></div>
+<!-- Urgency -->
+<div style="text-align:center;margin-top:20px;padding:16px 20px;background:var(--accent-glow);border-radius:12px;border:1px solid rgba(99,102,241,.15)">
+<p style="font-size:.92rem;font-weight:700;color:var(--accent)" id="urgency-text">🚀 Precio de lanzamiento — El plan Básico subirá a 29€/mes próximamente</p>
 </div>
+</div>
+
+<!-- FAQ -->
+<div style="padding:44px 0 56px">
+<h2 class="section-title" id="faq-title">Preguntas frecuentes</h2>
+<div id="faq-container">
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Puedo cancelar cuando quiera?</h3><div class="tip-detail">Sí. Cancelas desde tu panel de Stripe con un clic. Sin permanencia, sin preguntas. La cancelación es efectiva al final del mes pagado.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿La IA genera contenido bueno de verdad?</h3><div class="tip-detail">Sí. Utiliza la misma tecnología que ChatGPT pero con prompts especializados para profesionales autónomos. El contenido es específico para tu oficio, tu zona y tus servicios — no genérico. Pruébalo gratis y juzga tú mismo.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Mis datos son seguros?</h3><div class="tip-detail">Tus datos se almacenan en servidores europeos (Supabase, UE). Los pagos los gestiona Stripe, la pasarela más segura del mundo. No vendemos ni compartimos tus datos con nadie.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Funciona para mi oficio?</h3><div class="tip-detail">Sí. Funciona para más de 30 oficios: albañiles, pintores, fontaneros, electricistas, fotógrafos, peluqueros, entrenadores personales, fisioterapeutas, mecánicos, diseñadores y muchos más. Si tu oficio no está en la lista, puedes escribirlo manualmente.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Qué pasa si no me gusta?</h3><div class="tip-detail">Puedes probar gratis sin tarjeta. Si después de pagar no te convence, tienes 14 días para pedir un reembolso completo. Sin letra pequeña.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Necesito saber de tecnología?</h3><div class="tip-detail">No. Si sabes usar WhatsApp, sabes usar OficioAI. Metes tus datos, la IA genera todo, tú copias y pegas. Así de simple.</div></div>
+</div>
+</div>
+
+<!-- Final CTA -->
+<div style="text-align:center;padding:20px 0 56px">
+<h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-1px;margin-bottom:12px" id="final-cta-title">¿Listo para conseguir más clientes?</h2>
+<p style="color:var(--text-mid);margin-bottom:24px" id="final-cta-sub">Crea tu cuenta en 30 segundos. Sin tarjeta. Sin compromiso.</p>
+<button class="cta-main" onclick="showPage('auth')">Empezar gratis ahora</button>
 </div>
 </div>
 </div>
@@ -537,6 +560,7 @@ function showLoggedInUI() {
   document.getElementById('nav-logged-in').style.display = 'flex';
   document.getElementById('nav-user-btn').style.display = 'block';
   document.getElementById('nav-login-btn').style.display = 'none';
+  document.getElementById('nav-signup-btn').style.display = 'none';
 }
 
 function showLoggedOutUI() {
@@ -578,8 +602,27 @@ function goTips() {
 
 function goUpgrade(plan) {
   if (!currentUser) { showPage('auth'); return; }
-  const url = plan === 'pro' ? STRIPE_PRO : STRIPE_BASIC;
+  var isEn = currentLang === 'en';
+  var price = plan === 'pro' ? '30' : '20';
+  var planName = plan === 'pro' ? 'Pro' : (isEn ? 'Basic' : 'Básico');
+  var features = plan === 'pro'
+    ? (isEn ? 'Everything in Basic + Client compatibility meter + Message analysis + Suggested replies' : 'Todo lo del Básico + Medidor de compatibilidad + Análisis de mensajes + Respuestas sugeridas')
+    : (isEn ? 'Unlimited bio & ads + WhatsApp replies + Tips + PDF quotes + Public web page' : 'Bio y anuncios ilimitados + Respuestas WhatsApp + Consejos + Presupuesto PDF + Página web pública');
+  var cancel = isEn ? 'Cancel anytime. 14-day refund guarantee.' : 'Cancela cuando quieras. Reembolso garantizado en 14 días.';
+  var confirm = isEn ? 'Continue to secure payment' : 'Continuar al pago seguro';
+  var back = isEn ? 'Go back' : 'Volver';
+  var overlay = document.createElement('div');
+  overlay.id = 'stripe-confirm';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = '<div style="background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:32px;max-width:400px;width:100%;box-shadow:var(--shadow-xl);text-align:center"><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:6px">Plan ' + planName + '</h3><p style="font-size:2rem;font-weight:800;color:var(--accent);margin:12px 0">' + price + '€<span style="font-size:.85rem;font-weight:400;color:var(--text-mid)">/mes</span></p><p style="font-size:.85rem;color:var(--text-mid);line-height:1.6;margin-bottom:16px">' + features + '</p><p style="font-size:.78rem;color:var(--text-light);margin-bottom:20px">🔒 ' + cancel + '</p><button onclick="proceedToStripe(\'' + plan + '\')" style="width:100%;padding:14px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(99,102,241,.3);margin-bottom:10px">' + confirm + '</button><button onclick="document.getElementById(\'stripe-confirm\').remove()" style="width:100%;padding:12px;background:none;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.9rem;color:var(--text-mid);cursor:pointer">' + back + '</button></div>';
+  overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+}
+
+function proceedToStripe(plan) {
+  var url = plan === 'pro' ? STRIPE_PRO : STRIPE_BASIC;
   window.open(url + '?client_reference_id=' + currentUser.id, '_blank');
+  document.getElementById('stripe-confirm').remove();
 }
 
 // ========== DASHBOARD ==========
@@ -825,9 +868,9 @@ var UI_TEXT = {
   es: {
     nav_panel: 'Panel', nav_gen: 'Generar', nav_analyze: 'Analizar', nav_tips: 'Consejos',
     enter: 'Entrar', my_account: 'Mi cuenta',
-    hero_title: 'Tu departamento de marketing.<br><em>Por 20€ al mes.</em>',
-    hero_sub: 'Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.',
-    hero_cta: 'Empezar gratis',
+    hero_title: 'Tus clientes te están buscando.<br><em>Pero no te encuentran.</em>',
+    hero_sub: 'La IA que genera tu marketing completo en 1 minuto. Bio profesional, anuncios, respuestas para clientes — todo listo para copiar y publicar.',
+    hero_cta: 'Ver cómo funciona',
     demo_title: 'Mira cómo funciona', demo_sub: 'Sin cuenta, sin compromiso — dale al botón y mira la IA en acción',
     demo_placeholder: 'Ej: Fotógrafo, Peluquera, Albañil...', demo_btn: 'Generar',
     demo_hint: 'Escribe tu oficio y mira la IA generar marketing en tiempo real',
@@ -850,9 +893,9 @@ var UI_TEXT = {
   en: {
     nav_panel: 'Dashboard', nav_gen: 'Generate', nav_analyze: 'Analyze', nav_tips: 'Tips',
     enter: 'Sign in', my_account: 'My account',
-    hero_title: 'Your marketing department.<br><em>For €20 a month.</em>',
-    hero_sub: 'Whatever your trade — enter your details and AI generates a professional bio, ads and client responses.',
-    hero_cta: 'Start free',
+    hero_title: 'Your clients are looking for you.<br><em>But they can\'t find you.</em>',
+    hero_sub: 'AI that generates your complete marketing in 1 minute. Professional bio, ads, client responses — ready to copy and publish.',
+    hero_cta: 'See how it works',
     demo_title: 'See how it works', demo_sub: 'No account needed — hit the button and watch AI in action',
     demo_placeholder: 'E.g. Photographer, Hairdresser, Builder...', demo_btn: 'Generate',
     demo_hint: 'Type your trade and watch AI generate marketing in real time',
@@ -886,7 +929,7 @@ var TEXT_MAP = [
   ['Panel','Dashboard'],['Generar','Generate'],['Analizar','Analyze'],['Consejos','Tips'],
   ['Entrar','Sign in'],['Mi cuenta','My account'],
   // Hero
-  ['Tu departamento de marketing.','Your marketing department.'],
+  ['Ver cómo funciona','See how it works'],
   ['Por 20€ al mes.','For €20 a month.'],
   ['Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.',
    'Whatever your trade — enter your details and AI generates a professional bio, ads and responses to get more clients.'],
@@ -1038,8 +1081,8 @@ function applyTranslations() {
   // Hero title (has em child)
   var heroT = document.getElementById('hero-title');
   if (heroT) {
-    if (currentLang === 'en') heroT.innerHTML = 'Your marketing department.<br><em>For €20 a month.</em>';
-    else heroT.innerHTML = 'Tu departamento de marketing.<br><em>Por 20€ al mes.</em>';
+    if (currentLang === 'en') heroT.innerHTML = 'Your clients are looking for you.<br><em>But they can\'t find you.</em>';
+    else heroT.innerHTML = 'Tus clientes te están buscando.<br><em>Pero no te encuentran.</em>';
   }
 
   // Upgrade banner (dynamically rendered)
