@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OficioAI — Tu marketing con IA. Sea cual sea tu oficio.</title>
+<meta name="description" content="Genera bio profesional, anuncios, respuestas para WhatsApp y presupuestos en PDF con inteligencia artificial. Para autónomos de cualquier oficio. Pruébalo gratis.">
+<meta name="keywords" content="marketing autónomos, IA, inteligencia artificial, albañil, fontanero, pintor, electricista, presupuesto, anuncios, WhatsApp">
+<meta name="author" content="OficioAI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://oficioai.website">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oficioai.website">
+<meta property="og:title" content="OficioAI — Tu marketing con IA">
+<meta property="og:description" content="Genera bio profesional, anuncios y respuestas para clientes en 1 minuto. Para autónomos de cualquier oficio. Gratis.">
+<meta property="og:image" content="https://oficioai.website/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OficioAI — Tu marketing con IA">
+<meta name="twitter:description" content="Genera bio profesional, anuncios y respuestas para clientes en 1 minuto. Gratis.">
+<meta name="twitter:image" content="https://oficioai.website/og-image.png">
+<meta name="theme-color" content="#4F46E5">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#fafbff;--surface:#ffffff;--primary:#0f172a;--primary-light:#334155;--accent:#6366F1;--accent-hover:#4F46E5;--accent-glow:rgba(99,102,241,.12);--accent-glow-strong:rgba(99,102,241,.25);--text:#0f172a;--text-mid:#64748b;--text-light:#94a3b8;--border:rgba(148,163,184,.2);--shadow-sm:0 1px 3px rgba(0,0,0,.03),0 1px 2px rgba(0,0,0,.04);--shadow:0 4px 20px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03);--shadow-lg:0 12px 40px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.04);--shadow-xl:0 20px 60px rgba(0,0,0,.08);--shadow-btn:0 4px 16px rgba(99,102,241,.3);--shadow-btn-hover:0 8px 30px rgba(99,102,241,.4);--glass:rgba(255,255,255,.7);--glass-border:rgba(255,255,255,.5);--gauge-red:#EF4444;--gauge-orange:#F59E0B;--gauge-green:#10B981;--gauge-great:#6366F1;--radius:16px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#050507;--surface:rgba(30,30,35,.6);--text:#f1f5f9;--text-mid:#94a3b8;--text-light:#64748b;--border:rgba(148,163,184,.1);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow:0 4px 20px rgba(0,0,0,.4);--shadow-lg:0 12px 40px rgba(0,0,0,.5);--shadow-xl:0 20px 60px rgba(0,0,0,.6);--shadow-btn:0 4px 16px rgba(129,140,248,.25);--shadow-btn-hover:0 8px 30px rgba(129,140,248,.35);--accent-glow:rgba(129,140,248,.1);--accent-glow-strong:rgba(129,140,248,.2);--glass:rgba(30,30,35,.6);--glass-border:rgba(255,255,255,.06);--primary:#e2e8f0;--primary-light:#cbd5e1;--accent:#818CF8;--accent-hover:#6366F1}}
+:root[data-theme="dark"]{--bg:#050507;--surface:rgba(30,30,35,.6);--text:#f1f5f9;--text-mid:#94a3b8;--text-light:#64748b;--border:rgba(148,163,184,.1);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow:0 4px 20px rgba(0,0,0,.4);--shadow-lg:0 12px 40px rgba(0,0,0,.5);--shadow-xl:0 20px 60px rgba(0,0,0,.6);--shadow-btn:0 4px 16px rgba(129,140,248,.25);--shadow-btn-hover:0 8px 30px rgba(129,140,248,.35);--accent-glow:rgba(129,140,248,.1);--accent-glow-strong:rgba(129,140,248,.2);--glass:rgba(30,30,35,.6);--glass-border:rgba(255,255,255,.06);--primary:#e2e8f0;--primary-light:#cbd5e1;--accent:#818CF8;--accent-hover:#6366F1}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:640px;margin:0 auto;padding:0 20px}
+/* NAV — frosted glass */
+nav{padding:14px 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:100;backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);background:var(--glass);border-bottom:1px solid var(--glass-border)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.3rem;font-weight:800;color:var(--primary);letter-spacing:-.5px;cursor:pointer}.logo span{background:linear-gradient(135deg,#6366F1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-links{display:flex;gap:3px}
+.nav-links button{background:none;border:none;border-radius:10px;padding:7px 12px;font-family:inherit;font-size:.8rem;color:var(--text-mid);cursor:pointer;transition:all .2s;position:relative}
+.nav-links button:hover{color:var(--accent);background:var(--accent-glow)}
+.nav-links button.active{color:var(--accent);background:var(--accent-glow);font-weight:700}
+.nav-links button.locked{opacity:.35}
+.lang-toggle{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px;padding:6px 12px;font-family:inherit;font-size:.78rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .2s}
+.lang-toggle:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.user-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:10px;padding:7px 16px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-btn)}
+.user-btn:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-2px) scale(1.02)}
+/* PAGES */
+.page{display:none}.page.active{display:block;animation:pageIn .4s cubic-bezier(.16,1,.3,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* AUTH */
+.auth-page{padding:60px 0;text-align:center}
+.auth-page h2{font-size:1.7rem;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.auth-page .subtitle{color:var(--text-mid);margin-bottom:28px}
+.auth-box{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:20px;padding:32px;max-width:400px;margin:0 auto;text-align:left;box-shadow:var(--shadow-xl)}
+.auth-box .form-group{margin-bottom:18px}
+.auth-box label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px}
+.auth-box input{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.95rem;background:var(--bg);color:var(--text);transition:all .25s}
+.auth-box input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow),var(--shadow)}
+.auth-btn{width:100%;padding:15px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:var(--shadow-btn);transition:all .3s;transform:translateY(0)}
+.auth-btn:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-3px) scale(1.01)}
+.auth-btn:active{transform:translateY(0) scale(.99)}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.auth-switch{text-align:center;margin-top:20px;font-size:.88rem;color:var(--text-mid)}
+.auth-switch a{color:var(--accent);cursor:pointer;text-decoration:none;font-weight:700}
+.auth-error{background:#fef2f2;color:#dc2626;padding:12px 16px;border-radius:12px;font-size:.85rem;margin-bottom:14px;display:none;border:1px solid rgba(220,38,38,.15)}
+/* HERO */
+.hero{padding:72px 0 44px;text-align:center;position:relative}
+.hero h1{font-size:2.6rem;font-weight:800;line-height:1.08;letter-spacing:-2px;margin-bottom:18px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#6366F1,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;color:var(--text-mid);max-width:460px;margin:0 auto 36px;line-height:1.65}
+.cta-main{display:inline-block;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;padding:17px 44px;border-radius:14px;font-size:1.08rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .3s;box-shadow:var(--shadow-btn);transform:translateY(0);position:relative;overflow:hidden}
+.cta-main::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+.cta-main:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-3px) scale(1.02)}
+.cta-main:hover::before{opacity:1}
+.cta-main:active{transform:translateY(0) scale(.98)}
+/* DASHBOARD */
+.dash{padding:28px 0 56px}
+.dash h2{font-size:1.5rem;font-weight:800;margin-bottom:20px;letter-spacing:-.5px}
+.plan-badge{display:inline-block;padding:5px 16px;border-radius:20px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.plan-badge.free{background:#f1f5f9;color:#64748b}.plan-badge.basic{background:rgba(16,185,129,.1);color:#059669}.plan-badge.pro{background:rgba(245,158,11,.1);color:#d97706}
+.dash-card{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:12px;cursor:pointer;transition:all .3s;box-shadow:var(--shadow-sm)}
+.dash-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(99,102,241,.3)}
+.dash-card h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.dash-card p{font-size:.88rem;color:var(--text-mid)}
+.dash-card.locked{opacity:.35;position:relative;filter:grayscale(.3)}
+.dash-card.locked::after{content:'🔒';position:absolute;top:22px;right:22px;font-size:1.1rem}
+.dash-card.locked:hover{transform:none;box-shadow:var(--shadow-sm)}
+.upgrade-banner{background:linear-gradient(135deg,#6366F1 0%,#8B5CF6 40%,#a855f7 70%,#ec4899 100%);color:#fff;border-radius:20px;padding:28px;margin-bottom:20px;text-align:center;box-shadow:0 12px 40px rgba(99,102,241,.25);position:relative;overflow:hidden}
+.upgrade-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 60%)}
+.upgrade-banner h3{font-size:1.2rem;font-weight:800;margin-bottom:8px;position:relative}
+.upgrade-banner p{font-size:.88rem;opacity:.9;margin-bottom:18px;position:relative}
+.upgrade-banner button{background:#fff;color:#6366F1;border:none;padding:13px 32px;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .25s;transform:translateY(0);position:relative}
+.upgrade-banner button:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+/* HISTORY */
+.history-section{margin-top:28px}
+.history-section h3{font-size:1.1rem;font-weight:700;margin-bottom:14px}
+.history-item{background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-sm)}
+.history-item:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.history-item .meta{font-size:.78rem;color:var(--text-light);margin-bottom:4px}
+.history-item .preview{font-size:.88rem;color:var(--text-mid);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* SECTIONS */
+.section-title{font-size:1.5rem;font-weight:800;margin-bottom:24px;text-align:center;letter-spacing:-.7px}
+.how-section{padding:44px 0}.steps{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;gap:16px;align-items:flex-start;padding:20px;background:var(--glass);backdrop-filter:blur(8px);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:all .25s}
+.step:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.step-num{width:40px;height:40px;min-width:40px;border-radius:12px;background:linear-gradient(135deg,#6366F1,#a855f7);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.88rem;box-shadow:0 4px 16px var(--accent-glow-strong)}
+.step h3{font-size:.95rem;font-weight:700;margin-bottom:3px}.step p{font-size:.88rem;color:var(--text-mid)}
+/* PRICING */
+.pricing-section{padding:44px 0 56px}.pricing-cards{display:flex;flex-direction:column;gap:16px}
+.price-card{background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:20px;padding:26px;position:relative;box-shadow:var(--shadow-sm);transition:all .3s}
+.price-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.price-card.featured{border:2px solid transparent;background-image:linear-gradient(var(--glass),var(--glass)),linear-gradient(135deg,#6366F1,#a855f7,#ec4899);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 12px 40px var(--accent-glow-strong)}
+.price-card.featured:hover{box-shadow:0 16px 50px var(--accent-glow-strong);transform:translateY(-4px) scale(1.01)}
+.price-card .badge{position:absolute;top:-12px;right:16px;background:linear-gradient(135deg,#6366F1,#a855f7);color:#fff;font-size:.72rem;font-weight:700;padding:5px 16px;border-radius:10px;box-shadow:0 4px 12px var(--accent-glow-strong)}
+.price-card h3{font-size:1.05rem;font-weight:700}.price-card .price{font-size:2.2rem;font-weight:800;color:var(--primary);margin:10px 0}
+.price-card .price span{font-size:.85rem;font-weight:400;color:var(--text-mid)}
+.price-card ul{list-style:none;margin-top:14px}.price-card ul li{font-size:.88rem;color:var(--text-mid);padding:5px 0 5px 26px;position:relative}
+.price-card ul li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:800;font-size:.9rem}
+.price-card button{margin-top:18px;width:100%;padding:14px;border-radius:12px;border:none;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s;transform:translateY(0)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(15,23,42,.12)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,23,42,.18)}
+.btn-outline{background:transparent;border:1px solid var(--border)!important;color:var(--text)}
+.btn-outline:hover{border-color:var(--accent)!important;color:var(--accent);background:var(--accent-glow);transform:translateY(-2px)}
+.btn-accent{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:var(--shadow-btn-hover)}
+/* FORM */
+.form-page{padding:28px 0 56px}.form-page h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;letter-spacing:-.5px}
+.subtitle{color:var(--text-mid);font-size:.92rem;margin-bottom:24px}
+.form-group{margin-bottom:20px}.form-group label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.95rem;background:var(--surface);color:var(--text);transition:all .25s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
+.form-group textarea{resize:vertical;min-height:76px}.hint{font-size:.78rem;color:var(--text-light);margin-top:4px}
+.generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:14px;font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:10px;box-shadow:var(--shadow-btn);transition:all .3s;transform:translateY(0);position:relative;overflow:hidden}
+.generate-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);opacity:0;transition:opacity .3s}
+.generate-btn:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-3px)}
+.generate-btn:hover::before{opacity:1}
+.generate-btn:active{transform:translateY(0)}
+.generate-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+/* RESULTS */
+.results-section{padding:28px 0 56px}
+.result-block{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow-sm);transition:all .2s}
+.result-block:hover{box-shadow:var(--shadow)}
+.result-block h3{font-size:.88rem;font-weight:700;margin-bottom:10px;background:linear-gradient(135deg,#6366F1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.result-block .content{font-size:.9rem;line-height:1.7;color:var(--text-mid);white-space:pre-wrap}
+.copy-btn{margin-top:12px;padding:8px 18px;background:var(--accent-glow);border:none;border-radius:10px;font-family:inherit;font-size:.8rem;color:var(--accent);cursor:pointer;font-weight:600;transition:all .25s}
+.copy-btn:hover{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;transform:translateY(-1px);box-shadow:var(--shadow-btn)}
+.lock-overlay{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;margin-bottom:14px;box-shadow:var(--shadow-lg)}
+.lock-overlay p{color:var(--text-mid);font-size:.92rem;margin-bottom:16px}
+.lock-overlay button{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;padding:13px 32px;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow-btn);transition:all .25s}
+.lock-overlay button:hover{transform:translateY(-2px);box-shadow:var(--shadow-btn-hover)}
+/* ANALYZER */
+.analyzer-section{padding:28px 0 56px}
+.gauge-container{text-align:center;margin:28px 0}.gauge-score{font-size:3.8rem;font-weight:800;line-height:1}
+.gauge-label{font-size:1.1rem;font-weight:700;margin-top:8px}
+.gauge-bar{width:100%;height:12px;background:var(--border);border-radius:6px;margin-top:16px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.06)}
+.gauge-fill{height:100%;border-radius:6px;transition:width 1s cubic-bezier(.16,1,.3,1);background:linear-gradient(90deg,#6366F1,#a855f7)}
+.analysis-block{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:14px;box-shadow:var(--shadow-sm)}
+.analysis-block h3{font-size:.88rem;font-weight:700;margin-bottom:8px;background:linear-gradient(135deg,#6366F1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.analysis-block .content{font-size:.9rem;line-height:1.7;color:var(--text-mid);white-space:pre-wrap}
+/* TIPS */
+.tips-section{padding:28px 0 56px}
+.tip-card{background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:10px;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-sm)}
+.tip-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.tip-card h3{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.tip-card p{font-size:.85rem;color:var(--text-mid)}
+.tip-card .tip-detail{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:.88rem;color:var(--text-mid);line-height:1.7}
+.tip-card.open .tip-detail{display:block}
+/* ACCOUNT */
+.account-section{padding:28px 0 56px}
+.account-section h2{font-size:1.4rem;font-weight:800;margin-bottom:20px;letter-spacing:-.5px}
+.account-card{background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.account-card h3{font-size:.72rem;font-weight:700;margin-bottom:6px;color:var(--text-light);text-transform:uppercase;letter-spacing:1px}
+.account-card p{font-size:.95rem;color:var(--text);font-weight:600}
+.logout-btn{width:100%;padding:14px;background:transparent;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.92rem;color:var(--text-mid);cursor:pointer;margin-top:8px;transition:all .25s}
+.logout-btn:hover{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.04);transform:translateY(-1px)}
+/* MISC */
+.loading{text-align:center;padding:40px 0}
+.spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}.loading p{color:var(--text-mid);font-size:.92rem}
+.back-row{padding:14px 0 0}.back-btn{background:none;border:none;font-family:inherit;font-size:.88rem;color:var(--text-mid);cursor:pointer;padding:0;transition:all .2s}
+.back-btn:hover{color:var(--accent);transform:translateX(-3px)}
+.lock-tag{display:inline-block;font-size:.68rem;background:var(--accent-glow);color:var(--accent);padding:3px 10px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:700}
+footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-light);border-top:1px solid var(--border)}
+@media(max-width:500px){.hero h1{font-size:1.9rem}.nav-links button{padding:5px 8px;font-size:.73rem}}
+/* ================= PREMIUM LAYER ================= */
+#page-home{overflow-x:clip}
+/* Loader */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .7s cubic-bezier(.16,1,.3,1),visibility .7s;animation:ldFailsafe .01s linear 4s forwards}
+#loader.hide{opacity:0;visibility:hidden}
+@keyframes ldFailsafe{to{opacity:0;visibility:hidden}}
+#loader .ld-logo{font-size:2.6rem;font-weight:900;letter-spacing:-1.5px;color:var(--primary);display:flex}
+#loader .ld-logo span{display:inline-block;opacity:0;transform:translateY(18px);filter:blur(6px);animation:ldIn .6s cubic-bezier(.16,1,.3,1) forwards}
+#loader .ld-logo .ai{background:linear-gradient(135deg,#818CF8,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@keyframes ldIn{to{opacity:1;transform:none;filter:none}}
+#loader .ld-bar{width:140px;height:3px;border-radius:3px;background:var(--border);overflow:hidden}
+#loader .ld-bar i{display:block;height:100%;width:40%;border-radius:3px;background:linear-gradient(90deg,#6366F1,#a855f7,#ec4899);animation:ldBar 1s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes ldBar{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+/* Scroll progress + nav */
+#scroll-prog{position:fixed;top:0;left:0;right:0;height:2px;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#6366F1,#a855f7,#ec4899);z-index:300;pointer-events:none}
+nav{transition:padding .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+nav.scrolled{padding-top:9px;padding-bottom:9px;box-shadow:0 10px 40px rgba(0,0,0,.14)}
+/* Cursor glow */
+#cursor-glow{position:fixed;left:0;top:0;width:560px;height:560px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(129,140,248,.11),transparent 62%);transform:translate(-50%,-50%);z-index:-1;opacity:0;transition:opacity .5s}
+#cursor-glow.on{opacity:1}
+/* Hero */
+.hero{isolation:isolate}
+.hero::before{content:'';position:absolute;left:50%;top:42%;width:640px;height:640px;max-width:150vw;max-height:150vw;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,#6366F1,#a855f7,#ec4899,#818CF8,#6366F1);border-radius:50%;filter:blur(95px);opacity:.2;z-index:-2;animation:heroSpin 20s linear infinite;pointer-events:none}
+@keyframes heroSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero-canvas{position:absolute;left:-30px;right:-30px;top:-40px;bottom:-40px;width:calc(100% + 60px);height:calc(100% + 80px);z-index:-1;pointer-events:none}
+.hero h1{text-wrap:balance}
+.js-anim .hero>h1,.js-anim .hero>p,.js-anim .hero>button{opacity:0}
+.loaded .hero>h1,.loaded .hero>p,.loaded .hero>button{animation:heroIn 1s cubic-bezier(.16,1,.3,1) both}
+.loaded .hero>p{animation-delay:.15s}
+.loaded .hero>button{animation-delay:.3s}
+@keyframes heroIn{from{opacity:0;transform:translateY(26px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:30px;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(10px);font-size:.78rem;font-weight:600;color:var(--text-mid);margin-bottom:22px}
+.hero-badge b{font-size:.68rem;font-weight:800;letter-spacing:.5px;padding:3px 8px;border-radius:20px;background:linear-gradient(135deg,#6366F1,#a855f7);color:#fff}
+.js-anim .hero>.hero-badge{opacity:0}
+.loaded .hero>.hero-badge{animation:heroIn 1s cubic-bezier(.16,1,.3,1) both}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 4px}
+.stat{text-align:center;padding:18px 6px 16px;border-radius:18px;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.stat b{display:block;font-size:1.7rem;font-weight:900;letter-spacing:-1px;line-height:1.1;background:linear-gradient(135deg,#818CF8,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{display:block;margin-top:4px;font-size:.7rem;font-weight:600;color:var(--text-mid);line-height:1.3}
+@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+/* Scroll reveal */
+.js-anim .rv{opacity:0;transform:translateY(30px) scale(.98);filter:blur(6px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1),filter .9s;transition-delay:var(--d,0s)}
+.js-anim .rv.rv-in{opacity:1;transform:none;filter:none}
+/* 3D tilt + spotlight */
+.tilt{position:relative;transform-style:preserve-3d}
+.tilt::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(129,140,248,.16),transparent 45%);opacity:0;transition:opacity .35s}
+.tilt:hover::after{opacity:1}
+/* Featured plan: flowing border */
+.price-card.featured{background-size:100% 100%,300% 300%;animation:borderFlow 6s linear infinite}
+@keyframes borderFlow{0%{background-position:0 0,0% 50%}50%{background-position:0 0,100% 50%}100%{background-position:0 0,0% 50%}}
+/* Button shine */
+.cta-main,.generate-btn,.auth-btn,.user-btn,.btn-accent,.upgrade-banner button{position:relative;overflow:hidden}
+.cta-main::after,.generate-btn::after,.auth-btn::after,.user-btn::after,.btn-accent::after{content:'';position:absolute;top:0;bottom:0;width:45%;left:-70%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .75s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.cta-main:hover::after,.generate-btn:hover::after,.auth-btn:hover::after,.user-btn:hover::after,.btn-accent:hover::after{left:135%}
+.magnet{transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+/* Section titles */
+.section-title{text-wrap:balance}
+@media(max-width:500px){.user-btn{white-space:nowrap;padding:7px 12px}.hero-badge{font-size:.68rem;gap:6px}.hero-badge span{white-space:nowrap}.logo{font-size:1.15rem}}
+@media (prefers-reduced-motion:reduce){
+  .js-anim .rv{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+  .hero::before,.price-card.featured{animation:none}
+  .loaded .hero>*{animation:none!important;opacity:1!important}
+  #cursor-glow,.hero-canvas{display:none}
+}
+</style>
+<script>document.documentElement.classList.add('js-anim');setTimeout(function(){document.documentElement.classList.add('loaded')},3500);</script>
+
+</head>
+<body>
+<div id="loader" aria-hidden="true"><div class="ld-logo"><span style="animation-delay:.05s">O</span><span style="animation-delay:.1s">f</span><span style="animation-delay:.15s">i</span><span style="animation-delay:.2s">c</span><span style="animation-delay:.25s">i</span><span style="animation-delay:.3s">o</span><span class="ai" style="animation-delay:.38s">A</span><span class="ai" style="animation-delay:.44s">I</span></div><div class="ld-bar"><i></i></div></div>
+<div id="scroll-prog"></div>
+<div id="cursor-glow"></div>
+
+
+<a href="#page-home" style="position:absolute;top:-40px;left:0;background:var(--accent);color:#fff;padding:8px 16px;z-index:200;font-size:.85rem;border-radius:0 0 8px 0;transition:top .2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Saltar al contenido</a>
+<nav role="navigation" aria-label="Navegación principal">
+<div class="container">
+<div class="logo" onclick="goHome()" role="button" aria-label="Inicio">Oficio<span>AI</span></div>
+<div class="nav-right">
+<div class="nav-links" id="nav-logged-in" style="display:none">
+<button onclick="showPage('dashboard')" id="nav-dash" data-t="nav_panel">Panel</button>
+<button onclick="goGenerate()" id="nav-gen" data-t="nav_gen">Generar</button>
+<button onclick="goAnalyze()" id="nav-analyze" data-t="nav_analyze">Analizar</button>
+<button onclick="goTips()" id="nav-tips" data-t="nav_tips">Consejos</button>
+</div>
+<button class="lang-toggle" onclick="toggleLang()" id="lang-btn" aria-label="Cambiar idioma">EN</button>
+<button class="user-btn" id="nav-user-btn" style="display:none" onclick="showPage('account')" data-t="my_account">Mi cuenta</button>
+<button id="nav-login-btn" onclick="showPage('auth')" data-t="enter" style="background:none;border:none;color:var(--text-mid);font-family:inherit;font-size:.8rem;cursor:pointer;padding:6px 10px">Entrar</button><button class="user-btn" id="nav-signup-btn" onclick="showPage('auth')">Empezar gratis</button>
+</div>
+</div>
+</nav>
+
+<!-- HOME (logged out) -->
+<div id="page-home" class="page active" role="main">
+<div class="container">
+<div class="hero">
+<h1 id="hero-title">Tus clientes te están buscando.<br><em>Pero no te encuentran.</em></h1>
+<p id="hero-sub">La IA que genera tu marketing completo en 1 minuto. Bio profesional, anuncios, respuestas para clientes — todo listo para copiar y publicar.</p>
+<button class="cta-main" onclick="document.getElementById('demo-section').scrollIntoView({behavior:'smooth'})" id="hero-cta">Ver cómo funciona</button>
+</div>
+<div class="demo-section" id="demo-section" style="padding:36px 0;text-align:center">
+<h2 class="section-title" id="demo-title" style="margin-bottom:8px">Mira cómo funciona</h2>
+<p id="demo-sub" style="color:var(--text-mid);font-size:.92rem;margin-bottom:20px">Sin cuenta, sin compromiso — dale al botón y mira la IA en acción</p>
+<div class="mock-demo" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:left;max-width:500px;margin:0 auto">
+<div style="display:flex;gap:8px;margin-bottom:12px">
+<input type="text" id="demo-trade" placeholder="Ej: Fotógrafo, Peluquera, Albañil..." style="flex:1;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.92rem;background:var(--bg);color:var(--text)">
+<button id="demo-btn" onclick="runDemoFromInput()" style="background:var(--accent);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap">Generar</button>
+</div>
+<div id="demo-output" style="min-height:60px">
+<p style="color:var(--text-light);font-size:.88rem">Escribe tu oficio y mira la IA generar marketing en tiempo real</p>
+</div>
+</div>
+</div>
+<div class="how-section">
+<h2 class="section-title" id="how-title">Cómo funciona</h2>
+<div class="steps">
+<div class="step"><div class="step-num">1</div><div><h3 id="step1-t">Rellena tus datos</h3><p id="step1-d">Nombre, oficio, zona y servicios. Nada más.</p></div></div>
+<div class="step"><div class="step-num">2</div><div><h3 id="step2-t">La IA trabaja para ti</h3><p id="step2-d">Genera tu bio, anuncios listos para publicar y respuestas para WhatsApp.</p></div></div>
+<div class="step"><div class="step-num">3</div><div><h3 id="step3-t">Copia, pega y gana</h3><p id="step3-d">Publica en redes, clasificados o responde a clientes en segundos.</p></div></div>
+</div>
+</div>
+<!-- TESTIMONIALS -->
+<div style="padding:44px 0 20px">
+<h2 class="section-title" id="testimonials-title">Lo que dicen los profesionales</h2>
+<div style="display:flex;flex-direction:column;gap:12px" id="testimonials">
+<div style="background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow-sm)">
+<p style="font-size:.92rem;color:var(--text-mid);line-height:1.6;margin-bottom:12px">"Yo no tengo ni idea de redes. Metí mis datos y en un minuto tenía textos profesionales que ni yo sabía escribir. Ahora los uso para responder en Milanuncios."</p>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#a855f7);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:#fff">MR</div><div><div style="font-size:.85rem;font-weight:700">Miguel R.</div><div style="font-size:.75rem;color:var(--text-light)">Albañil · Alicante</div></div></div>
+</div>
+<div style="background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow-sm)">
+<p style="font-size:.92rem;color:var(--text-mid);line-height:1.6;margin-bottom:12px">"Lo uso para contestar a los clientes que me escriben por WhatsApp. Antes tardaba media hora pensando qué decir, ahora copio y pego en 10 segundos."</p>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#f59e0b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:#fff">LP</div><div><div style="font-size:.85rem;font-weight:700">Laura P.</div><div style="font-size:.75rem;color:var(--text-light)">Peluquera · Valencia</div></div></div>
+</div>
+<div style="background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow-sm)">
+<p style="font-size:.92rem;color:var(--text-mid);line-height:1.6;margin-bottom:12px">"El medidor de clientes es brutal. Me ahorra tiempo filtrando a los que solo preguntan precio y no van en serio. Vale cada euro."</p>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#10b981,#6366F1);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:#fff">JG</div><div><div style="font-size:.85rem;font-weight:700">Javi G.</div><div style="font-size:.75rem;color:var(--text-light)">Fontanero · Madrid</div></div></div>
+</div>
+</div>
+</div>
+
+<div class="pricing-section">
+<h2 class="section-title" id="pricing-title">Planes</h2>
+<div class="pricing-cards">
+<div class="price-card"><h3>Gratis</h3><div class="price">0€</div><ul><li>Bio profesional de muestra</li><li>1 texto de anuncio</li></ul><button class="btn-outline" onclick="showPage('auth')">Probar ahora</button></div>
+<div class="price-card"><h3>Básico</h3><div class="price">20€ <span>/mes</span></div><ul><li>Bio profesional completa</li><li>Textos de anuncios ilimitados</li><li>Respuestas tipo para WhatsApp</li><li>Consejos de marketing y negociación</li></ul><button class="btn-primary" onclick="goUpgrade('basic')">Elegir Básico</button></div>
+<div class="price-card featured"><div class="badge">Popular</div><h3>Pro</h3><div class="price">30€ <span>/mes</span></div><ul><li>Todo lo del plan Básico</li><li>Medidor de compatibilidad de clientes</li><li>Análisis de mensajes de clientes</li><li>Respuesta sugerida para cerrar el trabajo</li></ul><button class="btn-accent" onclick="goUpgrade('pro')">Elegir Pro</button></div>
+<!-- Urgency -->
+<div style="text-align:center;margin-top:20px;padding:16px 20px;background:var(--accent-glow);border-radius:12px;border:1px solid rgba(99,102,241,.15)">
+<p style="font-size:.92rem;font-weight:700;color:var(--accent)" id="urgency-text">🚀 Precio de lanzamiento — El plan Básico subirá a 29€/mes próximamente</p>
+</div>
+</div>
+
+<!-- FAQ -->
+<div style="padding:44px 0 56px">
+<h2 class="section-title" id="faq-title">Preguntas frecuentes</h2>
+<div id="faq-container">
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Puedo cancelar cuando quiera?</h3><div class="tip-detail">Sí. Cancelas desde tu panel de Stripe con un clic. Sin permanencia, sin preguntas. La cancelación es efectiva al final del mes pagado.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿La IA genera contenido bueno de verdad?</h3><div class="tip-detail">Sí. Utiliza la misma tecnología que ChatGPT pero con prompts especializados para profesionales autónomos. El contenido es específico para tu oficio, tu zona y tus servicios — no genérico. Pruébalo gratis y juzga tú mismo.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Mis datos son seguros?</h3><div class="tip-detail">Tus datos se almacenan en servidores europeos (Supabase, UE). Los pagos los gestiona Stripe, la pasarela más segura del mundo. No vendemos ni compartimos tus datos con nadie.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Funciona para mi oficio?</h3><div class="tip-detail">Sí. Funciona para más de 30 oficios: albañiles, pintores, fontaneros, electricistas, fotógrafos, peluqueros, entrenadores personales, fisioterapeutas, mecánicos, diseñadores y muchos más. Si tu oficio no está en la lista, puedes escribirlo manualmente.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Qué pasa si no me gusta?</h3><div class="tip-detail">Puedes probar gratis sin tarjeta. Si después de pagar no te convence, tienes 14 días para pedir un reembolso completo. Sin letra pequeña.</div></div>
+<div class="tip-card" onclick="this.classList.toggle('open')"><h3>¿Necesito saber de tecnología?</h3><div class="tip-detail">No. Si sabes usar WhatsApp, sabes usar OficioAI. Metes tus datos, la IA genera todo, tú copias y pegas. Así de simple.</div></div>
+</div>
+</div>
+
+<!-- Final CTA -->
+<div style="text-align:center;padding:20px 0 56px">
+<h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-1px;margin-bottom:12px" id="final-cta-title">¿Listo para conseguir más clientes?</h2>
+<p style="color:var(--text-mid);margin-bottom:24px" id="final-cta-sub">Crea tu cuenta en 30 segundos. Sin tarjeta. Sin compromiso.</p>
+<button class="cta-main" onclick="showPage('auth')">Empezar gratis ahora</button>
+</div>
+</div><!-- close pricing-section -->
+</div><!-- close container -->
+</div><!-- close page-home -->
+
+<!-- AUTH -->
+<div id="page-auth" class="page">
+<div class="container">
+<div class="auth-page">
+<h2 id="auth-title">Crear cuenta</h2>
+<p class="subtitle" id="auth-sub">Empieza gratis — no necesitas tarjeta</p>
+<div class="auth-box">
+<div class="auth-error" id="auth-error"></div>
+<div class="form-group"><label>Email</label><input type="email" id="auth-email" placeholder="tu@email.com"></div>
+<div class="form-group"><label>Contraseña</label><input type="password" id="auth-pass" placeholder="Mínimo 6 caracteres"></div>
+<div style="margin-top:12px;display:flex;gap:8px;align-items:flex-start" id="consent-group">
+<input type="checkbox" id="auth-consent" style="margin-top:4px;min-width:16px;accent-color:var(--accent)">
+<label for="auth-consent" style="font-size:.78rem;color:var(--text-mid);font-weight:400;line-height:1.4">Acepto la <a onclick="showPage('privacy')" style="color:var(--accent);cursor:pointer;text-decoration:underline">política de privacidad</a> y los <a onclick="showPage('terms')" style="color:var(--accent);cursor:pointer;text-decoration:underline">términos y condiciones</a></label>
+</div>
+<button class="auth-btn" id="auth-btn" onclick="handleAuth()" aria-label="Crear cuenta">Crear cuenta</button>
+<div class="auth-switch"><span id="auth-switch-text">¿Ya tienes cuenta?</span> <a onclick="toggleAuthMode()" id="auth-switch-link">Inicia sesión</a></div>
+<div class="auth-switch" id="forgot-link" style="display:none;margin-top:8px"><a onclick="handleForgotPassword()" style="color:var(--accent);cursor:pointer;text-decoration:underline">¿Has olvidado tu contraseña?</a></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page">
+<div class="container">
+<div class="dash">
+<h2>Hola, <span id="dash-name">profesional</span> 👋</h2>
+<div style="margin:12px 0 20px"><span class="plan-badge" id="dash-plan-badge">FREE</span></div>
+<div id="upgrade-banner-container"></div>
+<div class="dash-card" onclick="goGenerate()"><h3>📝 Generar marketing</h3><p>Bio profesional, anuncios y respuestas para clientes</p></div>
+<div class="dash-card" id="dash-analyze" onclick="goAnalyze()"><h3>📊 Analizar cliente</h3><p>Pega un mensaje y descubre si el cliente es serio</p></div>
+<div class="dash-card" id="dash-tips" onclick="goTips()"><h3>💡 Consejos</h3><p>Tips de marketing, negociación y cómo ganar más</p></div>
+<div class="dash-card" id="dash-quote" onclick="goQuote()"><h3>📄 Presupuesto PDF</h3><p>Genera un presupuesto profesional y descárgalo en PDF</p></div>
+<div class="dash-card" id="dash-profile" onclick="goPublicProfile()"><h3>🌐 Tu página web</h3><p>Crea tu página pública con bio, servicios y botón de WhatsApp</p></div>
+<div class="history-section" id="history-section"><h3>Últimas generaciones</h3><div id="history-list"></div></div>
+</div>
+</div>
+</div>
+
+<!-- GENERATOR -->
+<div id="page-generator" class="page">
+<div class="container">
+<div class="form-page" id="form-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2 id="form-title">Tu información</h2>
+<p class="subtitle" id="form-sub">Rellena los datos de tu negocio y la IA hará el resto.</p>
+<div class="form-group"><label>Nombre del profesional o negocio</label><input type="text" id="inp-name" placeholder="Ej: Juan Reformas, Pinturas López..."></div>
+<div class="form-group"><label>Oficio</label><select id="inp-trade"><option value="">Selecciona...</option><optgroup label="Construcción y oficios"><option value="builder">Albañil</option><option value="painter">Pintor</option><option value="plumber">Fontanero</option><option value="electrician">Electricista</option><option value="carpenter">Carpintero</option><option value="renovation">Reformas integrales</option><option value="hvac">Climatización</option><option value="locksmith">Cerrajero</option><option value="gardener">Jardinero</option></optgroup><optgroup label="Salud y bienestar"><option value="physiotherapist">Fisioterapeuta</option><option value="personal_trainer">Entrenador personal</option><option value="nutritionist">Nutricionista</option><option value="psychologist">Psicólogo</option><option value="dentist">Dentista</option></optgroup><optgroup label="Estética y belleza"><option value="hairdresser">Peluquero/a</option><option value="barber">Barbero</option><option value="beautician">Esteticista</option><option value="nail_tech">Manicurista</option></optgroup><optgroup label="Motor y transporte"><option value="mechanic">Mecánico</option><option value="tow_truck">Grúa / asistencia</option><option value="driver">Transportista</option></optgroup><optgroup label="Creativos"><option value="photographer">Fotógrafo</option><option value="videographer">Videógrafo</option><option value="designer">Diseñador gráfico</option><option value="tattoo_artist">Tatuador</option></optgroup><optgroup label="Servicios"><option value="cleaner">Limpieza</option><option value="tutor">Profesor particular</option><option value="pet_groomer">Peluquería canina</option><option value="vet">Veterinario</option><option value="accountant">Asesor fiscal</option><option value="lawyer">Abogado</option></optgroup><option value="other">Otro</option></select></div>
+<div class="form-group" id="other-trade-group" style="display:none"><label>Especifica tu oficio</label><input type="text" id="inp-other-trade" placeholder="Ej: Instalador de placas solares"></div>
+<div class="form-group"><label>Zona de trabajo</label><input type="text" id="inp-zone" placeholder="Ej: Alicante y alrededores"></div>
+<div class="form-group"><label>Servicios principales</label><textarea id="inp-services" placeholder="Ej: Reforma de baños, alicatado, tabiquería, pequeñas reparaciones"></textarea><p class="hint">Escribe hasta 5 servicios que ofrezcas</p></div>
+<div class="form-group"><label>Años de experiencia</label><input type="number" id="inp-years" placeholder="Ej: 12" min="0"></div>
+<button class="generate-btn" id="gen-btn" onclick="generateContentStream()">Generar mi marketing</button>
+</div>
+<div id="loading-section" style="display:none"><div class="loading"><div class="spinner"></div><p>Creando tu material de marketing...</p></div></div>
+<div id="results-section" class="results-section" style="display:none">
+<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div>
+<h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Tu marketing listo</h2>
+<div class="result-block"><h3>Bio profesional</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText('result-bio')">Copiar</button></div>
+<div class="result-block"><h3>Anuncios</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText('result-ads')">Copiar</button></div>
+<div id="wa-section"></div>
+</div>
+</div>
+</div>
+
+<!-- ANALYZER -->
+<div id="page-analyzer" class="page">
+<div class="container">
+<div class="analyzer-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2 id="analyzer-title">Medidor de compatibilidad</h2>
+<p class="subtitle" id="analyzer-sub">Pega el mensaje de un cliente potencial y la IA te dice qué tipo de cliente es y cómo responderle.</p>
+<div id="analyzer-content"></div>
+</div>
+</div>
+</div>
+
+<!-- TIPS -->
+<div id="page-tips" class="page">
+<div class="container">
+<div class="tips-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2 id="tips-title">Consejos para ganar más</h2>
+<div id="tips-content"></div>
+</div>
+</div>
+</div>
+
+<!-- ACCOUNT -->
+<div id="page-account" class="page">
+<div class="container">
+<div class="account-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2>Mi cuenta</h2>
+<div class="account-card"><h3>Email</h3><p id="acc-email">—</p></div>
+<div class="account-card"><h3>Plan actual</h3><p id="acc-plan">—</p><div id="acc-upgrade-btn"></div></div>
+<div class="account-card"><h3>Generaciones realizadas</h3><p id="acc-gens">—</p></div>
+<button id="manage-sub-btn" onclick="openPortal()" style="width:100%;padding:14px;background:var(--accent-glow);border:1px solid rgba(99,102,241,.2);border-radius:12px;font-family:inherit;font-size:.92rem;color:var(--accent);cursor:pointer;font-weight:600;transition:all .25s;display:none">Gestionar suscripción</button>
+<button class="logout-btn" id="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+</div>
+</div>
+</div>
+
+<!-- QUOTE BUILDER -->
+<div id="page-quote" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2>Presupuesto profesional</h2>
+<p class="subtitle">Describe el trabajo y la IA genera un presupuesto desglosado. Descárgalo como PDF.</p>
+<div class="form-group"><label>Tu nombre o negocio</label><input type="text" id="q-name" placeholder="Ej: Miguel Reformas"></div>
+<div class="form-group"><label>Tu oficio</label><input type="text" id="q-trade" placeholder="Ej: Albañil"></div>
+<div class="form-group"><label>Tu teléfono</label><input type="text" id="q-phone" placeholder="Ej: 612 345 678"></div>
+<div class="form-group"><label>Nombre del cliente</label><input type="text" id="q-client" placeholder="Ej: María López"></div>
+<div class="form-group"><label>Describe el trabajo</label><textarea id="q-desc" rows="4" placeholder="Ej: Reforma completa del baño de 6m2, cambiar bañera por plato de ducha, alicatar paredes y suelo, instalar mueble de baño y espejo"></textarea></div>
+<button class="generate-btn" id="btn-quote" onclick="generateQuote()">Generar presupuesto</button>
+<div id="quote-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>Generando presupuesto...</p></div></div>
+<div id="quote-result" style="display:none">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px">
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--primary)" id="q-title"></h3>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem" id="q-table">
+<thead><tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:8px 0;color:var(--text-mid)">Concepto</th><th style="text-align:right;padding:8px 0;color:var(--text-mid)">Precio</th></tr></thead>
+<tbody id="q-items"></tbody>
+<tfoot><tr style="border-top:2px solid var(--border)"><td style="padding:10px 0;font-weight:700;font-size:1rem">TOTAL</td><td style="padding:10px 0;font-weight:700;font-size:1rem;text-align:right;color:var(--accent)" id="q-total"></td></tr></tfoot>
+</table>
+<p style="font-size:.82rem;color:var(--text-light);margin-top:12px" id="q-notes"></p>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px">
+<button onclick="downloadQuotePDF()" style="flex:1;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer">Descargar PDF</button>
+<button onclick="editQuoteItems()" style="flex:1;padding:13px;background:transparent;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;color:var(--text)">Editar precios</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PUBLIC PROFILE -->
+<div id="page-public-profile" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2>Tu página web pública</h2>
+<p class="subtitle">Crea una página profesional que puedes compartir con clientes. Incluye tu bio, servicios y botón de WhatsApp.</p>
+<div class="form-group"><label>URL de tu página</label><div style="display:flex;align-items:center;gap:4px"><span style="font-size:.88rem;color:var(--text-light)">oficioai.website/p/</span><input type="text" id="profile-slug" placeholder="miguel-reformas" style="flex:1"></div><p class="hint">Solo letras, números y guiones. Ejemplo: juan-fontanero</p></div>
+<div class="form-group"><label>Frase de presentación</label><input type="text" id="profile-tagline" placeholder="Ej: Tu albañil de confianza en Alicante"></div>
+<div class="form-group"><label>Teléfono</label><input type="tel" id="profile-phone" placeholder="Ej: 612 345 678"></div>
+<div class="form-group"><label>WhatsApp (con prefijo)</label><input type="tel" id="profile-whatsapp" placeholder="Ej: 34612345678"></div>
+<button class="generate-btn" onclick="savePublicProfile()">Crear mi página</button>
+<div id="profile-result"></div>
+</div>
+</div>
+</div>
+
+<!-- HISTORY DETAIL -->
+<div id="page-history" class="page">
+<div class="container">
+<div class="results-section" style="display:block">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Panel</button></div>
+<h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px" id="history-detail-title">Generación</h2>
+<div id="history-detail-content"></div>
+</div>
+</div>
+</div>
+
+<footer role="contentinfo"><div class="container"><div style="margin-bottom:8px">OficioAI — Tu departamento de marketing con IA</div><div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap"><a onclick="showPage('legal')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Aviso legal</a><a onclick="showPage('terms')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Términos</a><a onclick="showPage('privacy')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Privacidad</a><a onclick="showPage('cookies')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Cookies</a><a onclick="showPage('refund')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Reembolsos</a></div></div></footer>
+
+<div id="page-legal" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Aviso legal</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Titular:</b> Kai Jorge</p><p><b>Actividad:</b> Servicio de generación de contenido con IA</p><p><b>Sitio web:</b> oficioai.website</p><p><b>Email de contacto:</b> oficioai.website@gmail.com</p><p style="margin-top:12px">En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa que este sitio web ofrece un servicio de generación de contenido de marketing con inteligencia artificial para profesionales autónomos.</p><p style="margin-top:12px"><b>Propiedad intelectual:</b> El diseño, código fuente y marca OficioAI son propiedad del titular. El contenido generado por la IA para cada usuario es propiedad del usuario que lo genera.</p><p style="margin-top:12px"><b>Limitación de responsabilidad:</b> OficioAI es una herramienta de apoyo que utiliza inteligencia artificial para generar sugerencias de contenido. No garantizamos resultados comerciales específicos. El usuario es el único responsable del uso que haga del contenido generado, incluyendo la verificación de su exactitud y adecuación.</p><p style="margin-top:12px"><b>Jurisdicción:</b> Cualquier controversia se someterá a los tribunales de Alicante, España.</p></div></div></div>
+
+<div id="page-terms" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Términos y condiciones</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>1. Servicio:</b> OficioAI proporciona herramientas de generación de contenido de marketing mediante inteligencia artificial. El contenido generado son sugerencias que el usuario debe revisar antes de usar.</p><p style="margin-top:12px"><b>2. Registro:</b> Para acceder al servicio es necesario crear una cuenta con un email válido. Eres responsable de mantener la seguridad de tu cuenta y contraseña.</p><p style="margin-top:12px"><b>3. Planes y pagos:</b> Ofrecemos un plan gratuito limitado y planes de pago mensuales. Los pagos se procesan de forma segura a través de Stripe. Los precios incluyen IVA cuando corresponda.</p><p style="margin-top:12px"><b>4. Suscripciones:</b> Las suscripciones se renuevan automáticamente cada mes. Puedes cancelar en cualquier momento desde tu panel de Stripe o contactándonos por email. La cancelación es efectiva al final del período facturado.</p><p style="margin-top:12px"><b>5. Contenido generado:</b> El contenido que la IA genera para ti es de tu propiedad. Sin embargo, no garantizamos que sea exacto, completo o adecuado para todos los usos. Eres responsable de revisarlo antes de publicarlo o usarlo.</p><p style="margin-top:12px"><b>6. Uso aceptable:</b> No puedes usar OficioAI para generar contenido ilegal, engañoso, difamatorio o que infrinja derechos de terceros.</p><p style="margin-top:12px"><b>7. Disponibilidad:</b> Nos esforzamos por mantener el servicio disponible, pero no garantizamos un funcionamiento ininterrumpido. Podemos realizar mantenimiento o actualizaciones sin previo aviso.</p><p style="margin-top:12px"><b>8. Modificaciones:</b> Nos reservamos el derecho de modificar estos términos. Notificaremos cambios significativos por email. El uso continuado del servicio implica la aceptación de los términos actualizados.</p><p style="margin-top:12px"><b>9. Ley aplicable:</b> Estos términos se rigen por la legislación española. Para cualquier disputa, se someterán a los tribunales de Alicante, España.</p><p style="margin-top:12px"><b>Última actualización:</b> Octubre 2026</p></div></div></div>
+
+<div id="page-refund" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de reembolsos</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Prueba gratuita:</b> Puedes probar OficioAI de forma gratuita antes de contratar cualquier plan de pago. Te recomendamos usar la versión gratuita para asegurarte de que el servicio es útil para ti.</p><p style="margin-top:12px"><b>Cancelación:</b> Puedes cancelar tu suscripción en cualquier momento. La cancelación es efectiva al final del período de facturación actual. No se realizan cargos adicionales después de la cancelación.</p><p style="margin-top:12px"><b>Reembolsos:</b> Si no estás satisfecho con el servicio, puedes solicitar un reembolso completo dentro de los primeros 14 días naturales desde la fecha de tu primer pago, en cumplimiento con la normativa europea de protección al consumidor. Para solicitar un reembolso, envía un email a oficioai.website@gmail.com con tu email de registro y el motivo.</p><p style="margin-top:12px"><b>Excepciones:</b> No se realizarán reembolsos pasados los 14 días desde el pago, ni por períodos de suscripción ya consumidos.</p><p style="margin-top:12px"><b>Proceso:</b> Los reembolsos se procesan a través de Stripe al mismo método de pago utilizado. El plazo de devolución es de 5-10 días hábiles.</p><p style="margin-top:12px"><b>Contacto:</b> Para cualquier consulta sobre reembolsos, escribe a oficioai.website@gmail.com.</p></div></div></div>
+
+<div id="page-privacy" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de privacidad</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Responsable:</b> OficioAI</p><p><b>Datos que recogemos:</b> Email y contraseña (para tu cuenta), datos profesionales que introduces voluntariamente (nombre del negocio, oficio, zona, servicios) y datos de pago procesados por Stripe.</p><p style="margin-top:12px"><b>Finalidad:</b> Prestación del servicio de generación de contenido con IA y gestión de tu cuenta y suscripción.</p><p style="margin-top:12px"><b>Base legal:</b> Ejecución del contrato de servicio y consentimiento del usuario.</p><p style="margin-top:12px"><b>Almacenamiento:</b> Tus datos se almacenan en Supabase (servidores en la UE). Los pagos se procesan por Stripe. No vendemos ni compartimos tus datos con terceros.</p><p style="margin-top:12px"><b>Tus derechos:</b> Acceso, rectificación, supresión, limitación y portabilidad de tus datos. Puedes ejercerlos escribiendo a oficioai.website@gmail.com.</p><p style="margin-top:12px"><b>Conservación:</b> Tus datos se conservan mientras mantengas tu cuenta activa. Puedes solicitar la eliminación en cualquier momento.</p></div></div></div>
+
+<div id="page-cookies" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Volver</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Política de cookies</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p>Este sitio web utiliza únicamente cookies técnicas necesarias para el funcionamiento del servicio:</p><p style="margin-top:12px"><b>Cookies de sesión:</b> Para mantener tu sesión iniciada. Se eliminan al cerrar el navegador o al cerrar sesión.</p><p style="margin-top:12px"><b>Cookies de Stripe:</b> Necesarias para procesar los pagos de forma segura.</p><p style="margin-top:12px">No utilizamos cookies de publicidad, analítica ni de seguimiento de terceros. Por este motivo, no es necesario mostrar un banner de aceptación de cookies según la normativa vigente (RGPD y LSSI-CE), ya que solo usamos cookies estrictamente necesarias.</p></div></div></div>
+
+<script>
+// ========== CONFIG ==========
+const SUPABASE_URL = 'https://pbnlmjhpxvbohazrqzsj.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_2-IVhKvS8rSk0QlUNHPTig_L1M1QrYM';
+const STRIPE_BASIC = 'https://buy.stripe.com/3cI5kFeENdpb69W4uZ8Zq01';
+const STRIPE_PRO = 'https://buy.stripe.com/dRm6oJeENetf55SgdH8Zq00';
+
+var sb;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) { console.error('Supabase init error:', e); }
+
+let currentUser = null;
+let userProfile = null;
+let currentLang = 'es';
+let authMode = 'signup';
+
+const tradeNames = {es:{builder:'Albañil',painter:'Pintor',plumber:'Fontanero',electrician:'Electricista',carpenter:'Carpintero',renovation:'Reformas integrales',hvac:'Climatización',locksmith:'Cerrajero',gardener:'Jardinero',physiotherapist:'Fisioterapeuta',personal_trainer:'Entrenador personal',nutritionist:'Nutricionista',psychologist:'Psicólogo',dentist:'Dentista',hairdresser:'Peluquero/a',barber:'Barbero',beautician:'Esteticista',nail_tech:'Manicurista',mechanic:'Mecánico',tow_truck:'Grúa / asistencia',driver:'Transportista',photographer:'Fotógrafo',videographer:'Videógrafo',designer:'Diseñador gráfico',tattoo_artist:'Tatuador',cleaner:'Limpieza',tutor:'Profesor particular',pet_groomer:'Peluquería canina',vet:'Veterinario',accountant:'Asesor fiscal',lawyer:'Abogado'},en:{builder:'Builder',painter:'Painter',plumber:'Plumber',electrician:'Electrician',carpenter:'Carpenter',renovation:'Full renovations',hvac:'HVAC',locksmith:'Locksmith',gardener:'Gardener',physiotherapist:'Physiotherapist',personal_trainer:'Personal trainer',nutritionist:'Nutritionist',psychologist:'Psychologist',dentist:'Dentist',hairdresser:'Hairdresser',barber:'Barber',beautician:'Beautician',nail_tech:'Nail technician',mechanic:'Mechanic',tow_truck:'Tow truck / roadside',driver:'Driver / courier',photographer:'Photographer',videographer:'Videographer',designer:'Graphic designer',tattoo_artist:'Tattoo artist',cleaner:'Cleaner',tutor:'Tutor',pet_groomer:'Pet groomer',vet:'Veterinarian',accountant:'Accountant',lawyer:'Lawyer'}};
+
+const tips = {
+es:[
+{title:'Cómo pedir reseñas a tus clientes',sub:'Las reseñas son tu mejor publicidad gratuita.',detail:'Cuando termines un trabajo y el cliente esté contento, dile: "¿Te importaría dejarme una reseña en Google?" Envíale el enlace directo por WhatsApp en las primeras 24 horas. Cada 5 reseñas positivas es como un anuncio permanente.'},
+{title:'Fotos de antes y después',sub:'Un trabajo bien mostrado vale más que mil palabras.',detail:'Antes de empezar, haz 3-4 fotos. Al terminar, las mismas desde el mismo ángulo. Publícalas con un texto corto: qué hiciste, cuánto tardaste, en qué zona. Es el contenido que más atrae nuevos clientes.'},
+{title:'Nunca des precio sin ver el trabajo',sub:'El presupuesto a ciegas te hace perder dinero.',detail:'Responde: "Para darte un precio justo necesito ver el trabajo. ¿Cuándo te viene bien que pase? No compromete a nada." Te posiciona como profesional serio y filtra a los que solo buscan lo más barato.'},
+{title:'Crea tu perfil de Google Business',sub:'Gratis, y es lo primero que ve la gente.',detail:'Entra en business.google.com, crea tu perfil con nombre, oficio, zona y teléfono. Sube fotos de tus trabajos. Cuando busquen "albañil en [tu zona]" aparecerás en el mapa.'},
+{title:'El presupuesto por escrito cierra más trabajos',sub:'Un PDF te diferencia de la competencia.',detail:'Si envías un presupuesto en PDF con tu logo, desglose y precio, pareces una empresa seria. El cliente se fía más y te elige a ti.'},
+{title:'Cómo responder "es muy caro"',sub:'El precio no es el problema — es la percepción de valor.',detail:'No bajes el precio. Explica: "Incluye materiales de calidad, acabado profesional y garantía. Te doy la tranquilidad de que queda bien a la primera."'},
+{title:'WhatsApp Business: úsalo',sub:'Gratis, profesional, con funciones que no conoces.',detail:'Cambia a WhatsApp Business. Pon horario, catálogo con fotos, respuestas rápidas y mensaje automático. Ahorra tiempo y da imagen profesional.'}
+],
+en:[
+{title:'How to ask for reviews',sub:'Reviews are your best free advertising.',detail:'When a happy client finishes, ask directly and send the Google review link via WhatsApp within 24 hours. Every 5 positive reviews works like a permanent ad.'},
+{title:'Before and after photos',sub:'A well-shown job is worth a thousand words.',detail:'Take 3-4 photos before starting, same angles after. Post with a short text: what you did, how long, what area. This content attracts the most new clients.'},
+{title:'Never quote without seeing the job',sub:'Blind quotes cost you money.',detail:'Reply: "To give a fair price I need to see the job. When works for a look? No commitment." Positions you as serious and filters bargain hunters.'},
+{title:'Create your Google Business profile',sub:'Free, and the first thing people see.',detail:'Go to business.google.com, create your profile with name, trade, area and phone. Upload work photos. You\'ll show up on the map.'},
+{title:'Written quotes close more jobs',sub:'A professional PDF sets you apart.',detail:'Send a PDF with your logo, work breakdown, materials and price. You look like a serious business. Clients trust you more.'},
+{title:'How to handle "too expensive"',sub:'Price isn\'t the problem — perceived value is.',detail:'Don\'t drop your price. Explain: "Includes quality materials, professional finish and guarantee. Peace of mind it\'s done right."'},
+{title:'Use WhatsApp Business',sub:'Free, professional features you don\'t know about.',detail:'Switch to WhatsApp Business. Set hours, catalog, quick replies, auto-away message. Saves time, looks professional.'}
+]};
+
+// ========== AUTH ==========
+async function checkSession() {
+  if (!sb) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      currentUser = session.user;
+      await loadProfile();
+      showLoggedInUI();
+      showPage('dashboard');
+    }
+  } catch(e) { console.error('Session check error:', e); }
+}
+
+async function loadProfile() {
+  if (!currentUser) return;
+  const { data } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  userProfile = data || { plan: 'free' };
+}
+
+async function handleAuth() {
+  const email = document.getElementById('auth-email').value.trim();
+  const pass = document.getElementById('auth-pass').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+
+  if (!email || pass.length < 6) { errEl.textContent = 'Email válido y contraseña de 6+ caracteres'; errEl.style.display = 'block'; return; }
+  if (authMode === 'signup' && !document.getElementById('auth-consent').checked) { errEl.textContent = 'Debes aceptar la política de privacidad y los términos'; errEl.style.display = 'block'; return; }
+
+  document.getElementById('auth-btn').disabled = true;
+
+  if (authMode === 'signup') {
+    const { data, error } = await sb.auth.signUp({ email, password: pass });
+    if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; document.getElementById('auth-btn').disabled = false; return; }
+    if (data.user && !data.session) {
+      errEl.style.display = 'block'; errEl.style.background = '#f0fdf4'; errEl.style.color = '#166534';
+      errEl.textContent = 'Revisa tu email para confirmar la cuenta.';
+      document.getElementById('auth-btn').disabled = false; return;
+    }
+    currentUser = data.user;
+  } else {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if (error) { errEl.textContent = 'Email o contraseña incorrectos'; errEl.style.display = 'block'; document.getElementById('auth-btn').disabled = false; return; }
+    currentUser = data.user;
+  }
+
+  await loadProfile();
+  showLoggedInUI();
+  showPage('dashboard');
+  document.getElementById('auth-btn').disabled = false;
+}
+
+function toggleAuthMode() {
+  authMode = authMode === 'signup' ? 'login' : 'signup';
+  document.getElementById('auth-title').textContent = authMode === 'signup' ? 'Crear cuenta' : 'Iniciar sesión';
+  document.getElementById('auth-sub').textContent = authMode === 'signup' ? 'Empieza gratis — no necesitas tarjeta' : 'Bienvenido de vuelta';
+  document.getElementById('auth-btn').textContent = authMode === 'signup' ? 'Crear cuenta' : 'Entrar';
+  document.getElementById('auth-switch-text').textContent = authMode === 'signup' ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?';
+  document.getElementById('auth-switch-link').textContent = authMode === 'signup' ? 'Inicia sesión' : 'Créala gratis';
+  document.getElementById('auth-error').style.display = 'none';
+  document.getElementById('forgot-link').style.display = authMode === 'login' ? 'block' : 'none';
+  document.getElementById('consent-group').style.display = authMode === 'signup' ? 'flex' : 'none';
+}
+
+async function handleForgotPassword() {
+  var email = document.getElementById('auth-email').value.trim();
+  var errEl = document.getElementById('auth-error');
+  if (!email) { errEl.textContent = 'Pon tu email primero'; errEl.style.display = 'block'; return; }
+  var { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://oficioai.website' });
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+  errEl.style.display = 'block'; errEl.style.background = '#f0fdf4'; errEl.style.color = '#166534';
+  errEl.textContent = 'Te hemos enviado un email para restablecer tu contraseña. Revisa tu bandeja.';
+}
+
+async function handleLogout() {
+  await sb.auth.signOut();
+  currentUser = null; userProfile = null;
+  showLoggedOutUI();
+  showPage('home');
+}
+
+function showLoggedInUI() {
+  document.getElementById('nav-logged-in').style.display = 'flex';
+  document.getElementById('nav-user-btn').style.display = 'block';
+  document.getElementById('nav-login-btn').style.display = 'none';
+  document.getElementById('nav-signup-btn').style.display = 'none';
+}
+
+function showLoggedOutUI() {
+  document.getElementById('nav-logged-in').style.display = 'none';
+  document.getElementById('nav-user-btn').style.display = 'none';
+  document.getElementById('nav-login-btn').style.display = 'block';
+  document.getElementById('nav-signup-btn').style.display = 'block';
+}
+
+// ========== NAVIGATION ==========
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  const nb = document.getElementById('nav-' + (id === 'generator' ? 'gen' : id === 'dashboard' ? 'dash' : id === 'analyzer' ? 'analyze' : id));
+  if (nb) nb.classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'dashboard') renderDashboard();
+  if (id === 'account') renderAccount();
+}
+
+function goHome() { showPage(currentUser ? 'dashboard' : 'home'); }
+
+function goGenerate() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('generator');
+}
+
+function goAnalyze() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('analyzer');
+  renderAnalyzer();
+}
+
+function goTips() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('tips');
+  renderTips();
+}
+
+function goUpgrade(plan) {
+  if (!currentUser) { showPage('auth'); return; }
+  var isEn = currentLang === 'en';
+  var price = plan === 'pro' ? '30' : '20';
+  var planName = plan === 'pro' ? 'Pro' : (isEn ? 'Basic' : 'Básico');
+  var features = plan === 'pro'
+    ? (isEn ? 'Everything in Basic + Client compatibility meter + Message analysis + Suggested replies' : 'Todo lo del Básico + Medidor de compatibilidad + Análisis de mensajes + Respuestas sugeridas')
+    : (isEn ? 'Unlimited bio & ads + WhatsApp replies + Tips + PDF quotes + Public web page' : 'Bio y anuncios ilimitados + Respuestas WhatsApp + Consejos + Presupuesto PDF + Página web pública');
+  var cancel = isEn ? 'Cancel anytime. 14-day refund guarantee.' : 'Cancela cuando quieras. Reembolso garantizado en 14 días.';
+  var confirm = isEn ? 'Continue to secure payment' : 'Continuar al pago seguro';
+  var back = isEn ? 'Go back' : 'Volver';
+  var overlay = document.createElement('div');
+  overlay.id = 'stripe-confirm';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = '<div style="background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:32px;max-width:400px;width:100%;box-shadow:var(--shadow-xl);text-align:center"><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:6px">Plan ' + planName + '</h3><p style="font-size:2rem;font-weight:800;color:var(--accent);margin:12px 0">' + price + '€<span style="font-size:.85rem;font-weight:400;color:var(--text-mid)">/mes</span></p><p style="font-size:.85rem;color:var(--text-mid);line-height:1.6;margin-bottom:16px">' + features + '</p><p style="font-size:.78rem;color:var(--text-light);margin-bottom:20px">🔒 ' + cancel + '</p><button onclick="proceedToStripe(\'' + plan + '\')" style="width:100%;padding:14px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(99,102,241,.3);margin-bottom:10px">' + confirm + '</button><button onclick="document.getElementById(\'stripe-confirm\').remove()" style="width:100%;padding:12px;background:none;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.9rem;color:var(--text-mid);cursor:pointer">' + back + '</button></div>';
+  overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+}
+
+function proceedToStripe(plan) {
+  var url = plan === 'pro' ? STRIPE_PRO : STRIPE_BASIC;
+  window.open(url + '?client_reference_id=' + currentUser.id, '_blank');
+  document.getElementById('stripe-confirm').remove();
+}
+
+// ========== DASHBOARD ==========
+async function renderDashboard() {
+  if (!userProfile) await loadProfile();
+  const p = userProfile?.plan || 'free';
+  const name = userProfile?.business_name || currentUser?.email?.split('@')[0] || 'profesional';
+
+  document.getElementById('dash-name').textContent = name;
+  const badge = document.getElementById('dash-plan-badge');
+  badge.textContent = p === 'free' ? 'GRATIS' : p === 'basic' ? 'BÁSICO' : 'PRO';
+  badge.className = 'plan-badge ' + p;
+
+  // Upgrade banner
+  const bannerEl = document.getElementById('upgrade-banner-container');
+  if (p === 'free') {
+    bannerEl.innerHTML = '<div class="upgrade-banner"><h3>Desbloquea todo tu potencial</h3><p>Genera marketing ilimitado, respuestas WhatsApp y consejos profesionales</p><button onclick="goUpgrade(\'basic\')">Mejorar a Básico — 20€/mes</button></div>';
+  } else if (p === 'basic') {
+    bannerEl.innerHTML = '<div class="upgrade-banner"><h3>Analiza tus clientes con IA</h3><p>Descubre qué clientes son serios y cómo responderles para cerrar más trabajos</p><button onclick="goUpgrade(\'pro\')">Mejorar a Pro — 30€/mes</button></div>';
+  } else {
+    bannerEl.innerHTML = '';
+  }
+
+  // Lock cards
+  const analyzeCard = document.getElementById('dash-analyze');
+  const tipsCard = document.getElementById('dash-tips');
+  analyzeCard.className = p === 'pro' ? 'dash-card' : 'dash-card locked';
+  analyzeCard.onclick = p === 'pro' ? () => goAnalyze() : () => goUpgrade('pro');
+  tipsCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  tipsCard.onclick = (p === 'basic' || p === 'pro') ? () => goTips() : () => goUpgrade('basic');
+  var quoteCard = document.getElementById('dash-quote');
+  quoteCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  quoteCard.onclick = (p === 'basic' || p === 'pro') ? () => goQuote() : () => goUpgrade('basic');
+  var profileCard = document.getElementById('dash-profile');
+  profileCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  profileCard.onclick = (p === 'basic' || p === 'pro') ? () => goPublicProfile() : () => goUpgrade('basic');
+
+  // Load history
+  const { data: gens } = await sb.from('generations').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(5);
+  const listEl = document.getElementById('history-list');
+  if (gens && gens.length > 0) {
+    document.getElementById('history-section').style.display = 'block';
+    listEl.innerHTML = gens.map(g => {
+      const date = new Date(g.created_at).toLocaleDateString('es-ES');
+      const type = g.type === 'marketing' ? '📝 Marketing' : '📊 Análisis';
+      const preview = g.output.substring(0, 80) + '...';
+      return `<div class="history-item" onclick="showHistory('${g.id}')"><div class="meta">${type} — ${date}</div><div class="preview">${preview}</div></div>`;
+    }).join('');
+  } else {
+    document.getElementById('history-section').style.display = 'none';
+  }
+}
+
+async function showHistory(id) {
+  const { data } = await sb.from('generations').select('*').eq('id', id).single();
+  if (!data) return;
+  document.getElementById('history-detail-title').textContent = data.type === 'marketing' ? 'Marketing generado' : 'Análisis de cliente';
+  document.getElementById('history-detail-content').innerHTML = `<div class="result-block"><div class="content">${data.output.replace(/</g,'&lt;')}</div><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copiar</button></div>`;
+  showPage('history');
+}
+
+// ========== GENERATOR ==========
+document.getElementById('inp-trade').addEventListener('change', function() {
+  document.getElementById('other-trade-group').style.display = this.value === 'other' ? 'block' : 'none';
+});
+
+async function generateContent() {
+  const name = document.getElementById('inp-name').value.trim();
+  const tradeVal = document.getElementById('inp-trade').value;
+  const otherTrade = document.getElementById('inp-other-trade').value.trim();
+  const zone = document.getElementById('inp-zone').value.trim();
+  const services = document.getElementById('inp-services').value.trim();
+  const years = document.getElementById('inp-years').value.trim();
+  if (!name || !tradeVal || !zone || !services) { alert('Rellena al menos nombre, oficio, zona y servicios.'); return; }
+  const oficio = tradeVal === 'other' ? otherTrade : (tradeNames[currentLang][tradeVal] || tradeVal);
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, trade: oficio, zone, services, years, lang: currentLang, userId: currentUser?.id })
+    });
+    const data = await response.json();
+
+    if (data.error === 'free_limit') {
+      document.getElementById('loading-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      document.getElementById('results-section').innerHTML = `
+        <div class="lock-overlay">
+          <h3>Has alcanzado el límite del plan gratuito</h3>
+          <p>Mejora a Básico para generar marketing ilimitado, respuestas WhatsApp y consejos profesionales.</p>
+          <button onclick="goUpgrade('basic')">Mejorar a Básico — 20€/mes</button>
+        </div>`;
+      return;
+    }
+    if (data.error) throw new Error(data.error);
+    const text = data.text;
+
+    const bioMatch = text.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
+    const adsMatch = text.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
+    const waMatch = text.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
+
+    document.getElementById('result-bio').textContent = bioMatch ? bioMatch[1].trim() : text;
+    document.getElementById('result-ads').textContent = adsMatch ? adsMatch[1].trim() : '';
+
+    const p = userProfile?.plan || 'free';
+    const waEl = document.getElementById('wa-section');
+    if (p === 'basic' || p === 'pro') {
+      const waText = waMatch ? waMatch[1].trim() : '';
+      waEl.innerHTML = `<div class="result-block"><h3>Respuestas WhatsApp</h3><div class="content" id="result-wa">${waText.replace(/</g,'&lt;')}</div><button class="copy-btn" onclick="copyText('result-wa')">Copiar</button></div>`;
+    } else {
+      waEl.innerHTML = `<div class="lock-overlay"><p>🔒 Las respuestas de WhatsApp están disponibles en el plan Básico</p><button onclick="goUpgrade('basic')">Desbloquear — 20€/mes</button></div>`;
+    }
+
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'block';
+  } catch (err) {
+    console.error(err);
+    alert('Error al generar. Inténtalo de nuevo.');
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
+  }
+}
+
+function backToForm() {
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('results-section').innerHTML = `
+    <div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div>
+    <h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Tu marketing listo</h2>
+    <div class="result-block"><h3>Bio profesional</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText('result-bio')">Copiar</button></div>
+    <div class="result-block"><h3>Anuncios</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText('result-ads')">Copiar</button></div>
+    <div id="wa-section"></div>`;
+  document.getElementById('form-section').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// ========== ANALYZER ==========
+function renderAnalyzer() {
+  var p = userProfile?.plan || 'free';
+  var el = document.getElementById('analyzer-content');
+  var isEn = currentLang === 'en';
+  if (p !== 'pro') {
+    el.innerHTML = '<div class="lock-overlay"><h3>🔒 ' + (isEn ? 'Pro feature' : 'Función Pro') + '</h3><p>' + (isEn ? 'The compatibility meter is available on the Pro plan. Analyze client messages and find out who is serious.' : 'El medidor de compatibilidad está disponible en el plan Pro. Analiza mensajes de clientes y descubre quién es serio.') + '</p><button onclick="goUpgrade(\'pro\')">' + (isEn ? 'Unlock — €30/month' : 'Desbloquear — 30€/mes') + '</button></div>';
+    return;
+  }
+  el.innerHTML = '<div class="form-group"><label>' + (isEn ? 'Your trade and services' : 'Tu oficio y servicios') + '</label><textarea id="analyzer-context" rows="2" placeholder="' + (isEn ? 'E.g. I\'m a painter in London. I do interiors, exteriors and lacquer.' : 'Ej: Soy pintor en Valencia. Hago interiores, exteriores y lacados.') + '"></textarea></div><div class="form-group"><label>' + (isEn ? 'Client message' : 'Mensaje del cliente') + '</label><textarea id="analyzer-msg" rows="4" placeholder="' + (isEn ? 'Paste the client message here...' : 'Pega aquí el mensaje del cliente...') + '"></textarea></div><button class="generate-btn" id="btn-analyze" onclick="analyzeClient()">' + (isEn ? 'Analyze client' : 'Analizar cliente') + '</button><div id="analysis-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>' + (isEn ? 'Analyzing the message...' : 'Analizando el mensaje...') + '</p></div></div><div id="analysis-results" style="display:none"><div class="gauge-container"><div class="gauge-score" id="gauge-score">—</div><div class="gauge-label" id="gauge-label"></div><div class="gauge-bar"><div class="gauge-fill" id="gauge-fill" style="width:0%"></div></div></div><div class="analysis-block"><h3>' + (isEn ? 'Analysis' : 'Análisis') + '</h3><div class="content" id="analysis-detail"></div></div><div class="analysis-block" style="margin-top:12px"><h3>' + (isEn ? 'Suggested reply' : 'Respuesta sugerida') + '</h3><div class="content" id="analysis-response"></div><button class="copy-btn" onclick="copyText(\'analysis-response\')">' + (isEn ? 'Copy reply' : 'Copiar respuesta') + '</button></div></div>';
+}
+
+async function analyzeClient() {
+  const context = document.getElementById('analyzer-context').value.trim();
+  const msg = document.getElementById('analyzer-msg').value.trim();
+  if (!context || !msg) { alert('Rellena tu oficio y pega el mensaje del cliente.'); return; }
+
+  document.getElementById('btn-analyze').disabled = true;
+  document.getElementById('analysis-loading').style.display = 'block';
+  document.getElementById('analysis-results').style.display = 'none';
+
+  try {
+    const response = await fetch('/api/analyze', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ context, message: msg, lang: currentLang, userId: currentUser?.id })
+    });
+    const data = await response.json();
+    if (data.error) throw new Error(data.error);
+    const text = data.text;
+
+    const scoreMatch = text.match(/SCORE[:\s]*(\d+)/i) || text.match(/PUNTUACI[ÓO]N[:\s]*(\d+)/i);
+    const levelMatch = text.match(/LEVEL[:\s]*(\w+)/i) || text.match(/NIVEL[:\s]*(\w+)/i);
+    const analysisMatch = text.match(/(?:ANALYSIS|AN[ÁA]LISIS)[:\s]*([\s\S]*?)(?=\n\s*(?:SUGGESTED REPLY|RESPUESTA SUGERIDA))/i);
+    const responseMatch = text.match(/(?:SUGGESTED REPLY|RESPUESTA SUGERIDA)[:\s]*([\s\S]*?)$/i);
+
+    const score = scoreMatch ? parseInt(scoreMatch[1]) : 50;
+    const level = levelMatch ? levelMatch[1].toUpperCase() : 'MEDIUM';
+    const isLow = level==='LOW'||level==='BAJO';
+    const isMid = level==='MEDIUM'||level==='MEDIO';
+    const isHigh = level==='HIGH'||level==='ALTO';
+
+    document.getElementById('gauge-score').textContent = score + '%';
+    document.getElementById('gauge-label').textContent = isLow?'Compatibilidad baja':isMid?'Compatibilidad media':isHigh?'Compatibilidad alta':'Compatibilidad excelente';
+    const fill = document.getElementById('gauge-fill');
+    const color = score<30?'var(--gauge-red)':score<55?'var(--gauge-orange)':score<80?'var(--gauge-green)':'var(--gauge-great)';
+    fill.style.width = '0%'; fill.style.background = color;
+    document.getElementById('gauge-score').style.color = color;
+    document.getElementById('gauge-label').style.color = color;
+    setTimeout(() => { fill.style.width = score + '%'; }, 100);
+
+    document.getElementById('analysis-detail').textContent = analysisMatch ? analysisMatch[1].trim() : text;
+    document.getElementById('analysis-response').textContent = responseMatch ? responseMatch[1].trim() : '';
+
+    document.getElementById('analysis-loading').style.display = 'none';
+    document.getElementById('analysis-results').style.display = 'block';
+  } catch (err) {
+    console.error(err);
+    alert('Error al analizar. Inténtalo de nuevo.');
+    document.getElementById('analysis-loading').style.display = 'none';
+  }
+  document.getElementById('btn-analyze').disabled = false;
+}
+
+// ========== TIPS ==========
+function renderTips() {
+  const p = userProfile?.plan || 'free';
+  const el = document.getElementById('tips-content');
+  if (p === 'free') {
+    el.innerHTML = `<div class="lock-overlay"><h3>🔒 Función Básico</h3><p>Los consejos profesionales están disponibles desde el plan Básico.</p><button onclick="goUpgrade('basic')">Desbloquear — 20€/mes</button></div>`;
+    return;
+  }
+  const t = tips[currentLang];
+  el.innerHTML = t.map(tip => `<div class="tip-card" onclick="this.classList.toggle('open')"><h3>${tip.title}</h3><p>${tip.sub}</p><div class="tip-detail">${tip.detail}</div></div>`).join('');
+}
+
+// ========== ACCOUNT ==========
+async function renderAccount() {
+  if (!userProfile) await loadProfile();
+  document.getElementById('acc-email').textContent = currentUser?.email || '—';
+  const p = userProfile?.plan || 'free';
+  const planText = p === 'free' ? 'Gratis' : p === 'basic' ? 'Básico (20€/mes)' : 'Pro (30€/mes)';
+  document.getElementById('acc-plan').textContent = planText;
+
+  const btnEl = document.getElementById('acc-upgrade-btn');
+  if (p === 'free') btnEl.innerHTML = '<button class="btn-primary" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer" onclick="goUpgrade(\'basic\')">Mejorar a Básico</button>';
+  else if (p === 'basic') btnEl.innerHTML = '<button class="btn-accent" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer" onclick="goUpgrade(\'pro\')">Mejorar a Pro</button>';
+  else btnEl.innerHTML = '';
+
+  const { count } = await sb.from('generations').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id);
+  document.getElementById('acc-gens').textContent = count + ' generaciones';
+
+  // Show manage subscription button for paid plans
+  var subBtn = document.getElementById('manage-sub-btn');
+  if (p === 'basic' || p === 'pro') {
+    subBtn.style.display = 'block';
+    subBtn.textContent = currentLang === 'en' ? 'Manage subscription' : 'Gestionar suscripción';
+  } else {
+    subBtn.style.display = 'none';
+  }
+}
+
+async function openPortal() {
+  var btn = document.getElementById('manage-sub-btn');
+  var origText = btn.textContent;
+  btn.textContent = currentLang === 'en' ? 'Loading...' : 'Cargando...';
+  btn.disabled = true;
+  try {
+    var res = await fetch('/api/create-portal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: currentUser.email })
+    });
+    var data = await res.json();
+    if (data.url) window.open(data.url, '_blank');
+    else alert(currentLang === 'en' ? 'No subscription found. Contact oficioai.website@gmail.com' : 'No se encontró suscripción. Contacta a oficioai.website@gmail.com');
+  } catch(e) {
+    alert(currentLang === 'en' ? 'Error. Contact oficioai.website@gmail.com' : 'Error. Contacta a oficioai.website@gmail.com');
+  }
+  btn.textContent = origText;
+  btn.disabled = false;
+}
+
+// ========== UTILS ==========
+function copyText(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).parentElement.querySelector('.copy-btn');
+    const orig = btn.textContent; btn.textContent = '¡Copiado!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
+
+var UI_TEXT = {
+  es: {
+    nav_panel: 'Panel', nav_gen: 'Generar', nav_analyze: 'Analizar', nav_tips: 'Consejos',
+    enter: 'Entrar', my_account: 'Mi cuenta',
+    hero_title: 'Tus clientes te están buscando.<br><em>Pero no te encuentran.</em>',
+    hero_sub: 'La IA que genera tu marketing completo en 1 minuto. Bio profesional, anuncios, respuestas para clientes — todo listo para copiar y publicar.',
+    hero_cta: 'Ver cómo funciona',
+    demo_title: 'Mira cómo funciona', demo_sub: 'Sin cuenta, sin compromiso — dale al botón y mira la IA en acción',
+    demo_placeholder: 'Ej: Fotógrafo, Peluquera, Albañil...', demo_btn: 'Generar',
+    demo_hint: 'Escribe tu oficio y mira la IA generar marketing en tiempo real',
+    how_title: 'Cómo funciona',
+    step1_t: 'Rellena tus datos', step1_d: 'Nombre, oficio, zona y servicios. Nada más.',
+    step2_t: 'La IA trabaja para ti', step2_d: 'Genera tu bio, anuncios listos para publicar y respuestas para WhatsApp.',
+    step3_t: 'Copia, pega y gana', step3_d: 'Publica en redes, clasificados o responde a clientes en segundos.',
+    pricing: 'Planes', free: 'Gratis', basic: 'Básico', popular: 'Popular',
+    auth_signup: 'Crear cuenta', auth_login: 'Iniciar sesión',
+    auth_sub_signup: 'Empieza gratis — no necesitas tarjeta', auth_sub_login: 'Bienvenido de vuelta',
+    form_title: 'Tu información', form_sub: 'Rellena los datos de tu negocio y la IA hará el resto.',
+    generate_btn: 'Generar mi marketing', back_panel: '← Panel',
+    analyzer_title: 'Medidor de compatibilidad', analyzer_sub: 'Pega el mensaje de un cliente potencial y la IA te dice qué tipo de cliente es y cómo responderle.',
+    analyze_btn: 'Analizar cliente', tips_title: 'Consejos para ganar más',
+    quote_title: 'Presupuesto profesional', quote_sub: 'Describe el trabajo y la IA genera un presupuesto desglosado. Descárgalo como PDF.',
+    quote_btn: 'Generar presupuesto', download_pdf: 'Descargar PDF', edit_prices: 'Editar precios',
+    profile_title: 'Tu página web pública', profile_sub: 'Crea una página profesional que puedes compartir con clientes.',
+    profile_btn: 'Crear mi página', logout: 'Cerrar sesión', copy: 'Copiar'
+  },
+  en: {
+    nav_panel: 'Dashboard', nav_gen: 'Generate', nav_analyze: 'Analyze', nav_tips: 'Tips',
+    enter: 'Sign in', my_account: 'My account',
+    hero_title: 'Your clients are looking for you.<br><em>But they can\'t find you.</em>',
+    hero_sub: 'AI that generates your complete marketing in 1 minute. Professional bio, ads, client responses — ready to copy and publish.',
+    hero_cta: 'See how it works',
+    demo_title: 'See how it works', demo_sub: 'No account needed — hit the button and watch AI in action',
+    demo_placeholder: 'E.g. Photographer, Hairdresser, Builder...', demo_btn: 'Generate',
+    demo_hint: 'Type your trade and watch AI generate marketing in real time',
+    how_title: 'How it works',
+    step1_t: 'Fill in your details', step1_d: 'Name, trade, area and services. That\'s it.',
+    step2_t: 'AI does the work', step2_d: 'Generates your bio, ready-to-post ads and WhatsApp replies.',
+    step3_t: 'Copy, paste and win', step3_d: 'Post on social media, classifieds or reply to clients in seconds.',
+    pricing: 'Plans', free: 'Free', basic: 'Basic', popular: 'Popular',
+    auth_signup: 'Create account', auth_login: 'Sign in',
+    auth_sub_signup: 'Start free — no card required', auth_sub_login: 'Welcome back',
+    form_title: 'Your information', form_sub: 'Fill in your business details and AI does the rest.',
+    generate_btn: 'Generate my marketing', back_panel: '← Dashboard',
+    analyzer_title: 'Compatibility meter', analyzer_sub: 'Paste a potential client\'s message and AI tells you what kind of client they are.',
+    analyze_btn: 'Analyze client', tips_title: 'Tips to earn more',
+    quote_title: 'Professional quote', quote_sub: 'Describe the job and AI generates an itemized quote. Download as PDF.',
+    quote_btn: 'Generate quote', download_pdf: 'Download PDF', edit_prices: 'Edit prices',
+    profile_title: 'Your public web page', profile_sub: 'Create a professional page you can share with clients.',
+    profile_btn: 'Create my page', logout: 'Sign out', copy: 'Copy'
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  document.getElementById('lang-btn').textContent = currentLang === 'es' ? 'EN' : 'ES';
+  document.documentElement.lang = currentLang;
+  applyTranslations();
+}
+
+var TEXT_MAP = [
+  // Nav
+  ['Panel','Dashboard'],['Generar','Generate'],['Analizar','Analyze'],['Consejos','Tips'],
+  ['Entrar','Sign in'],['Mi cuenta','My account'],
+  // Hero
+  ['Ver cómo funciona','See how it works'],
+  ['Por 20€ al mes.','For €20 a month.'],
+  ['Da igual tu oficio — mete tus datos y la IA te genera bio profesional, anuncios y respuestas para conseguir más clientes.',
+   'Whatever your trade — enter your details and AI generates a professional bio, ads and responses to get more clients.'],
+  ['Empezar gratis','Start free'],
+  // Demo
+  ['Mira cómo funciona','See how it works'],
+  ['Sin cuenta, sin compromiso — dale al botón y mira la IA en acción','No account needed — hit the button and watch AI in action'],
+  ['Escribe tu oficio y mira la IA generar marketing en tiempo real','Type your trade and watch AI generate marketing in real time'],
+  // How it works
+  ['Cómo funciona','How it works'],
+  ['Rellena tus datos','Fill in your details'],
+  ['Nombre, oficio, zona y servicios. Nada más.','Name, trade, area and services. That\'s it.'],
+  ['La IA trabaja para ti','AI does the work'],
+  ['Genera tu bio, anuncios listos para publicar y respuestas para WhatsApp.','Generates your bio, ready-to-post ads and WhatsApp replies.'],
+  ['Copia, pega y gana','Copy, paste and win'],
+  ['Publica en redes, clasificados o responde a clientes en segundos.','Post on social media, classifieds or reply to clients in seconds.'],
+  // Pricing
+  ['Planes','Plans'],['Gratis','Free'],['Básico','Basic'],['Popular','Popular'],
+  ['Bio profesional de muestra','Sample professional bio'],
+  ['1 texto de anuncio','1 ad text'],
+  ['Probar ahora','Try now'],
+  ['Bio profesional completa','Full professional bio'],
+  ['Textos de anuncios ilimitados','Unlimited ad texts'],
+  ['Respuestas tipo para WhatsApp','WhatsApp reply templates'],
+  ['Consejos de marketing y negociación','Marketing & negotiation tips'],
+  ['Elegir Básico','Choose Basic'],
+  ['Todo lo del plan Básico','Everything in Basic'],
+  ['Medidor de compatibilidad de clientes','Client compatibility meter'],
+  ['Análisis de mensajes de clientes','Client message analysis'],
+  ['Respuesta sugerida para cerrar el trabajo','Suggested reply to close the job'],
+  ['Elegir Pro','Choose Pro'],
+  // Auth
+  ['Crear cuenta','Create account'],['Iniciar sesión','Sign in'],
+  ['Empieza gratis — no necesitas tarjeta','Start free — no card required'],
+  ['Bienvenido de vuelta','Welcome back'],
+  ['Email','Email'],['Contraseña','Password'],
+  ['¿Ya tienes cuenta?','Already have an account?'],['Inicia sesión','Sign in'],
+  ['¿No tienes cuenta?','Don\'t have an account?'],['Créala gratis','Create one free'],
+  ['¿Has olvidado tu contraseña?','Forgot your password?'],
+  // Dashboard
+  ['📝 Generar marketing','📝 Generate marketing'],
+  ['Bio profesional, anuncios y respuestas para clientes','Professional bio, ads and client responses'],
+  ['📊 Analizar cliente','📊 Analyze client'],
+  ['Pega un mensaje y descubre si el cliente es serio','Paste a message and find out if the client is serious'],
+  ['💡 Consejos','💡 Tips'],
+  ['Tips de marketing, negociación y cómo ganar más','Marketing, negotiation and how to earn more'],
+  ['📄 Presupuesto PDF','📄 PDF Quote'],
+  ['Genera un presupuesto profesional y descárgalo en PDF','Generate a professional quote and download as PDF'],
+  ['🌐 Tu página web','🌐 Your web page'],
+  ['Crea tu página pública con bio, servicios y botón de WhatsApp','Create your public page with bio, services and WhatsApp button'],
+  ['Últimas generaciones','Latest generations'],
+  ['Desbloquea todo tu potencial','Unlock your full potential'],
+  ['Genera marketing ilimitado, respuestas WhatsApp y consejos profesionales','Generate unlimited marketing, WhatsApp replies and professional tips'],
+  ['Analiza tus clientes con IA','Analyze your clients with AI'],
+  ['Descubre qué clientes son serios y cómo responderles para cerrar más trabajos','Find out which clients are serious and how to respond to close more jobs'],
+  // Generator
+  ['Tu información','Your information'],
+  ['Rellena los datos de tu negocio y la IA hará el resto.','Fill in your business details and AI does the rest.'],
+  ['Nombre del profesional o negocio','Professional or business name'],
+  ['Oficio','Trade'],['Selecciona...','Select...'],
+  ['Zona de trabajo','Work area'],
+  ['Servicios principales','Main services'],
+  ['Escribe hasta 5 servicios que ofrezcas','List up to 5 services you offer'],
+  ['Años de experiencia','Years of experience'],
+  ['Generar mi marketing','Generate my marketing'],
+  ['Especifica tu oficio','Specify your trade'],
+  // Results
+  ['Tu marketing listo','Your marketing is ready'],
+  ['Bio profesional','Professional bio'],['Anuncios','Ads'],
+  ['Respuestas WhatsApp','WhatsApp replies'],['Copiar','Copy'],
+  ['← Modificar datos','← Edit details'],
+  // Analyzer
+  ['Medidor de compatibilidad','Compatibility meter'],
+  ['Pega el mensaje de un cliente potencial y la IA te dice qué tipo de cliente es y cómo responderle.',
+   'Paste a potential client\'s message and AI tells you what kind of client they are and how to reply.'],
+  ['Tu oficio y servicios','Your trade and services'],
+  ['Mensaje del cliente','Client message'],
+  ['Analizar cliente','Analyze client'],
+  ['Análisis','Analysis'],['Respuesta sugerida','Suggested reply'],
+  ['Copiar respuesta','Copy reply'],
+  // Tips
+  ['Consejos para ganar más','Tips to earn more'],
+  // Quote
+  ['Presupuesto profesional','Professional quote'],
+  ['Describe el trabajo y la IA genera un presupuesto desglosado. Descárgalo como PDF.',
+   'Describe the job and AI generates an itemized quote. Download as PDF.'],
+  ['Tu nombre o negocio','Your name or business'],['Tu oficio','Your trade'],
+  ['Tu teléfono','Your phone'],['Nombre del cliente','Client name'],
+  ['Describe el trabajo','Describe the job'],
+  ['Generar presupuesto','Generate quote'],
+  ['Descargar PDF','Download PDF'],['Editar precios','Edit prices'],
+  // Profile
+  ['Tu página web pública','Your public web page'],
+  ['Crea una página profesional que puedes compartir con clientes. Incluye tu bio, servicios y botón de WhatsApp.',
+   'Create a professional page to share with clients. Includes your bio, services and WhatsApp button.'],
+  ['URL de tu página','Your page URL'],
+  ['Solo letras, números y guiones. Ejemplo: juan-fontanero','Only letters, numbers and hyphens. Example: john-plumber'],
+  ['Frase de presentación','Tagline'],['Teléfono','Phone'],
+  ['Crear mi página','Create my page'],
+  // Account
+  ['Mi cuenta','My account'],['Email','Email'],
+  ['Plan actual','Current plan'],['Generaciones realizadas','Generations made'],
+  ['Cerrar sesión','Sign out'],
+  // Back
+  ['← Panel','← Dashboard'],['← Volver','← Back'],
+  // Legal
+  ['Aviso legal','Legal notice'],['Privacidad','Privacy'],['Cookies','Cookies'],
+  // Misc
+  ['Generando marketing para ','Generating marketing for '],
+  ['Creando tu material de marketing...','Creating your marketing material...'],
+  ['Analizando el mensaje...','Analyzing the message...'],
+  ['Generando presupuesto...','Generating quote...'],
+  ['Generando tu marketing...','Generating your marketing...'],
+  ['La IA está trabajando...','AI is working...'],
+  ['Crear mi cuenta gratis','Create my free account'],
+  ['Mejorar a Básico','Upgrade to Basic'],['Mejorar a Pro','Upgrade to Pro'],
+  ['Marketing generado','Generated marketing'],['Análisis de cliente','Client analysis'],
+];
+
+function applyTranslations() {
+  var direction = currentLang === 'en' ? 0 : 1; // 0=es→en, 1=en→es
+  var from = direction === 0 ? 0 : 1;
+  var to = direction === 0 ? 1 : 0;
+
+  // Walk ALL text elements including li, .hint, .subtitle
+  var els = document.querySelectorAll('h1,h2,h3,p,button,label,a,option,span,td,th,li,.subtitle,.hint,.mock-label,.plan-badge,.badge,.auth-switch span,.auth-switch a,.stat-label,.gauge-label');
+  els.forEach(function(el) {
+    // Skip if has translatable children (except em/span inside)
+    if (el.querySelector('h1,h2,h3,p,button,label,li')) return;
+    var text = el.innerHTML.trim();
+    for (var i = 0; i < TEXT_MAP.length; i++) {
+      if (text === TEXT_MAP[i][from]) {
+        el.innerHTML = TEXT_MAP[i][to];
+        break;
+      }
+    }
+    // Also check textContent for elements with only text
+    var tc = el.textContent.trim();
+    if (tc !== text) {
+      for (var i = 0; i < TEXT_MAP.length; i++) {
+        if (tc === TEXT_MAP[i][from]) {
+          el.textContent = TEXT_MAP[i][to];
+          break;
+        }
+      }
+    }
+  });
+
+  // Hero title (has em child)
+  var heroT = document.getElementById('hero-title');
+  if (heroT) {
+    if (currentLang === 'en') heroT.innerHTML = 'Your clients are looking for you.<br><em>But they can\'t find you.</em>';
+    else heroT.innerHTML = 'Tus clientes te están buscando.<br><em>Pero no te encuentran.</em>';
+  }
+
+  // Upgrade banner (dynamically rendered)
+  var banner = document.getElementById('upgrade-banner-container');
+  if (banner && banner.innerHTML !== '') {
+    var p = userProfile?.plan || 'free';
+    if (p === 'free') {
+      if (currentLang === 'en') banner.innerHTML = '<div class="upgrade-banner"><h3>Unlock your full potential</h3><p>Generate unlimited marketing, WhatsApp replies and professional tips</p><button onclick="goUpgrade(\'basic\')">Upgrade to Basic — €20/month</button></div>';
+      else banner.innerHTML = '<div class="upgrade-banner"><h3>Desbloquea todo tu potencial</h3><p>Genera marketing ilimitado, respuestas WhatsApp y consejos profesionales</p><button onclick="goUpgrade(\'basic\')">Mejorar a Básico — 20€/mes</button></div>';
+    } else if (p === 'basic') {
+      if (currentLang === 'en') banner.innerHTML = '<div class="upgrade-banner"><h3>Analyze your clients with AI</h3><p>Find out which clients are serious and how to respond to close more jobs</p><button onclick="goUpgrade(\'pro\')">Upgrade to Pro — €30/month</button></div>';
+      else banner.innerHTML = '<div class="upgrade-banner"><h3>Analiza tus clientes con IA</h3><p>Descubre qué clientes son serios y cómo responderles para cerrar más trabajos</p><button onclick="goUpgrade(\'pro\')">Mejorar a Pro — 30€/mes</button></div>';
+    }
+  }
+
+  // Analyzer (dynamically rendered)
+  var analyzerContent = document.getElementById('analyzer-content');
+  if (analyzerContent && analyzerContent.innerHTML !== '') {
+    renderAnalyzer();
+  }
+
+  // Tips (dynamically rendered)
+  var tipsContent = document.getElementById('tips-content');
+  if (tipsContent && tipsContent.innerHTML !== '') {
+    renderTips();
+  }
+
+  // Placeholders
+  var placeholders = {
+    es: {
+      'demo-trade': 'Ej: Fotógrafo, Peluquera, Albañil...',
+      'auth-email': 'tu@email.com',
+      'auth-pass': 'Mínimo 6 caracteres',
+      'inp-name': 'Ej: Juan Reformas, Pinturas López...',
+      'inp-zone': 'Ej: Alicante y alrededores',
+      'inp-services': 'Ej: Reforma de baños, alicatado, tabiquería, pequeñas reparaciones',
+      'inp-other-trade': 'Ej: Instalador de placas solares',
+      'inp-years': 'Ej: 12',
+      'q-name': 'Ej: Miguel Reformas',
+      'q-trade': 'Ej: Albañil',
+      'q-phone': 'Ej: 612 345 678',
+      'q-client': 'Ej: María López',
+      'q-desc': 'Ej: Reforma completa del baño de 6m2, cambiar bañera por plato de ducha',
+      'profile-slug': 'miguel-reformas',
+      'profile-tagline': 'Ej: Tu albañil de confianza en Alicante',
+      'profile-phone': 'Ej: 612 345 678',
+      'profile-whatsapp': 'Ej: 34612345678',
+      'analyzer-context': 'Ej: Soy pintor en Valencia. Hago interiores, exteriores y lacados.',
+      'analyzer-msg': 'Pega aquí el mensaje del cliente...',
+    },
+    en: {
+      'demo-trade': 'E.g. Photographer, Hairdresser, Builder...',
+      'auth-email': 'you@email.com',
+      'auth-pass': 'Minimum 6 characters',
+      'inp-name': 'E.g. Mike\'s Plumbing, Smith Renovations...',
+      'inp-zone': 'E.g. London and surrounding areas',
+      'inp-services': 'E.g. Bathroom renovation, tiling, plastering, small repairs',
+      'inp-other-trade': 'E.g. Solar panel installer',
+      'inp-years': 'E.g. 12',
+      'q-name': 'E.g. Smith Renovations',
+      'q-trade': 'E.g. Builder',
+      'q-phone': 'E.g. +44 7123 456789',
+      'q-client': 'E.g. Sarah Johnson',
+      'q-desc': 'E.g. Full bathroom renovation 6sqm, replace bath with walk-in shower',
+      'profile-slug': 'john-plumber',
+      'profile-tagline': 'E.g. Your trusted builder in London',
+      'profile-phone': 'E.g. +44 7123 456789',
+      'profile-whatsapp': 'E.g. 447123456789',
+      'analyzer-context': 'E.g. I\'m a painter in London. I do interiors, exteriors and lacquer.',
+      'analyzer-msg': 'Paste the client message here...',
+    }
+  };
+  var ph = placeholders[currentLang];
+  for (var id in ph) {
+    var el = document.getElementById(id);
+    if (el) el.placeholder = ph[id];
+  }
+
+  // Select options for trades
+  var tradeSelect = document.getElementById('inp-trade');
+  if (tradeSelect) {
+    var optgroups = tradeSelect.querySelectorAll('optgroup');
+    var groupLabels = {
+      es: ['Construcción y oficios','Salud y bienestar','Estética y belleza','Motor y transporte','Creativos','Servicios'],
+      en: ['Construction & trades','Health & wellness','Beauty & aesthetics','Motor & transport','Creatives','Services']
+    };
+    optgroups.forEach(function(og, i) {
+      if (groupLabels[currentLang][i]) og.label = groupLabels[currentLang][i];
+    });
+    // Translate option texts
+    var optMap = {
+      es: {builder:'Albañil',painter:'Pintor',plumber:'Fontanero',electrician:'Electricista',carpenter:'Carpintero',renovation:'Reformas integrales',hvac:'Climatización',locksmith:'Cerrajero',gardener:'Jardinero',physiotherapist:'Fisioterapeuta',personal_trainer:'Entrenador personal',nutritionist:'Nutricionista',psychologist:'Psicólogo',dentist:'Dentista',hairdresser:'Peluquero/a',barber:'Barbero',beautician:'Esteticista',nail_tech:'Manicurista',mechanic:'Mecánico',tow_truck:'Grúa / asistencia',driver:'Transportista',photographer:'Fotógrafo',videographer:'Videógrafo',designer:'Diseñador gráfico',tattoo_artist:'Tatuador',cleaner:'Limpieza',tutor:'Profesor particular',pet_groomer:'Peluquería canina',vet:'Veterinario',accountant:'Asesor fiscal',lawyer:'Abogado',other:'Otro'},
+      en: {builder:'Builder',painter:'Painter',plumber:'Plumber',electrician:'Electrician',carpenter:'Carpenter',renovation:'Full renovations',hvac:'HVAC',locksmith:'Locksmith',gardener:'Gardener',physiotherapist:'Physiotherapist',personal_trainer:'Personal trainer',nutritionist:'Nutritionist',psychologist:'Psychologist',dentist:'Dentist',hairdresser:'Hairdresser',barber:'Barber',beautician:'Beautician',nail_tech:'Nail technician',mechanic:'Mechanic',tow_truck:'Tow truck / roadside',driver:'Driver / courier',photographer:'Photographer',videographer:'Videographer',designer:'Graphic designer',tattoo_artist:'Tattoo artist',cleaner:'Cleaner',tutor:'Tutor',pet_groomer:'Pet groomer',vet:'Veterinarian',accountant:'Accountant',lawyer:'Lawyer',other:'Other'}
+    };
+    tradeSelect.querySelectorAll('option[value]').forEach(function(opt) {
+      var v = opt.value;
+      if (v && optMap[currentLang][v]) opt.textContent = optMap[currentLang][v];
+      if (v === '') opt.textContent = currentLang === 'es' ? 'Selecciona...' : 'Select...';
+    });
+  }
+}
+
+// ========== PRE-FILL FORM ==========
+async function prefillForm() {
+  if (!userProfile) return;
+  if (userProfile.business_name) document.getElementById('inp-name').value = userProfile.business_name;
+  if (userProfile.zone) document.getElementById('inp-zone').value = userProfile.zone;
+  if (userProfile.services) document.getElementById('inp-services').value = userProfile.services;
+  if (userProfile.years_experience) document.getElementById('inp-years').value = userProfile.years_experience;
+  if (userProfile.trade) {
+    const sel = document.getElementById('inp-trade');
+    const opts = Array.from(sel.options);
+    const match = opts.find(o => tradeNames.es[o.value] === userProfile.trade || tradeNames.en[o.value] === userProfile.trade);
+    if (match) sel.value = match.value;
+  }
+}
+
+// ========== LIVE DEMO ==========
+function runDemoFromInput() {
+  var trade = document.getElementById('demo-trade').value.trim();
+  if (!trade) { document.getElementById('demo-trade').focus(); return; }
+  runDemo(trade, trade + ' Pro', 'Tu zona', 'Servicios profesionales de ' + trade.toLowerCase(), '10');
+}
+
+async function runDemo(trade, name, zone, services, years) {
+  var out = document.getElementById('demo-output');
+  out.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.85rem;color:var(--text-mid)">Generando marketing para ' + trade + '...</span></div><div id="demo-stream" style="font-size:.85rem;color:var(--text);line-height:1.7;white-space:pre-wrap"></div>';
+
+  try {
+    var response = await fetch('/api/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, trade: trade, zone: zone, services: services, years: years, lang: currentLang })
+    });
+    var data = await response.json();
+    if (data.error) throw new Error(data.error);
+
+    var streamEl = document.getElementById('demo-stream');
+    var text = data.text;
+    var i = 0;
+    out.querySelector('.spinner').parentElement.remove();
+
+    function typeChar() {
+      if (i < text.length) {
+        streamEl.textContent += text[i];
+        i++;
+        setTimeout(typeChar, 8);
+      } else {
+        streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:var(--accent);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer">Crear mi cuenta gratis</button></div>');
+      }
+    }
+    typeChar();
+  } catch(err) {
+    // Fallback — show a pre-built demo so the user always sees something
+    var fallback = currentLang === 'en'
+      ? '📝 PROFESSIONAL BIO:\n' + name + '. ' + trade + ' in ' + zone + '. ' + years + ' years of experience delivering quality work. Reliable, clean finishes, fair prices. Ask for a free quote.\n\n📢 AD:\nLooking for a ' + trade.toLowerCase() + ' in ' + zone + '? ' + years + ' years of experience. Professional results, quality materials, no shortcuts. Free quote — call today.\n\n💬 WHATSAPP REPLY:\nHi, thanks for reaching out. To give you an accurate price I\'d need to see the job. When works for you? No commitment.'
+      : '📝 BIO PROFESIONAL:\n' + name + '. ' + trade + ' en ' + zone + '. ' + years + ' años de experiencia haciendo trabajos de calidad. Serio, acabados limpios, precios justos. Pide presupuesto sin compromiso.\n\n📢 ANUNCIO:\n¿Buscas un ' + trade.toLowerCase() + ' en ' + zone + '? ' + years + ' años de experiencia. Acabado profesional, materiales de primera, sin atajos. Presupuesto gratis — llama hoy.\n\n💬 RESPUESTA WHATSAPP:\nHola, gracias por escribirme. Para darte un precio justo necesito ver el trabajo. ¿Cuándo te viene bien? Sin compromiso.';
+    var streamEl = document.getElementById('demo-stream');
+    if (out.querySelector('.spinner')) out.querySelector('.spinner').parentElement.remove();
+    var i = 0;
+    function typeChar() {
+      if (i < fallback.length) {
+        streamEl.textContent += fallback[i];
+        i++;
+        setTimeout(typeChar, 8);
+      } else {
+        streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(99,102,241,.3)">Crear mi cuenta gratis</button></div>');
+      }
+    }
+    typeChar();
+  }
+}
+
+// ========== GENERATE WITH TYPING EFFECT ==========
+async function generateContentStream() {
+  var name = document.getElementById('inp-name').value.trim();
+  var tradeVal = document.getElementById('inp-trade').value;
+  var otherTrade = document.getElementById('inp-other-trade').value.trim();
+  var zone = document.getElementById('inp-zone').value.trim();
+  var services = document.getElementById('inp-services').value.trim();
+  var years = document.getElementById('inp-years').value.trim();
+  if (!name || !tradeVal || !zone || !services) { alert('Rellena al menos nombre, oficio, zona y servicios.'); return; }
+  var oficio = tradeVal === 'other' ? otherTrade : (tradeNames[currentLang][tradeVal] || tradeVal);
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
+
+  try {
+    var response = await fetch('/api/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, trade: oficio, zone: zone, services: services, years: years, lang: currentLang, userId: currentUser?.id })
+    });
+    var data = await response.json();
+
+    if (data.error === 'free_limit') {
+      document.getElementById('loading-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      document.getElementById('results-section').innerHTML = '<div class="lock-overlay"><h3>Has alcanzado el límite del plan gratuito</h3><p>Mejora a Básico para generar marketing ilimitado.</p><button onclick="goUpgrade(\'basic\')">Mejorar a Básico — 20€/mes</button></div>';
+      return;
+    }
+    if (data.error) throw new Error(data.error);
+
+    var text = data.text;
+    var bioMatch = text.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
+    var adsMatch = text.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
+    var waMatch = text.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
+
+    var p = userProfile?.plan || 'free';
+    var html = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Modificar datos</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Tu marketing listo</h2>';
+    html += '<div class="result-block"><h3>Bio profesional</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText(\'result-bio\')">Copiar</button></div>';
+    html += '<div class="result-block"><h3>Anuncios</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText(\'result-ads\')">Copiar</button></div>';
+    if (p === 'basic' || p === 'pro') {
+      html += '<div class="result-block"><h3>Respuestas WhatsApp</h3><div class="content" id="result-wa"></div><button class="copy-btn" onclick="copyText(\'result-wa\')">Copiar</button></div>';
+    } else {
+      html += '<div class="lock-overlay"><p>🔒 Las respuestas de WhatsApp están disponibles en el plan Básico</p><button onclick="goUpgrade(\'basic\')">Desbloquear — 20€/mes</button></div>';
+    }
+
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'block';
+    document.getElementById('results-section').innerHTML = html;
+
+    // Typing effect
+    function typeInto(elId, text, cb) {
+      var el = document.getElementById(elId);
+      if (!el || !text) { if (cb) cb(); return; }
+      var i = 0;
+      function t() {
+        if (i < text.length) { el.textContent += text[i]; i++; setTimeout(t, 6); }
+        else { if (cb) cb(); }
+      }
+      t();
+    }
+
+    var bioText = bioMatch ? bioMatch[1].trim() : '';
+    var adsText = adsMatch ? adsMatch[1].trim() : '';
+    var waText = waMatch ? waMatch[1].trim() : '';
+
+    typeInto('result-bio', bioText, function() {
+      typeInto('result-ads', adsText, function() {
+        if (p === 'basic' || p === 'pro') typeInto('result-wa', waText);
+      });
+    });
+
+  } catch(err) {
+    console.error(err);
+    alert('Error al generar. Inténtalo de nuevo.');
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
+  }
+}
+
+// ========== QUOTE BUILDER ==========
+var currentQuote = null;
+
+function goQuote() {
+  if (!currentUser) { showPage('auth'); return; }
+  var p = userProfile?.plan || 'free';
+  if (p === 'free') { goUpgrade('basic'); return; }
+  showPage('quote');
+  // Prefill from profile
+  if (userProfile?.business_name) document.getElementById('q-name').value = userProfile.business_name;
+  if (userProfile?.trade) document.getElementById('q-trade').value = userProfile.trade;
+  if (userProfile?.phone) document.getElementById('q-phone').value = userProfile.phone;
+}
+
+async function generateQuote() {
+  var trade = document.getElementById('q-trade').value.trim();
+  var desc = document.getElementById('q-desc').value.trim();
+  if (!trade || !desc) { alert('Rellena tu oficio y la descripción del trabajo.'); return; }
+
+  document.getElementById('btn-quote').disabled = true;
+  document.getElementById('quote-loading').style.display = 'block';
+  document.getElementById('quote-result').style.display = 'none';
+
+  try {
+    var response = await fetch('/api/generate-quote', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ trade: trade, description: desc, userId: currentUser?.id, lang: currentLang })
+    });
+    var data = await response.json();
+    if (data.error === 'plan_required') { goUpgrade('basic'); return; }
+    if (data.error) throw new Error(data.error);
+
+    currentQuote = data.quote;
+    document.getElementById('q-title').textContent = currentQuote.title || 'Presupuesto';
+
+    var total = 0;
+    var itemsHtml = '';
+    for (var i = 0; i < currentQuote.items.length; i++) {
+      var item = currentQuote.items[i];
+      total += item.price;
+      itemsHtml += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0">' + item.description + '</td><td style="padding:8px 0;text-align:right;font-weight:600">' + item.price + ' €</td></tr>';
+    }
+    document.getElementById('q-items').innerHTML = itemsHtml;
+    document.getElementById('q-total').textContent = total + ' €';
+    document.getElementById('q-notes').textContent = (currentQuote.notes || '') + ' ' + (currentQuote.validity || '');
+
+    document.getElementById('quote-loading').style.display = 'none';
+    document.getElementById('quote-result').style.display = 'block';
+  } catch(err) {
+    console.error(err);
+    alert('Error al generar. Inténtalo de nuevo.');
+    document.getElementById('quote-loading').style.display = 'none';
+  }
+  document.getElementById('btn-quote').disabled = false;
+}
+
+function editQuoteItems() {
+  if (!currentQuote) return;
+  var items = currentQuote.items;
+  for (var i = 0; i < items.length; i++) {
+    var newPrice = prompt(items[i].description + ' — Precio actual: ' + items[i].price + '€\nNuevo precio:', items[i].price);
+    if (newPrice !== null) items[i].price = parseInt(newPrice) || items[i].price;
+  }
+  // Re-render
+  var total = 0;
+  var itemsHtml = '';
+  for (var i = 0; i < items.length; i++) {
+    total += items[i].price;
+    itemsHtml += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0">' + items[i].description + '</td><td style="padding:8px 0;text-align:right;font-weight:600">' + items[i].price + ' €</td></tr>';
+  }
+  document.getElementById('q-items').innerHTML = itemsHtml;
+  document.getElementById('q-total').textContent = total + ' €';
+}
+
+function downloadQuotePDF() {
+  if (!currentQuote) return;
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF();
+  var name = document.getElementById('q-name').value.trim() || 'Profesional';
+  var phone = document.getElementById('q-phone').value.trim();
+  var client = document.getElementById('q-client').value.trim() || 'Cliente';
+  var today = new Date().toLocaleDateString('es-ES');
+
+  // Header - accent bar
+  doc.setFillColor(79, 70, 229);
+  doc.rect(0, 0, 210, 4, 'F');
+
+  // Business name
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(17, 24, 39);
+  doc.text(name, 20, 28);
+
+  // Contact
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  if (phone) doc.text(phone, 20, 36);
+
+  // PRESUPUESTO title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(79, 70, 229);
+  doc.text('PRESUPUESTO', 150, 20);
+
+  // Date and client
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  doc.text('Fecha: ' + today, 150, 28);
+  doc.text('Cliente: ' + client, 150, 36);
+
+  // Divider
+  doc.setDrawColor(229, 231, 235);
+  doc.line(20, 45, 190, 45);
+
+  // Title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.setTextColor(17, 24, 39);
+  doc.text(currentQuote.title || 'Presupuesto', 20, 58);
+
+  // Table header
+  var y = 70;
+  doc.setFillColor(249, 250, 251);
+  doc.rect(20, y - 6, 170, 10, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(107, 114, 128);
+  doc.text('CONCEPTO', 22, y);
+  doc.text('PRECIO', 178, y, { align: 'right' });
+
+  // Items
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(55, 65, 81);
+  var total = 0;
+  y += 12;
+
+  for (var i = 0; i < currentQuote.items.length; i++) {
+    var item = currentQuote.items[i];
+    total += item.price;
+    doc.text(item.description, 22, y);
+    doc.setFont('helvetica', 'bold');
+    doc.text(item.price + ' €', 178, y, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setDrawColor(243, 244, 246);
+    doc.line(20, y + 4, 190, y + 4);
+    y += 12;
+  }
+
+  // Total
+  y += 4;
+  doc.setFillColor(249, 250, 251);
+  doc.rect(120, y - 6, 70, 12, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(17, 24, 39);
+  doc.text('TOTAL', 122, y);
+  doc.setTextColor(79, 70, 229);
+  doc.text(total + ' €', 178, y, { align: 'right' });
+
+  // Notes
+  if (currentQuote.notes || currentQuote.validity) {
+    y += 24;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(156, 163, 175);
+    var notes = (currentQuote.notes || '') + ' ' + (currentQuote.validity || '');
+    var splitNotes = doc.splitTextToSize(notes, 170);
+    doc.text(splitNotes, 20, y);
+  }
+
+  // Footer
+  doc.setFontSize(7);
+  doc.setTextColor(156, 163, 175);
+  doc.text('Generado con OficioAI', 105, 285, { align: 'center' });
+
+  // Bottom bar
+  doc.setFillColor(79, 70, 229);
+  doc.rect(0, 293, 210, 4, 'F');
+
+  doc.save('presupuesto-' + client.toLowerCase().replace(/\s+/g, '-') + '.pdf');
+}
+
+// ========== PUBLIC PROFILE ==========
+function goPublicProfile() {
+  if (!currentUser) { showPage('auth'); return; }
+  var p = userProfile?.plan || 'free';
+  if (p === 'free') { goUpgrade('basic'); return; }
+  showPage('public-profile');
+}
+
+async function savePublicProfile() {
+  var slug = document.getElementById('profile-slug').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  var phone = document.getElementById('profile-phone').value.trim();
+  var whatsapp = document.getElementById('profile-whatsapp').value.trim();
+  var tagline = document.getElementById('profile-tagline').value.trim();
+  if (!slug) { alert('Pon un nombre para tu URL'); return; }
+
+  var response = await fetch('/api/profile', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId: currentUser.id, slug: slug, phone: phone, whatsapp: whatsapp, tagline: tagline })
+  });
+  var data = await response.json();
+  if (data.error === 'slug_taken') { alert('Esa URL ya está cogida, prueba otra'); return; }
+  if (data.url) {
+    document.getElementById('profile-result').innerHTML = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;text-align:center"><p style="font-size:.88rem;color:var(--text-mid);margin-bottom:8px">Tu página pública está lista:</p><a href="' + data.url + '" target="_blank" style="font-size:1rem;font-weight:700;color:var(--accent)">' + data.url + '</a></div>';
+    await loadProfile();
+  }
+}
+
+// ========== INIT ==========
+if (sb) {
+  try {
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        currentUser = session.user;
+        await loadProfile();
+        showLoggedInUI();
+        prefillForm();
+      }
+    });
+  } catch(e) { console.error('Auth listener error:', e); }
+}
+
+checkSession();
+applyTranslations();
+</script>
+<script>
+/* ================= PREMIUM LAYER ================= */
+(function() {
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* ---- Loader ---- */
+  var t0 = Date.now();
+  function hideLoader() {
+    var wait = Math.max(0, 1100 - (Date.now() - t0));
+    setTimeout(function() {
+      var l = document.getElementById('loader');
+      if (l) l.classList.add('hide');
+      root.classList.add('loaded');
+      setTimeout(function() { if (l && l.parentNode) l.parentNode.removeChild(l); }, 900);
+    }, wait);
+  }
+  if (document.readyState === 'complete') hideLoader(); else window.addEventListener('load', hideLoader);
+
+  /* ---- Hero extras: badge, stats, particles ---- */
+  var hero = document.querySelector('#page-home .hero');
+  if (hero) {
+    hero.insertAdjacentHTML('afterbegin', '<div class="hero-badge"><b>NUEVO</b><span id="hero-badge-txt">IA para autónomos de cualquier oficio</span></div>');
+    hero.insertAdjacentHTML('afterend',
+      '<div class="stats" id="stats">' +
+      '<div class="stat"><b data-count="30" data-prefix="+">+30</b><span>Oficios</span></div>' +
+      '<div class="stat"><b data-count="60" data-suffix="s">60s</b><span>Tu marketing listo</span></div>' +
+      '<div class="stat"><b data-count="2">2</b><span>Idiomas</span></div>' +
+      '<div class="stat"><b data-count="14">14</b><span>Días de garantía</span></div>' +
+      '</div>');
+    if (!reduce) startParticles(hero);
+  }
+  if (typeof TEXT_MAP !== 'undefined') {
+    TEXT_MAP.push(['IA para autónomos de cualquier oficio', 'AI for self-employed pros in any trade']);
+    TEXT_MAP.push(['Oficios', 'Trades']);
+    TEXT_MAP.push(['Tu marketing listo', 'Your marketing ready']);
+    TEXT_MAP.push(['Idiomas', 'Languages']);
+    TEXT_MAP.push(['Días de garantía', 'Day refund guarantee']);
+    TEXT_MAP.push(['NUEVO', 'NEW']);
+  }
+
+  function startParticles(host) {
+    var c = document.createElement('canvas');
+    c.className = 'hero-canvas';
+    host.insertBefore(c, host.firstChild);
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0, pts = [], running = true;
+    function size() {
+      var r = c.getBoundingClientRect();
+      W = r.width; H = r.height;
+      c.width = W * dpr; c.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(60, W * H / 9000));
+      pts = [];
+      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25, r: Math.random() * 1.6 + .6 });
+    }
+    var mx = -999, my = -999;
+    host.addEventListener('pointermove', function(e) { var r = c.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
+    host.addEventListener('pointerleave', function() { mx = my = -999; });
+    function frame() {
+      if (!running) return;
+      var home = document.getElementById('page-home');
+      if (home && home.classList.contains('active') && !document.hidden) {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < pts.length; i++) {
+          var p = pts[i];
+          var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+          if (d2 < 12000) { p.vx += dx / 9000; p.vy += dy / 9000; }
+          p.vx *= .985; p.vy *= .985;
+          p.vx += (Math.random() - .5) * .01; p.vy += (Math.random() - .5) * .01;
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
+          ctx.fillStyle = 'rgba(165,180,252,.55)'; ctx.fill();
+          for (var j = i + 1; j < pts.length; j++) {
+            var q = pts[j], ex = p.x - q.x, ey = p.y - q.y, e2 = ex * ex + ey * ey;
+            if (e2 < 9000) {
+              ctx.strokeStyle = 'rgba(129,140,248,' + (0.18 * (1 - e2 / 9000)).toFixed(3) + ')';
+              ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+            }
+          }
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+    size(); window.addEventListener('resize', size); requestAnimationFrame(frame);
+  }
+
+  /* ---- Scroll progress + nav ---- */
+  var prog = document.getElementById('scroll-prog'), nav = document.querySelector('nav'), ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? window.scrollY / h : 0;
+      if (prog) prog.style.transform = 'scaleX(' + p + ')';
+      if (nav) nav.classList.toggle('scrolled', window.scrollY > 10);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* ---- Scroll reveal ---- */
+  function countUp(el) {
+    var to = +el.getAttribute('data-count'), pre = el.getAttribute('data-prefix') || '', suf = el.getAttribute('data-suffix') || '';
+    var start = performance.now(), dur = 1400;
+    function step(now) {
+      var k = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = pre + Math.round(to * e) + suf;
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var groups = [
+    '#stats .stat', '#demo-section > *', '#page-home .section-title', '#page-home .step',
+    '#testimonials > div', '#page-home .price-card', '#faq-container .tip-card',
+    '#page-home .demo-section ~ div > h2', '#final-cta-title', '#final-cta-sub'
+  ];
+  var seen = [];
+  groups.forEach(function(sel) {
+    var list = document.querySelectorAll(sel);
+    Array.prototype.forEach.call(list, function(el, i) {
+      if (seen.indexOf(el) !== -1) return;
+      seen.push(el);
+      el.classList.add('rv');
+      el.style.setProperty('--d', (Math.min(i, 6) * 0.08) + 's');
+    });
+  });
+  var urg = document.getElementById('urgency-text');
+  if (urg && urg.parentElement) { urg.parentElement.classList.add('rv'); seen.push(urg.parentElement); }
+
+  function reveal(el) {
+    el.classList.add('rv-in');
+    if (el.classList.contains('stat')) { var b = el.querySelector('b[data-count]'); if (b) countUp(b); }
+    var delay = parseFloat(el.style.getPropertyValue('--d')) || 0;
+    setTimeout(function() { el.classList.remove('rv', 'rv-in'); el.style.removeProperty('--d'); }, 1100 + delay * 1000);
+  }
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) { if (en.isIntersecting) { io.unobserve(en.target); reveal(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    seen.forEach(function(el) { io.observe(el); });
+  } else {
+    seen.forEach(reveal);
+  }
+
+  /* ---- Desktop-only: tilt, spotlight, magnetic, cursor glow ---- */
+  if (!finePointer || reduce) return;
+
+  var glow = document.getElementById('cursor-glow');
+  window.addEventListener('pointermove', function(e) {
+    if (!glow) return;
+    glow.classList.add('on');
+    glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+  }, { passive: true });
+  document.addEventListener('pointerleave', function() { if (glow) glow.classList.remove('on'); });
+
+  var tiltEls = document.querySelectorAll('#page-home .step, #page-home .price-card, #testimonials > div, #stats .stat');
+  Array.prototype.forEach.call(tiltEls, function(el) {
+    el.classList.add('tilt');
+    var max = el.classList.contains('price-card') ? 6 : 8;
+    el.addEventListener('pointermove', function(e) {
+      var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--mx', (x * 100) + '%'); el.style.setProperty('--my', (y * 100) + '%');
+      el.style.transition = 'transform .12s ease-out';
+      el.style.transform = 'perspective(900px) rotateX(' + ((.5 - y) * max).toFixed(2) + 'deg) rotateY(' + ((x - .5) * max).toFixed(2) + 'deg) translateY(-4px)';
+    });
+    el.addEventListener('pointerleave', function() {
+      el.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)';
+      el.style.transform = '';
+    });
+  });
+
+  var magnets = document.querySelectorAll('#page-home .cta-main');
+  Array.prototype.forEach.call(magnets, function(b) {
+    b.classList.add('magnet');
+    b.addEventListener('pointermove', function(e) {
+      var r = b.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      b.style.transform = 'translate(' + (dx * .18).toFixed(1) + 'px,' + (dy * .3).toFixed(1) + 'px) scale(1.03)';
+    });
+    b.addEventListener('pointerleave', function() { b.style.transform = ''; });
+  });
+})();
+</script>
+</body>
+</html>
