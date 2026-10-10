@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OficioAI — AI Marketing for Every Trade</title>
+<meta name="description" content="Generate a professional bio, ads, WhatsApp replies and PDF quotes with AI. For tradespeople and self-employed professionals across the UK. Try it free.">
+<meta name="keywords" content="marketing for tradespeople, AI, artificial intelligence, builder, plumber, painter, electrician, quote, ads, WhatsApp, UK trades">
+<meta name="author" content="OficioAI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://oficioai.website">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oficioai.website">
+<meta property="og:title" content="OficioAI — AI Marketing for Every Trade">
+<meta property="og:description" content="Generate a professional bio, ads and client replies in 1 minute. For tradespeople in any trade. Free.">
+<meta property="og:image" content="https://oficioai.website/oficioai_og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OficioAI — AI Marketing for Every Trade">
+<meta name="twitter:description" content="Generate a professional bio, ads and client replies in 1 minute. Free.">
+<meta name="twitter:image" content="https://oficioai.website/oficioai_og-image.png">
+<meta name="theme-color" content="#4F46E5">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#fafbff;--surface:#ffffff;--primary:#0f172a;--primary-light:#334155;--accent:#6366F1;--accent-hover:#4F46E5;--accent-glow:rgba(99,102,241,.12);--accent-glow-strong:rgba(99,102,241,.25);--text:#0f172a;--text-mid:#64748b;--text-light:#94a3b8;--border:rgba(148,163,184,.2);--shadow-sm:0 1px 3px rgba(0,0,0,.03),0 1px 2px rgba(0,0,0,.04);--shadow:0 4px 20px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03);--shadow-lg:0 12px 40px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.04);--shadow-xl:0 20px 60px rgba(0,0,0,.08);--shadow-btn:0 4px 16px rgba(99,102,241,.3);--shadow-btn-hover:0 8px 30px rgba(99,102,241,.4);--glass:rgba(255,255,255,.7);--glass-border:rgba(255,255,255,.5);--gauge-red:#EF4444;--gauge-orange:#F59E0B;--gauge-green:#10B981;--gauge-great:#6366F1;--radius:16px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#050507;--surface:rgba(30,30,35,.6);--text:#f1f5f9;--text-mid:#94a3b8;--text-light:#64748b;--border:rgba(148,163,184,.1);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow:0 4px 20px rgba(0,0,0,.4);--shadow-lg:0 12px 40px rgba(0,0,0,.5);--shadow-xl:0 20px 60px rgba(0,0,0,.6);--shadow-btn:0 4px 16px rgba(129,140,248,.25);--shadow-btn-hover:0 8px 30px rgba(129,140,248,.35);--accent-glow:rgba(129,140,248,.1);--accent-glow-strong:rgba(129,140,248,.2);--glass:rgba(30,30,35,.6);--glass-border:rgba(255,255,255,.06);--primary:#e2e8f0;--primary-light:#cbd5e1;--accent:#818CF8;--accent-hover:#6366F1}}
+:root[data-theme="dark"]{--bg:#050507;--surface:rgba(30,30,35,.6);--text:#f1f5f9;--text-mid:#94a3b8;--text-light:#64748b;--border:rgba(148,163,184,.1);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow:0 4px 20px rgba(0,0,0,.4);--shadow-lg:0 12px 40px rgba(0,0,0,.5);--shadow-xl:0 20px 60px rgba(0,0,0,.6);--shadow-btn:0 4px 16px rgba(129,140,248,.25);--shadow-btn-hover:0 8px 30px rgba(129,140,248,.35);--accent-glow:rgba(129,140,248,.1);--accent-glow-strong:rgba(129,140,248,.2);--glass:rgba(30,30,35,.6);--glass-border:rgba(255,255,255,.06);--primary:#e2e8f0;--primary-light:#cbd5e1;--accent:#818CF8;--accent-hover:#6366F1}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:640px;margin:0 auto;padding:0 20px}
+/* NAV — frosted glass */
+nav{padding:14px 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:100;backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);background:var(--glass);border-bottom:1px solid var(--glass-border)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.3rem;font-weight:800;color:var(--primary);letter-spacing:-.5px;cursor:pointer}.logo span{background:linear-gradient(135deg,#6366F1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-links{display:flex;gap:3px}
+.nav-links button{background:none;border:none;border-radius:10px;padding:7px 12px;font-family:inherit;font-size:.8rem;color:var(--text-mid);cursor:pointer;transition:all .2s;position:relative}
+.nav-links button:hover{color:var(--accent);background:var(--accent-glow)}
+.nav-links button.active{color:var(--accent);background:var(--accent-glow);font-weight:700}
+.nav-links button.locked{opacity:.35}
+.lang-toggle{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px;padding:6px 12px;font-family:inherit;font-size:.78rem;font-weight:700;color:var(--accent);cursor:pointer;transition:all .2s}
+.lang-toggle:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.user-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:10px;padding:7px 16px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-btn)}
+.user-btn:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-2px) scale(1.02)}
+/* PAGES */
+.page{display:none}.page.active{display:block;animation:pageIn .4s cubic-bezier(.16,1,.3,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* AUTH */
+.auth-page{padding:60px 0;text-align:center}
+.auth-page h2{font-size:1.7rem;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.auth-page .subtitle{color:var(--text-mid);margin-bottom:28px}
+.auth-box{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:20px;padding:32px;max-width:400px;margin:0 auto;text-align:left;box-shadow:var(--shadow-xl)}
+.auth-box .form-group{margin-bottom:18px}
+.auth-box label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px}
+.auth-box input{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.95rem;background:var(--bg);color:var(--text);transition:all .25s}
+.auth-box input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow),var(--shadow)}
+.auth-btn{width:100%;padding:15px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:var(--shadow-btn);transition:all .3s;transform:translateY(0)}
+.auth-btn:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-3px) scale(1.01)}
+.auth-btn:active{transform:translateY(0) scale(.99)}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.auth-switch{text-align:center;margin-top:20px;font-size:.88rem;color:var(--text-mid)}
+.auth-switch a{color:var(--accent);cursor:pointer;text-decoration:none;font-weight:700}
+.auth-error{background:#fef2f2;color:#dc2626;padding:12px 16px;border-radius:12px;font-size:.85rem;margin-bottom:14px;display:none;border:1px solid rgba(220,38,38,.15)}
+/* AUTH SPLIT LAYOUT */
+.auth-split{display:flex;gap:40px;align-items:center;max-width:900px;margin:0 auto;padding:60px 20px}
+.auth-split .auth-showcase{flex:1;text-align:left}
+.auth-split .auth-form-side{flex:1;min-width:320px}
+.auth-showcase h3{font-size:1.3rem;font-weight:800;margin-bottom:20px;letter-spacing:-.5px}
+.auth-showcase .ba-label{display:inline-block;padding:6px 16px;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:10px}
+.auth-showcase .ba-bad{background:rgba(239,68,68,.12);color:#ef4444}
+.auth-showcase .ba-good{background:rgba(74,222,128,.12);color:#4ade80}
+.auth-showcase .wa-bubble{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-size:.88rem;line-height:1.55;margin-bottom:16px;position:relative;color:var(--text)}
+.auth-showcase .wa-bubble.bad{border-left:3px solid #ef4444}
+.auth-showcase .wa-bubble.good{border-left:3px solid #4ade80}
+.auth-showcase .wa-bubble .wa-time{font-size:.72rem;color:var(--text-light);text-align:right;margin-top:6px}
+.auth-showcase .ba-arrow{text-align:center;font-size:1.5rem;color:var(--accent);margin:8px 0}
+.auth-showcase .ba-tag{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text-mid);margin-top:4px}
+.auth-showcase .ba-tag .check{color:#4ade80}
+.auth-showcase .ba-footer{margin-top:20px;font-size:.85rem;color:var(--text-mid);line-height:1.6}
+.auth-showcase .ba-footer strong{color:var(--accent)}
+@media(max-width:700px){.auth-split{flex-direction:column;gap:28px;padding:40px 20px}.auth-split .auth-showcase{text-align:center}}
+/* COMPARISON SECTION */
+.compare-section{padding:44px 0 56px}
+.compare-grid{display:flex;flex-direction:column;gap:12px;max-width:500px;margin:0 auto}
+.compare-row{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-radius:14px;background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border)}
+.compare-row .cr-name{font-size:.95rem;font-weight:600;display:flex;align-items:center;gap:8px}
+.compare-row .cr-price{font-size:1rem;font-weight:700}
+.compare-row .cr-price.red{color:#ef4444}
+.compare-row .cr-price.green{color:#4ade80}
+.compare-row.highlight{border:2px solid var(--accent);background:var(--accent-glow);box-shadow:0 8px 30px var(--accent-glow)}
+.compare-row .cr-what{font-size:.78rem;color:var(--text-light);margin-top:2px}
+.compare-note{text-align:center;margin-top:16px;font-size:.88rem;color:var(--text-mid)}
+/* HERO */
+.hero{padding:72px 0 44px;text-align:center;position:relative}
+.hero h1{font-size:2.6rem;font-weight:800;line-height:1.08;letter-spacing:-2px;margin-bottom:18px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#6366F1,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;color:var(--text-mid);max-width:460px;margin:0 auto 36px;line-height:1.65}
+.cta-main{display:inline-block;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;padding:17px 44px;border-radius:14px;font-size:1.08rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .3s;box-shadow:var(--shadow-btn);transform:translateY(0);position:relative;overflow:hidden}
+.cta-main::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+.cta-main:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-3px) scale(1.02)}
+.cta-main:hover::before{opacity:1}
+.cta-main:active{transform:translateY(0) scale(.98)}
+/* DASHBOARD */
+.dash{padding:28px 0 56px}
+.dash h2{font-size:1.5rem;font-weight:800;margin-bottom:20px;letter-spacing:-.5px}
+.plan-badge{display:inline-block;padding:5px 16px;border-radius:20px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.plan-badge.free{background:#f1f5f9;color:#64748b}.plan-badge.basic{background:rgba(16,185,129,.1);color:#059669}.plan-badge.pro{background:rgba(245,158,11,.1);color:#d97706}
+.dash-card{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:12px;cursor:pointer;transition:all .3s;box-shadow:var(--shadow-sm)}
+.dash-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(99,102,241,.3)}
+.dash{text-align:center}.dash-card{text-align:center}.dash-card h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.dash-card p{font-size:.88rem;color:var(--text-mid)}
+.dash-card.locked{opacity:.35;position:relative;filter:grayscale(.3)}
+.dash-card.locked::after{content:'🔒';position:absolute;top:22px;right:22px;font-size:1.1rem}
+.dash-card.locked:hover{transform:none;box-shadow:var(--shadow-sm)}
+.upgrade-banner{background:linear-gradient(135deg,#6366F1 0%,#8B5CF6 40%,#a855f7 70%,#ec4899 100%);color:#fff;border-radius:20px;padding:28px;margin-bottom:20px;text-align:center;box-shadow:0 12px 40px rgba(99,102,241,.25);position:relative;overflow:hidden}
+.upgrade-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 60%)}
+.upgrade-banner h3{font-size:1.2rem;font-weight:800;margin-bottom:8px;position:relative}
+.upgrade-banner p{font-size:.88rem;opacity:.9;margin-bottom:18px;position:relative}
+.upgrade-banner button{background:#fff;color:#6366F1;border:none;padding:13px 32px;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .25s;transform:translateY(0);position:relative}
+.upgrade-banner button:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+/* HISTORY */
+.history-section{margin-top:28px}
+.history-section h3{font-size:1.1rem;font-weight:700;margin-bottom:14px}
+.history-item{background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-sm)}
+.history-item:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.history-item .meta{font-size:.78rem;color:var(--text-light);margin-bottom:4px}
+.history-item .preview{font-size:.88rem;color:var(--text-mid);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* SECTIONS */
+.section-title{font-size:1.5rem;font-weight:800;margin-bottom:24px;text-align:center;letter-spacing:-.7px}
+.how-section{padding:44px 0}.steps{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:24px 20px;background:var(--glass);backdrop-filter:blur(8px);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:all .25s}
+.step:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.step-num{width:40px;height:40px;min-width:40px;border-radius:12px;background:linear-gradient(135deg,#6366F1,#a855f7);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.88rem;box-shadow:0 4px 16px var(--accent-glow-strong)}
+.step h3{font-size:.95rem;font-weight:700;margin-bottom:3px}.step p{font-size:.88rem;color:var(--text-mid);max-width:320px}
+/* PRICING */
+.pricing-section{padding:44px 0 56px}.pricing-cards{display:flex;flex-direction:column;gap:16px}
+.price-card{background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:20px;padding:26px;position:relative;box-shadow:var(--shadow-sm);transition:all .3s}
+.price-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.price-card.featured{border:2px solid transparent;background-image:linear-gradient(var(--glass),var(--glass)),linear-gradient(135deg,#6366F1,#a855f7,#ec4899);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 12px 40px var(--accent-glow-strong)}
+.price-card.featured:hover{box-shadow:0 16px 50px var(--accent-glow-strong);transform:translateY(-4px) scale(1.01)}
+.price-card .badge{position:absolute;top:-12px;right:16px;background:linear-gradient(135deg,#6366F1,#a855f7);color:#fff;font-size:.72rem;font-weight:700;padding:5px 16px;border-radius:10px;box-shadow:0 4px 12px var(--accent-glow-strong)}
+.price-card{text-align:center}.price-card h3{font-size:1.05rem;font-weight:700}.price-card .price{font-size:2.2rem;font-weight:800;color:var(--primary);margin:10px 0}
+.price-card .price span{font-size:.85rem;font-weight:400;color:var(--text-mid)}
+.price-card ul{list-style:none;margin-top:14px;text-align:left;display:inline-block}.price-card ul li{font-size:.88rem;color:var(--text-mid);padding:5px 0 5px 26px;position:relative}
+.price-card ul li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:800;font-size:.9rem}
+.price-card button{margin-top:18px;width:100%;padding:14px;border-radius:12px;border:none;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s;transform:translateY(0)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(15,23,42,.12)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,23,42,.18)}
+.btn-outline{background:transparent;border:1px solid var(--border)!important;color:var(--text)}
+.btn-outline:hover{border-color:var(--accent)!important;color:var(--accent);background:var(--accent-glow);transform:translateY(-2px)}
+.btn-accent{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:var(--shadow-btn-hover)}
+/* FORM */
+.form-page{padding:28px 0 56px;text-align:center}.form-page h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;letter-spacing:-.5px}
+.subtitle{color:var(--text-mid);font-size:.92rem;margin-bottom:24px}
+.form-group{margin-bottom:20px;text-align:left}.form-group label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.95rem;background:var(--surface);color:var(--text);transition:all .25s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
+.form-group textarea{resize:vertical;min-height:76px}.hint{font-size:.78rem;color:var(--text-light);margin-top:4px}
+.generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:14px;font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:10px;box-shadow:var(--shadow-btn);transition:all .3s;transform:translateY(0);position:relative;overflow:hidden}
+.generate-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);opacity:0;transition:opacity .3s}
+.generate-btn:hover{box-shadow:var(--shadow-btn-hover);transform:translateY(-3px)}
+.generate-btn:hover::before{opacity:1}
+.generate-btn:active{transform:translateY(0)}
+.generate-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+/* RESULTS */
+.results-section{padding:28px 0 56px;text-align:center}
+.result-block{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow-sm);transition:all .2s}
+.result-block:hover{box-shadow:var(--shadow)}
+.result-block{text-align:left}.result-block h3{font-size:.88rem;font-weight:700;margin-bottom:10px;background:linear-gradient(135deg,#6366F1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.result-block .content{font-size:.9rem;line-height:1.7;color:var(--text-mid);white-space:pre-wrap}
+.copy-btn{margin-top:12px;padding:8px 18px;background:var(--accent-glow);border:none;border-radius:10px;font-family:inherit;font-size:.8rem;color:var(--accent);cursor:pointer;font-weight:600;transition:all .25s}
+.copy-btn:hover{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;transform:translateY(-1px);box-shadow:var(--shadow-btn)}
+.lock-overlay{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;margin-bottom:14px;box-shadow:var(--shadow-lg)}
+.lock-overlay p{color:var(--text-mid);font-size:.92rem;margin-bottom:16px}
+.lock-overlay button{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;padding:13px 32px;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow-btn);transition:all .25s}
+.lock-overlay button:hover{transform:translateY(-2px);box-shadow:var(--shadow-btn-hover)}
+/* ANALYZER */
+.analyzer-section{padding:28px 0 56px;text-align:center}
+.gauge-container{text-align:center;margin:28px 0}.gauge-score{font-size:3.8rem;font-weight:800;line-height:1}
+.gauge-label{font-size:1.1rem;font-weight:700;margin-top:8px}
+.gauge-bar{width:100%;height:12px;background:var(--border);border-radius:6px;margin-top:16px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.06)}
+.gauge-fill{height:100%;border-radius:6px;transition:width 1s cubic-bezier(.16,1,.3,1);background:linear-gradient(90deg,#6366F1,#a855f7)}
+.analysis-block{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:14px;box-shadow:var(--shadow-sm)}
+.analysis-block{text-align:left}.analysis-block h3{font-size:.88rem;font-weight:700;margin-bottom:8px;background:linear-gradient(135deg,#6366F1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.analysis-block .content{font-size:.9rem;line-height:1.7;color:var(--text-mid);white-space:pre-wrap}
+/* TIPS */
+.tips-section{padding:28px 0 56px}
+.tip-card{background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:10px;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-sm)}
+.tip-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.tip-card{text-align:center}.tip-card h3{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.tip-card p{font-size:.85rem;color:var(--text-mid)}
+.tip-card .tip-detail{display:none;margin-top:14px;padding-top:14px;text-align:left;border-top:1px solid var(--border);font-size:.88rem;color:var(--text-mid);line-height:1.7}
+.tip-card.open .tip-detail{display:block}
+/* ACCOUNT */
+.account-section{padding:28px 0 56px}
+.account-section{text-align:center}.account-section h2{font-size:1.4rem;font-weight:800;margin-bottom:20px;letter-spacing:-.5px}
+.account-card{background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.account-card h3{font-size:.72rem;font-weight:700;margin-bottom:6px;color:var(--text-light);text-transform:uppercase;letter-spacing:1px}
+.account-card{text-align:left}.account-card p{font-size:.95rem;color:var(--text);font-weight:600}
+.logout-btn{width:100%;padding:14px;background:transparent;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.92rem;color:var(--text-mid);cursor:pointer;margin-top:8px;transition:all .25s}
+.logout-btn:hover{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.04);transform:translateY(-1px)}
+/* MISC */
+.loading{text-align:center;padding:40px 0}
+.spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}.loading p{color:var(--text-mid);font-size:.92rem}
+.back-row{padding:14px 0 0}.back-btn{background:none;border:none;font-family:inherit;font-size:.88rem;color:var(--text-mid);cursor:pointer;padding:0;transition:all .2s}
+.back-btn:hover{color:var(--accent);transform:translateX(-3px)}
+.lock-tag{display:inline-block;font-size:.68rem;background:var(--accent-glow);color:var(--accent);padding:3px 10px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:700}
+footer{text-align:center;padding:28px 20px;font-size:.78rem;color:var(--text-light);border-top:1px solid var(--border)}
+@media(max-width:500px){.hero h1{font-size:1.9rem}.nav-links button{padding:5px 8px;font-size:.73rem}}
+/* ================= FILM THEME ================= */
+:root:not([data-film-off]){--bg:#070a12;--surface:#0f1320;--primary:#f3f4f6;--primary-light:#d1d5db;--accent:#818CF8;--accent-hover:#6366F1;--accent-glow:rgba(129,140,248,.12);--accent-glow-strong:rgba(129,140,248,.22);--text:#e5e7eb;--text-mid:#9ca3af;--text-light:#6b7280;--border:rgba(255,255,255,.07);--glass:rgba(17,20,30,.72);--glass-border:rgba(255,255,255,.06);--shadow-sm:0 1px 2px rgba(0,0,0,.35);--shadow:0 10px 30px rgba(0,0,0,.35);--shadow-lg:0 24px 60px rgba(0,0,0,.45);--shadow-xl:0 40px 100px rgba(0,0,0,.55);--shadow-btn:0 6px 20px rgba(96,165,250,.22);--shadow-btn-hover:0 10px 30px rgba(96,165,250,.32);--radius:12px;color-scheme:dark}
+body{background:radial-gradient(1200px 700px at 70% -10%,#13203d 0%,rgba(7,10,18,0) 60%),#070a12;background-attachment:fixed;letter-spacing:-.005em}
+nav{background:rgba(7,10,18,.72)!important;border-bottom:1px solid rgba(255,255,255,.06)}
+nav .container{max-width:1120px}
+.logo{font-weight:600;letter-spacing:-.02em;font-size:1.08rem;display:flex;align-items:center;gap:8px}
+.logo::before{content:'';width:20px;height:20px;border-radius:6px;background:linear-gradient(140deg,#60a5fa,#6366F1 55%,#8B5CF6);box-shadow:0 0 14px rgba(96,165,250,.45)}
+.logo span{background:none;-webkit-text-fill-color:currentColor;color:#a5b4fc}
+.user-btn,.cta-main,.generate-btn,.auth-btn,.btn-accent,.lock-overlay button{background:linear-gradient(135deg,#60a5fa,#6366F1)!important;font-weight:600!important;letter-spacing:-.01em}
+.section-title,.dash h2,.form-page h2,.auth-page h2,.account-section h2{font-weight:600!important;letter-spacing:-.025em!important}
+.dash-card h3,.tip-card h3,.price-card h3,.result-block h3,.analysis-block h3{font-weight:600}
+.lang-toggle{background:transparent;border-color:rgba(255,255,255,.1);color:#c7d2fe}
+
+/* ---------- Home ---------- */
+#page-home{overflow-x:clip}
+.fh-wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.fh-narrow{max-width:680px}
+.fh-sec{padding:88px 0}
+.fh-h2{font-size:clamp(1.55rem,2.6vw,2rem);font-weight:600;letter-spacing:-.03em;line-height:1.15;text-align:center;color:#f3f4f6}
+.fh-p{color:#9ca3af;text-align:center;margin:12px auto 0;max-width:52ch;font-size:1rem;line-height:1.6}
+.fh-left{text-align:left;margin-left:0}
+.fh-muted{color:#6b7280;font-size:.9rem}
+
+.fh-hero{padding:72px 0 40px}
+.fh-hero-grid{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:48px;align-items:center}
+.fh-tag{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;color:#9ca3af;padding:6px 12px;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(255,255,255,.02);margin-bottom:22px}
+.fh-live{width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399}
+.fh-copy h1{font-size:clamp(2.1rem,4.2vw,3.15rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;color:#f9fafb;text-wrap:balance}
+.fh-copy h1 em{font-style:normal;color:#7c8396}
+.fh-lead{margin-top:20px;color:#9ca3af;font-size:1.06rem;line-height:1.6;max-width:42ch}
+.fh-ctas{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.fh-btn{font:600 .95rem/1 Inter,system-ui,sans-serif;color:#fff;padding:14px 22px;border:0;border-radius:10px;cursor:pointer;background:linear-gradient(135deg,#60a5fa,#6366F1);box-shadow:0 8px 28px rgba(96,165,250,.28),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .2s,box-shadow .2s}
+.fh-btn:hover{transform:translateY(-1px);box-shadow:0 12px 36px rgba(96,165,250,.38),inset 0 1px 0 rgba(255,255,255,.25)}
+.fh-ghost{font:500 .95rem/1 Inter,system-ui,sans-serif;color:#e5e7eb;padding:14px 20px;border-radius:10px;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:background .2s}
+.fh-ghost:hover{background:rgba(255,255,255,.08)}
+.fh-btn:focus-visible,.fh-ghost:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+.fh-note{margin-top:14px;font-size:.82rem;color:#6b7280}
+
+/* hero film stage */
+.fh-stage{position:relative;width:100%;aspect-ratio:760/470}
+.fh-scene{position:absolute;left:0;top:0;width:760px;height:470px;transform-origin:0 0;border-radius:14px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07);background:#0b0f19}
+.fh-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 120%,rgba(37,99,235,.18),transparent 60%),radial-gradient(ellipse at 50% 50%,transparent 60%,rgba(0,0,0,.45) 100%)}
+.fh-cam{position:absolute;left:0;top:0;width:760px;height:470px;transform-origin:0 0;will-change:transform,filter}
+.fw{position:absolute;inset:0;background:#10141f;font-family:Inter,system-ui,sans-serif;color:#e5e7eb}
+.fw-tb{height:28px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.fw-tb i{width:9px;height:9px;border-radius:50%;background:#ff5f57}.fw-tb i:nth-child(2){background:#febc2e}.fw-tb i:nth-child(3){background:#28c840}
+.fw-tb span{flex:1;text-align:center;font-size:10px;color:#6b7280;margin-right:30px}
+.fw-body{display:flex;height:442px}
+.fw-side{width:150px;padding:12px 8px;border-right:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.012)}
+.fw-brand{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:0 6px 10px}
+.fw-mi{width:15px;height:15px;border-radius:5px;background:linear-gradient(140deg,#60a5fa,#6366F1)}
+.fw-sec{font-size:8.5px;font-weight:600;letter-spacing:.5px;color:#4b5563;text-transform:uppercase;padding:9px 6px 5px}
+.fw-it{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:#9ca3af;padding:5px 6px;border-radius:6px}
+.fw-it.on{background:rgba(99,102,241,.15);color:#e5e7eb}
+.fw-it b{font-size:8px;font-weight:600;color:#a5b4fc;background:rgba(99,102,241,.2);padding:1px 5px;border-radius:4px}
+.fw-mid{width:320px;padding:14px 16px;border-right:1px solid rgba(255,255,255,.05);position:relative}
+.fw-h{font-size:11px;font-weight:600;margin-bottom:10px}
+.fw-prompt{min-height:56px;font-size:11px;line-height:1.55;padding:9px 11px;border-radius:8px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}
+.fw-caret{display:inline-block;width:1px;height:11px;background:#a5b4fc;vertical-align:-1px;animation:fwbl .6s steps(1) infinite}
+@keyframes fwbl{50%{opacity:0}}
+.fk{font-weight:600;transition:color .6s,text-shadow .6s}
+.lit .fk.c,.fh-mini .fk.c{color:#67e8f9;text-shadow:0 0 9px rgba(103,232,249,.55)}
+.lit .fk.y,.fh-mini .fk.y{color:#fde68a;text-shadow:0 0 9px rgba(253,230,138,.5)}
+.lit .fk.p,.fh-mini .fk.p{color:#f0abfc;text-shadow:0 0 9px rgba(240,171,252,.5)}
+.lit .fk.g,.fh-mini .fk.g{color:#86efac;text-shadow:0 0 9px rgba(134,239,172,.5)}
+.fw-steps{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.fw-st{font-size:10.5px;color:#9ca3af;display:flex;align-items:center;gap:7px;opacity:0;transform:translateY(5px);transition:all .45s cubic-bezier(.16,1,.3,1)}
+.fw-st.in{opacity:1;transform:none}
+.fw-st i{width:11px;height:11px;border-radius:50%;border:1.5px solid #374151;transition:all .3s}
+.fw-st.done i{border-color:#34d399;background:rgba(52,211,153,.2)}
+.fw-reply{position:absolute;left:16px;right:16px;bottom:16px;opacity:0;transform:translateY(10px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.fw-reply.in{opacity:1;transform:none}
+.fw-rl{font-size:9px;color:#6b7280;margin-bottom:6px}
+.fw-bub{background:#005c4b;color:#e9edef;font-size:10.5px;line-height:1.5;padding:8px 10px;border-radius:8px 8px 2px 8px;margin-left:30px}
+.fw-send{margin:8px 0 0 auto;width:max-content;font-size:9.5px;font-weight:600;color:#052e16;background:#25D366;padding:5px 9px;border-radius:6px}
+.fw-right{flex:1;padding:14px}
+.fw-rh{display:flex;justify-content:space-between;font-size:9px;font-weight:600;letter-spacing:.4px;color:#6b7280;text-transform:uppercase;margin-bottom:8px}
+.fw-rh span{color:#a5b4fc}
+.fw-tbl{border:1px solid rgba(255,255,255,.06);border-radius:8px;margin-bottom:16px;overflow:hidden}
+.fw-tr{display:grid;grid-template-columns:1.2fr 1fr auto;align-items:center;gap:6px;font-size:10px;padding:7px 9px;border-bottom:1px solid rgba(255,255,255,.04);opacity:.3;transition:opacity .4s}
+.fw-tr:last-child{border-bottom:0}
+.fw-tr.in{opacity:1}
+.fw-sub{color:#6b7280}
+.fw-tag{font-size:8.5px;font-weight:600;padding:1px 6px;border-radius:4px;color:#4b5563;background:rgba(255,255,255,.04)}
+.fw-tag.ok{color:#86efac;background:rgba(52,211,153,.12);text-shadow:0 0 7px rgba(134,239,172,.6)}
+.fw-cl{position:relative;border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden}
+.fw-hl{position:absolute;left:0;right:0;top:0;height:42px;background:linear-gradient(90deg,rgba(59,130,246,.85),rgba(99,102,241,.75));box-shadow:0 0 24px rgba(59,130,246,.45);opacity:0;transition:top .5s cubic-bezier(.16,1,.3,1),opacity .4s}
+.fw-ci{position:relative;display:flex;align-items:center;gap:8px;height:42px;padding:0 9px;border-bottom:1px solid rgba(255,255,255,.04)}
+.fw-ci:last-child{border-bottom:0}
+.fw-av{width:22px;height:22px;min-width:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:600;color:#fff}
+.fw-cn{flex:1;font-size:10.5px;line-height:1.3;min-width:0}
+.fw-cn small{display:block;font-size:9px;color:#9ca3af;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw-sc{font-size:9px;font-weight:600;padding:1px 5px;border-radius:4px}
+.fw-sc.h{color:#86efac;background:rgba(52,211,153,.12)}.fw-sc.m{color:#fde68a;background:rgba(253,230,138,.1)}.fw-sc.l{color:#fca5a5;background:rgba(252,165,165,.1)}
+
+/* demo command bar */
+.fh-cmd{margin-top:32px;background:rgba(17,20,30,.75);border:1px solid rgba(255,255,255,.09);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden;text-align:left}
+.fh-cmd-row{display:flex;gap:8px;padding:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.fh-cmd-row input{flex:1;min-width:0;padding:12px 14px;border-radius:9px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.25);color:#f3f4f6;font:500 .95rem Inter,system-ui,sans-serif}
+.fh-cmd-row input:focus{outline:none;border-color:rgba(147,197,253,.6);box-shadow:0 0 0 3px rgba(96,165,250,.15)}
+.fh-cmd-row button{padding:0 18px;border:0;border-radius:9px;color:#fff;font:600 .9rem Inter,system-ui,sans-serif;cursor:pointer;background:linear-gradient(135deg,#60a5fa,#6366F1)}
+.fh-cmd-out{padding:16px 18px;min-height:90px;font-size:.9rem;line-height:1.65;color:#d1d5db}
+
+/* how */
+.fh-how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.fh-step{position:relative}
+.fh-mini{height:132px;border-radius:12px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(17,20,30,.9),rgba(12,15,24,.9));padding:14px;display:flex;flex-direction:column;justify-content:center;gap:8px;margin-bottom:18px;overflow:hidden}
+.fm-in{display:flex;justify-content:space-between;font-size:.78rem;color:#e5e7eb;padding:7px 10px;border-radius:7px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06)}
+.fm-in span{color:#6b7280}
+.fm-li{display:flex;align-items:center;gap:8px;font-size:.8rem;color:#9ca3af}
+.fm-li i{width:11px;height:11px;border-radius:50%;border:1.5px solid #34d399;background:rgba(52,211,153,.2)}
+.fm-bub{background:#005c4b;color:#e9edef;font-size:.78rem;line-height:1.45;padding:8px 10px;border-radius:9px 9px 2px 9px;margin-left:18px}
+.fm-chip{align-self:flex-end;font-size:.7rem;font-weight:600;color:#c7d2fe;background:rgba(99,102,241,.2);padding:3px 8px;border-radius:6px}
+.fh-n{font-size:.78rem;color:#6b7280;margin-bottom:4px}
+.fh-step h3{font-size:1.02rem;font-weight:600;color:#f3f4f6;letter-spacing:-.01em}
+.fh-step p{font-size:.9rem;color:#9ca3af;margin-top:4px;line-height:1.55}
+
+/* whatsapp section */
+.fh-wa{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.fh-soon{display:inline-block;font-size:.78rem;color:#86efac;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);padding:4px 10px;border-radius:999px;margin-bottom:16px}
+.fh-checks{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.fh-checks li{position:relative;padding-left:26px;color:#d1d5db;font-size:.95rem}
+.fh-checks li::before{content:'';position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;background:rgba(37,211,102,.18);box-shadow:inset 0 0 0 1.5px #25D366}
+.fh-inbox{border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#10141f;box-shadow:0 30px 90px rgba(0,0,0,.5);padding:14px}
+.fi-head{display:flex;align-items:center;gap:8px;font-size:.78rem;color:#9ca3af;padding:2px 4px 12px}
+.fi-dot{width:7px;height:7px;border-radius:50%;background:#25D366;box-shadow:0 0 10px #25D366}
+.fi-row{display:flex;align-items:center;gap:10px;padding:11px 10px;border-radius:9px}
+.fi-row.sel{background:linear-gradient(90deg,rgba(59,130,246,.22),rgba(99,102,241,.12));box-shadow:inset 0 0 0 1px rgba(96,165,250,.35)}
+.fi-row .fw-av{width:28px;height:28px;font-size:.66rem}
+.fi-t{flex:1;font-size:.82rem;color:#9ca3af;line-height:1.4}
+.fi-t b{display:block;color:#f3f4f6;font-weight:600}
+.fi-row .fw-sc{font-size:.72rem}
+.fi-note{font-size:.75rem;color:#86efac;padding:8px 12px 4px 48px}
+.fi-bub{margin:6px 10px 0 48px;background:#005c4b;color:#e9edef;font-size:.82rem;line-height:1.5;padding:9px 11px;border-radius:10px 10px 2px 10px}
+.fi-actions{display:flex;justify-content:flex-end;gap:8px;padding:10px 10px 12px}
+.fi-ok{font-size:.75rem;font-weight:600;color:#052e16;background:#25D366;padding:5px 12px;border-radius:7px}
+.fi-edit{font-size:.75rem;color:#9ca3af;border:1px solid rgba(255,255,255,.1);padding:5px 12px;border-radius:7px}
+
+/* pricing */
+.fh-plans{display:grid!important;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;align-items:stretch}
+.fh-plans .price-card{background:#10141f!important;border:1px solid rgba(255,255,255,.08);border-radius:14px;box-shadow:none;display:flex;flex-direction:column;animation:none!important}
+.fh-plans .price-card:hover{transform:none;box-shadow:none}
+.fh-plans .price-card.featured{border:1px solid rgba(96,165,250,.45)!important;background-image:none!important;box-shadow:0 0 0 1px rgba(96,165,250,.15),0 30px 80px rgba(37,99,235,.15)!important}
+.fh-plans .price-card .price{font-weight:600;letter-spacing:-.03em;color:#f9fafb}
+.fh-plans .price-card ul{flex:1}
+.fh-plans .price-card ul li::before{color:#93c5fd}
+.fh-plans .badge{background:rgba(96,165,250,.15)!important;color:#bfdbfe!important;box-shadow:none!important;border:1px solid rgba(96,165,250,.35);font-weight:600}
+.fh-plans .btn-primary{background:#f3f4f6!important;color:#0b0f19!important;box-shadow:none}
+.fh-urgency{text-align:center;color:#9ca3af;font-size:.88rem;margin-top:22px}
+
+.fh-faq{margin-top:32px}
+.fh-faq .tip-card{background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.07);border-radius:0;box-shadow:none;padding:18px 2px;backdrop-filter:none}
+.fh-faq .tip-card:hover{transform:none;box-shadow:none}
+.fh-faq .tip-card h3{font-size:.98rem;color:#e5e7eb;display:flex;justify-content:space-between;gap:12px}
+.fh-faq .tip-card h3::after{content:'+';color:#6b7280;font-weight:400;transition:transform .25s}
+.fh-faq .tip-card.open h3::after{transform:rotate(45deg)}
+.fh-faq .tip-detail{border-top:0;padding-top:4px;margin-top:8px}
+/* REAL RESULTS */
+.real-results{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.rr-card{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:20px 22px;text-align:left;transition:transform .25s,box-shadow .25s}
+.rr-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.rr-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.rr-trade{font-weight:700;font-size:.88rem}
+.rr-type{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);background:var(--accent-glow);padding:4px 10px;border-radius:8px}
+.rr-body{font-size:.9rem;color:var(--text-mid);line-height:1.7}
+/* SOCIAL PROOF BAR */
+.sp-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.sp-item{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:22px 12px;transition:transform .25s,box-shadow .25s}
+.sp-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.sp-num{display:block;font-size:2rem;font-weight:900;background:linear-gradient(135deg,#818CF8,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px;line-height:1.2}
+.sp-label{display:block;font-size:.78rem;color:var(--text-mid);margin-top:4px;font-weight:500}
+@media(max-width:500px){.sp-bar{grid-template-columns:repeat(2,1fr);gap:10px}.sp-num{font-size:1.5rem}}
+.fh-final{text-align:center;padding-bottom:110px}
+.fh-final .fh-btn{margin-top:28px}
+
+@media(max-width:900px){
+  .fh-hero{padding-top:44px}
+  .fh-hero-grid{grid-template-columns:1fr;gap:36px}
+  .fh-how,.fh-plans{grid-template-columns:1fr}
+  .fh-wa{grid-template-columns:1fr;gap:32px}
+  .fh-sec{padding:64px 0}
+}
+@media(max-width:500px){.user-btn{white-space:nowrap;padding:7px 12px}.fh-wrap{padding:0 18px}}
+
+/* ---------- WhatsApp (app) ---------- */
+.wa-panel{border:1px solid rgba(255,255,255,.08);border-radius:14px;background:#10141f;padding:20px;margin-top:8px}
+.wa-panel h3{font-size:1rem;font-weight:600;margin-bottom:6px}
+.wa-panel p{color:#9ca3af;font-size:.9rem;line-height:1.6}
+.wa-req{margin:14px 0 4px;padding-left:18px;color:#9ca3af;font-size:.88rem;line-height:1.7}
+.wa-btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 18px;border:0;border-radius:10px;background:#25D366;color:#052e16;font:600 .92rem Inter,system-ui,sans-serif;cursor:pointer}
+.wa-btn[disabled]{opacity:.5;cursor:not-allowed}
+.wa-ghost{margin-top:16px;margin-left:8px;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:transparent;color:#d1d5db;font:500 .9rem Inter,system-ui,sans-serif;cursor:pointer}
+.wa-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.wa-status b{color:#f3f4f6}
+.wa-item{border:1px solid rgba(255,255,255,.07);border-radius:12px;background:#0d111b;padding:14px;margin-top:12px}
+.wa-item .top{display:flex;align-items:center;gap:10px}
+.wa-item .who{flex:1;font-size:.92rem;font-weight:600;color:#f3f4f6}
+.wa-item .who small{display:block;font-weight:400;color:#6b7280;font-size:.78rem}
+.wa-item .msg{margin-top:10px;font-size:.9rem;color:#d1d5db;background:#202c33;padding:9px 11px;border-radius:10px 10px 10px 2px;max-width:90%}
+.wa-item .verdict{margin-top:10px;font-size:.8rem;color:#9ca3af}
+.wa-item textarea{width:100%;margin-top:10px;min-height:76px;padding:10px 12px;border-radius:10px;border:1px solid rgba(37,211,102,.35);background:#06231d;color:#e9edef;font:400 .9rem/1.5 Inter,system-ui,sans-serif;resize:vertical}
+.wa-item .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
+.wa-item .acts button,.wa-item .acts a{font:600 .82rem Inter,system-ui,sans-serif;padding:8px 12px;border-radius:8px;cursor:pointer;text-decoration:none}
+.wa-send{background:#25D366;color:#052e16;border:0}
+.wa-open{background:transparent;color:#d1d5db;border:1px solid rgba(255,255,255,.12)}
+.wa-done{font-size:.8rem;color:#86efac}
+.wa-score{font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:6px}
+.wa-score.h{color:#86efac;background:rgba(52,211,153,.12)}.wa-score.m{color:#fde68a;background:rgba(253,230,138,.1)}.wa-score.l{color:#fca5a5;background:rgba(252,165,165,.1)}
+
+@media (prefers-reduced-motion:reduce){.fh-cam{transition:none!important}.fw-caret{animation:none}}
+</style>
+
+</head>
+<body>
+
+
+<a href="#page-home" style="position:absolute;top:-40px;left:0;background:var(--accent);color:#fff;padding:8px 16px;z-index:200;font-size:.85rem;border-radius:0 0 8px 0;transition:top .2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to content</a>
+<nav role="navigation" aria-label="Main navigation">
+<div class="container">
+<div class="logo" onclick="goHome()" role="button" aria-label="Inicio">Oficio<span>AI</span></div>
+<div class="nav-right">
+<div class="nav-links" id="nav-logged-in" style="display:none">
+<button onclick="showPage('dashboard')" id="nav-dash" data-t="nav_panel">Dashboard</button>
+<button onclick="goGenerate()" id="nav-gen" data-t="nav_gen">Generate</button>
+<button onclick="goAnalyze()" id="nav-analyze" data-t="nav_analyze">Analyse</button>
+<button onclick="goTips()" id="nav-tips" data-t="nav_tips">Tips</button>
+</div>
+<button class="user-btn" id="nav-user-btn" style="display:none" onclick="showPage('account')" data-t="my_account">My account</button>
+<button id="nav-ba-btn" onclick="showPage('ba')" style="background:none;border:none;color:var(--text-mid);font-family:inherit;font-size:.8rem;cursor:pointer;padding:6px 10px;font-weight:600">Before & After</button><button id="nav-wa-btn" onclick="showPage('whatsapp')" style="background:none;border:none;color:var(--text-mid);font-family:inherit;font-size:.8rem;cursor:pointer;padding:6px 10px;font-weight:600;position:relative">WhatsApp AI<span style="background:linear-gradient(135deg,#6366F1,#ec4899);color:#fff;font-size:.58rem;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:4px;letter-spacing:.3px;vertical-align:top">NEW</span></button><button id="nav-login-btn" onclick="showPage('auth')" data-t="enter" style="background:none;border:none;color:var(--text-mid);font-family:inherit;font-size:.8rem;cursor:pointer;padding:6px 10px">Sign in</button><button class="user-btn" id="nav-signup-btn" onclick="showPage('auth')">Start free</button>
+</div>
+</div>
+</nav>
+
+<!-- HOME (logged out) -->
+<div id="page-home" class="page active" role="main">
+
+<section class="fh-hero">
+  <div class="fh-wrap fh-hero-grid">
+    <div class="fh-copy">
+      <div class="fh-tag"><span class="fh-live"></span><span>For self-employed pros in any trade</span></div>
+      <h1 id="hero-title">Your clients are looking for you.<br><em>But they can't find you.</em></h1>
+      <p id="hero-sub" class="fh-lead">Type your trade and your area. OficioAI writes your bio, your ads, your client replies and your PDF quote.</p>
+      <div class="fh-ctas" style="flex-direction:column;align-items:center;gap:14px;text-align:center">
+        <button class="fh-btn" onclick="showPage('auth')" style="padding:18px 48px;font-size:1.1rem">Start free</button>
+        <a id="hero-cta" onclick="document.getElementById('demo-section').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;color:var(--text-mid);font-size:.88rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;justify-content:center">See how it works <span style="font-size:1.1rem">↓</span></a>
+      </div>
+      <p class="fh-note" style="text-align:center">No card needed. Your first result in a minute.</p>
+    </div>
+
+    <div class="fh-stage" id="fh-stage" aria-hidden="true">
+      <div class="fh-scene" id="fh-scene">
+        <div class="fh-cam" id="fh-cam">
+          <div class="fw">
+            <div class="fw-tb"><i></i><i></i><i></i><span>OficioAI · Painter in Manchester</span></div>
+            <div class="fw-body">
+              <aside class="fw-side">
+                <div class="fw-brand"><span class="fw-mi"></span>OficioAI</div>
+                <div class="fw-sec">Projects</div>
+                <div class="fw-it on">Painter · Manchester <b>In progress</b></div>
+                <div class="fw-it">Plumber · Birmingham</div>
+                <div class="fw-it">Hairdresser · Leeds</div>
+                <div class="fw-sec">Tools</div>
+                <div class="fw-it">Generate</div>
+                <div class="fw-it">Clients</div>
+                <div class="fw-it">Quotes</div>
+                <div class="fw-it">WhatsApp</div>
+              </aside>
+              <main class="fw-mid">
+                <div class="fw-h">New request</div>
+                <div class="fw-prompt" id="fw-prompt"></div>
+                <div class="fw-steps" id="fw-steps">
+                  <div class="fw-st"><i></i>Reading your trade, area and <b class="fk c">4 services</b></div>
+                  <div class="fw-st"><i></i>Writing your bio · <b class="fk y">2 versions</b></div>
+                  <div class="fw-st"><i></i>Ads for <b class="fk p">Instagram</b> and <b class="fk p">Gumtree</b></div>
+                  <div class="fw-st"><i></i><b class="fk g">WhatsApp</b> replies ready</div>
+                </div>
+                <div class="fw-reply" id="fw-reply">
+                  <div class="fw-rl">Suggested reply for Sarah</div>
+                  <div class="fw-bub">Hi Sarah! To give you a fair price I'd prefer to see the bathroom. Does Thursday at 6pm work? It's 15 minutes, no obligation.</div>
+                  <div class="fw-send">Send via WhatsApp</div>
+                </div>
+              </main>
+              <section class="fw-right">
+                <div class="fw-rh">Results <span id="fw-cnt">0 / 4</span></div>
+                <div class="fw-tbl">
+                  <div class="fw-tr"><span>Professional bio</span><span class="fw-sub">Instagram</span><span class="fw-tag">…</span></div>
+                  <div class="fw-tr"><span>Ad A</span><span class="fw-sub">Gumtree</span><span class="fw-tag">…</span></div>
+                  <div class="fw-tr"><span>Ad B</span><span class="fw-sub">Facebook</span><span class="fw-tag">…</span></div>
+                  <div class="fw-tr"><span>Replies</span><span class="fw-sub">WhatsApp</span><span class="fw-tag">…</span></div>
+                </div>
+                <div class="fw-rh">New messages <span>3</span></div>
+                <div class="fw-cl">
+                  <div class="fw-hl" id="fw-hl"></div>
+                  <div class="fw-ci"><span class="fw-av" style="background:#475569">JR</span><span class="fw-cn">James R.<small>How much for one room?</small></span><span class="fw-sc m">54%</span></div>
+                  <div class="fw-ci"><span class="fw-av" style="background:linear-gradient(135deg,#60a5fa,#6366F1)">SJ</span><span class="fw-cn">Sarah Johnson<small id="fw-msub">Renovate the bathroom this month</small></span><span class="fw-sc h">87%</span></div>
+                  <div class="fw-ci"><span class="fw-av" style="background:#57534e">EP</span><span class="fw-cn">Emma P.<small>Can you do mates' rates?</small></span><span class="fw-sc l">21%</span></div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+        <div class="fh-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec" id="demo-section">
+  <div class="fh-wrap fh-narrow">
+    <h2 class="fh-h2" id="demo-title">Try it now</h2>
+    <p class="fh-p" id="demo-sub">Type your trade. No account needed.</p>
+    <div class="fh-cmd">
+      <div class="fh-cmd-row">
+        <input type="text" id="demo-trade" placeholder="E.g. Photographer, Hairdresser, Builder..." aria-label="Your trade">
+        <button id="demo-btn" onclick="runDemoFromInput()">Generate</button>
+      </div>
+      <div id="demo-output" class="fh-cmd-out"><p class="fh-muted">Your result will appear here.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec" id="social-proof-bar">
+  <div class="fh-wrap">
+    <div class="sp-bar">
+      <div class="sp-item"><span class="sp-num" data-target="147">0</span><span class="sp-label" id="sp-label-1">Active professionals</span></div>
+      <div class="sp-item"><span class="sp-num">+30</span><span class="sp-label" id="sp-label-2">Trades</span></div>
+      <div class="sp-item"><span class="sp-num">60s</span><span class="sp-label" id="sp-label-3">Your marketing ready</span></div>
+      <div class="sp-item"><span class="sp-num">14</span><span class="sp-label" id="sp-label-4">Money-back guarantee (days)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec">
+  <div class="fh-wrap">
+    <h2 class="fh-h2" id="how-title">How it works</h2>
+    <div class="fh-how">
+      <div class="fh-step">
+        <div class="fh-mini"><div class="fm-in"><span>Trade</span>Painter</div><div class="fm-in"><span>Area</span>Manchester</div><div class="fm-in"><span>Services</span>Interiors, artex removal</div></div>
+        <div class="fh-n">1</div><h3 id="step1-t">Fill in your details</h3><p id="step1-d">Name, trade, area and services. That's it.</p>
+      </div>
+      <div class="fh-step">
+        <div class="fh-mini"><div class="fm-li"><i></i>Bio · <b class="fk y">2 versions</b></div><div class="fm-li"><i></i>Ads · <b class="fk p">3 channels</b></div><div class="fm-li"><i></i>Replies · <b class="fk g">WhatsApp</b></div></div>
+        <div class="fh-n">2</div><h3 id="step2-t">AI does the work</h3><p id="step2-d">Generates your bio, ready-to-post ads and WhatsApp replies.</p>
+      </div>
+      <div class="fh-step">
+        <div class="fh-mini"><div class="fm-bub">Hi! To give you a fair price I'd need to see it. Does Thursday work?</div><div class="fm-chip">Copied</div></div>
+        <div class="fh-n">3</div><h3 id="step3-t">Copy, paste and win</h3><p id="step3-d">Post on social media, classifieds or reply to clients in seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec" id="results-section">
+  <div class="fh-wrap fh-narrow">
+    <h2 class="fh-h2" id="results-title">This is what the AI actually generates</h2>
+    <p class="fh-p" id="results-sub">Real results. Unedited. Copy-pasted straight from the output.</p>
+    <div class="real-results">
+      <div class="rr-card">
+        <div class="rr-header"><span class="rr-trade">🔧 Plumber in Birmingham</span><span class="rr-type">Professional bio</span></div>
+        <div class="rr-body">Quick Fix Plumbing Birmingham · Over 12 years fixing leaks, fitting boilers and renovating bathrooms across Birmingham and surrounding areas. Clean work, fixed quote before we start and no surprises on the invoice. Emergency callouts in under 2 hours. Give me a ring and we'll sort it.</div>
+      </div>
+      <div class="rr-card">
+        <div class="rr-header"><span class="rr-trade">📸 Photographer in London</span><span class="rr-type">Ad</span></div>
+        <div class="rr-body">Looking for a wedding photographer in London? Full package from £750: ceremony, reception, golden-hour couple shoot and online gallery within 10 days. Book your date before the calendar fills up. Drop me a WhatsApp and I'll show you recent weddings.</div>
+      </div>
+      <div class="rr-card">
+        <div class="rr-header"><span class="rr-trade">💇 Hairdresser in Leeds</span><span class="rr-type">WhatsApp reply</span></div>
+        <div class="rr-body">Hi Emma! For the balayage you mentioned I'd need to see your current shade. Could you send me a photo in natural light? That way I can give you an exact price and time. I've got a slot on Friday at 10am or Saturday at 4pm. 😊</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec">
+  <div class="fh-wrap fh-wa">
+    <div class="fh-wa-copy">
+      <div class="fh-soon">New in Pro</div>
+      <h2 class="fh-h2 fh-left">Your WhatsApp, sorted by AI</h2>
+      <p class="fh-p fh-left">Connect WhatsApp Business. Every new message arrives in OficioAI with a note: whether the client is serious and what to reply.</p>
+      <ul class="fh-checks">
+        <li>You keep using the WhatsApp Business app on your phone</li>
+        <li>Suggested reply in seconds</li>
+        <li>Nothing is sent without your approval</li>
+      </ul>
+    </div>
+    <div class="fh-inbox" aria-hidden="true">
+      <div class="fi-head"><span class="fi-dot"></span>WhatsApp Business · 3 new</div>
+      <div class="fi-row sel"><span class="fw-av" style="background:linear-gradient(135deg,#60a5fa,#6366F1)">SJ</span><span class="fi-t"><b>Sarah Johnson</b>I want the full bathroom done this month. When could you come look?</span><span class="fw-sc h">87%</span></div>
+      <div class="fi-note">Serious client · has a date and budget</div>
+      <div class="fi-bub">Hi Sarah! Does Thursday at 6pm work? It's 15 minutes, no obligation.</div>
+      <div class="fi-actions"><span class="fi-ok">Send</span><span class="fi-edit">Edit</span></div>
+      <div class="fi-row"><span class="fw-av" style="background:#57534e">EP</span><span class="fi-t"><b>Emma P.</b>Can you do mates' rates?</span><span class="fw-sc l">21%</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec pricing-section">
+  <div class="fh-wrap">
+    <h2 class="fh-h2" id="pricing-title">Plans</h2>
+    <div class="pricing-cards fh-plans">
+      <div class="price-card"><h3>Free trial</h3><div class="price">£0 Free <span>/ 3 days</span></div><ul><li>Full access to Basic plan</li><li>Unlimited bio, ads & replies</li><li>No card — expires on its own</li></ul><button class="btn-outline" onclick="showPage('auth')">Start my trial</button></div>
+      <div class="price-card"><h3>Basic</h3><div class="price">£18 <span>/month</span></div><ul><li>Full professional bio</li><li>Unlimited ad texts</li><li>WhatsApp reply templates</li><li>Marketing & negotiation tips</li><li>PDF quotes</li><li>Your public web page</li></ul><button class="btn-primary" onclick="goUpgrade('basic')">Choose Basic</button></div>
+      <div class="price-card featured"><div class="badge">Popular</div><h3>Pro</h3><div class="price">£27 <span>/month</span></div><ul><li>Everything in Basic</li><li>Client compatibility meter</li><li>Client message analysis</li><li>Suggested reply to close the job</li><li>AI WhatsApp inbox (new)</li></ul><button class="btn-accent" onclick="goUpgrade('pro')">Choose Pro</button></div>
+    </div>
+    <p class="fh-urgency" id="urgency-text">Launch price. The Basic plan will soon go up to £25/month.</p>
+  </div>
+</section>
+
+<section class="fh-sec">
+  <div class="fh-wrap fh-narrow">
+    <h2 class="fh-h2" id="faq-title">Frequently asked questions</h2>
+    <div id="faq-container" class="fh-faq">
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>Can I cancel any time?</h3><div class="tip-detail">Yes. Cancel from "My account" then "Manage subscription". No contract. Cancellation takes effect at the end of the paid month.</div></div>
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>Does the AI actually generate good content?</h3><div class="tip-detail">It uses advanced AI models (Claude, by Anthropic) with instructions designed for tradespeople. The content adapts to your trade, your area and your services. Try it free and judge for yourself.</div></div>
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>Is my data safe?</h3><div class="tip-detail">Your data is stored on secure servers (Supabase). Payments are handled by Stripe. We never sell or share your data. We comply with UK GDPR and are registered with the ICO.</div></div>
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>Does it work for my trade?</h3><div class="tip-detail">It works for over 30 trades: builders, painters, plumbers, electricians, photographers, hairdressers, personal trainers, physiotherapists, mechanics and many more. If yours isn't listed, type it in manually.</div></div>
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>Can I connect my WhatsApp?</h3><div class="tip-detail">Yes, it's already available on the Pro plan. Connect your WhatsApp Business without leaving the app on your phone. The AI analyses new messages and suggests replies. Nothing is sent without your approval.</div></div>
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>What if I don't like it?</h3><div class="tip-detail">You can try it free with no card. If after paying you're not happy, you have 14 days to request a full refund.</div></div>
+      <div class="tip-card" onclick="this.classList.toggle('open')"><h3>Do I need to be tech-savvy?</h3><div class="tip-detail">No. If you can use WhatsApp, you can use OficioAI. Enter your details, AI prepares everything and you copy and paste.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="fh-sec fh-final">
+  <div class="fh-wrap fh-narrow">
+    <h2 class="fh-h2" id="final-cta-title">Ready to get more clients?</h2>
+    <p class="fh-p" id="final-cta-sub">Create your account in 30 seconds. No card. No commitment.</p>
+    <button class="fh-btn" onclick="showPage('auth')">Start free now</button>
+  </div>
+</section>
+
+</div><!-- close page-home -->
+
+<!-- AUTH -->
+<div id="page-auth" class="page">
+<div class="auth-page">
+<h2 id="auth-title">Create account</h2>
+<p class="subtitle" id="auth-sub">Start free — no card required</p>
+<div class="auth-box">
+<div class="auth-error" id="auth-error"></div>
+<div class="form-group"><label>Email</label><input type="email" id="auth-email" placeholder="you@email.com"></div>
+<div class="form-group"><label>Password</label><input type="password" id="auth-pass" placeholder="Minimum 6 characters"></div>
+<div style="margin-top:12px;display:flex;gap:8px;align-items:flex-start" id="consent-group">
+<input type="checkbox" id="auth-consent" style="margin-top:4px;min-width:16px;accent-color:var(--accent)">
+<label for="auth-consent" style="font-size:.78rem;color:var(--text-mid);font-weight:400;line-height:1.4">I accept the <a onclick="showPage('privacy')" style="color:var(--accent);cursor:pointer;text-decoration:underline">privacy policy</a> and the <a onclick="showPage('terms')" style="color:var(--accent);cursor:pointer;text-decoration:underline">terms and conditions</a></label>
+</div>
+<button class="auth-btn" id="auth-btn" onclick="handleAuth()" aria-label="Create account">Create account</button>
+<div class="auth-switch"><span id="auth-switch-text">Already have an account?</span> <a onclick="toggleAuthMode()" id="auth-switch-link">Sign in</a></div>
+<div class="auth-switch" id="forgot-link" style="display:none;margin-top:8px"><a onclick="handleForgotPassword()" style="color:var(--accent);cursor:pointer;text-decoration:underline">Forgot your password?</a></div>
+</div>
+</div>
+</div>
+
+<!-- BEFORE & AFTER PAGE -->
+<div id="page-ba" class="page">
+<div class="auth-page" style="max-width:580px;margin:0 auto">
+<h2 style="font-size:1.8rem;font-weight:800;letter-spacing:-.5px;margin-bottom:6px">See the difference</h2>
+<p class="subtitle">Same client message. Two very different replies.</p>
+
+<div style="margin-top:28px">
+<div style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:.78rem;font-weight:700;background:rgba(239,68,68,.12);color:#ef4444;margin-bottom:10px">❌ Without OficioAI</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #ef4444;border-radius:14px;padding:14px 16px;font-size:.88rem;line-height:1.55;color:var(--text);margin-bottom:16px">
+hi yeah i can do bathrooms. depends on size innit. prob around 3-4k maybe more. im free in like 2 weeks i think. let me no
+<div style="font-size:.72rem;color:var(--text-light);text-align:right;margin-top:6px">11:47 AM</div>
+</div>
+
+<div style="text-align:center;font-size:1.5rem;color:var(--accent);margin:8px 0">↓</div>
+
+<div style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:.78rem;font-weight:700;background:rgba(74,222,128,.12);color:#4ade80;margin-bottom:10px">✨ With OficioAI</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid #4ade80;border-radius:14px;padding:14px 16px;font-size:.88rem;line-height:1.55;color:var(--text);margin-bottom:10px">
+Hi Sarah! Thanks for getting in touch — I'd love to help with your bathroom renovation. For a full refit in a Victorian terrace (tiling, plumbing, fixtures), you're typically looking at £3,500–£5,000 depending on materials. I could come round for a free assessment this week — would Thursday or Friday work?
+<div style="font-size:.72rem;color:var(--text-light);text-align:right;margin-top:6px">10:25 AM</div>
+</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text-mid);margin-top:4px"><span style="color:#4ade80">✓</span> Written by AI in 5 seconds</div>
+</div>
+
+<!-- Price Comparison -->
+<h3 style="font-size:1.3rem;font-weight:800;margin:40px 0 16px;text-align:center;letter-spacing:-.5px">Stop overpaying</h3>
+<div class="compare-grid">
+<div class="compare-row"><div><div class="cr-name">📋 Checkatrade</div><div class="cr-what">Shared leads, no content</div></div><div class="cr-price red">£40–80/mo</div></div>
+<div class="compare-row"><div><div class="cr-name">✍️ Copywriter</div><div class="cr-what">One ad at a time</div></div><div class="cr-price red">£50/hour</div></div>
+<div class="compare-row"><div><div class="cr-name">📱 Facebook Ads</div><div class="cr-what">You write, you pay per click</div></div><div class="cr-price red">£200+/mo</div></div>
+<div class="compare-row highlight"><div><div class="cr-name">⚡ OficioAI</div><div class="cr-what">Bio, ads, replies, quotes — all AI</div></div><div class="cr-price green">£18/mo</div></div>
+</div>
+<div class="compare-note">Save <strong style="color:#4ade80">£3,500+</strong> per year</div>
+
+<button class="auth-btn" style="margin-top:32px" onclick="showPage('auth')">Start free trial</button>
+</div>
+</div>
+
+<!-- WHATSAPP AI PAGE -->
+<div id="page-whatsapp" class="page">
+<div class="auth-page" style="max-width:580px;margin:0 auto">
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">
+<h2 style="font-size:1.8rem;font-weight:800;letter-spacing:-.5px;margin:0">WhatsApp AI Inbox</h2>
+<span style="background:linear-gradient(135deg,#6366F1,#ec4899);color:#fff;font-size:.65rem;font-weight:800;padding:3px 8px;border-radius:8px;letter-spacing:.5px">NEW</span>
+</div>
+<p class="subtitle">Connect WhatsApp Business. AI reads every message and suggests a professional reply.</p>
+
+<!-- Phone mockup -->
+<div style="margin:28px auto 0;max-width:360px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;font-size:1.1rem">💬</div>
+<div>
+<div style="font-size:.9rem;font-weight:700">WhatsApp Business</div>
+<div style="font-size:.72rem;color:var(--text-light)">3 new messages</div>
+</div>
+</div>
+
+<!-- Message 1 -->
+<div style="padding:14px 0;border-bottom:1px solid var(--border)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<span style="font-weight:700;font-size:.88rem">Sarah M.</span>
+<span style="background:#ef4444;color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:6px">HOT LEAD</span>
+</div>
+<div style="font-size:.82rem;color:var(--text-mid);margin-bottom:8px">"Hi, I need my bathroom done. Can you give me a quote?"</div>
+<div style="background:var(--accent-glow);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:10px 12px;font-size:.78rem;color:var(--text)">
+<div style="font-size:.65rem;color:var(--accent);font-weight:700;margin-bottom:4px">✨ AI SUGGESTED REPLY</div>
+Hi Sarah! I'd love to help with your bathroom. For a full refit you're looking at £3,500–£5,000. Would Thursday work for a free assessment?
+</div>
+<div style="display:flex;gap:6px;margin-top:8px">
+<button style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;cursor:pointer">Send reply</button>
+<button style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-mid);font-size:.75rem;font-weight:600;cursor:pointer">Edit first</button>
+</div>
+</div>
+
+<!-- Message 2 -->
+<div style="padding:14px 0;border-bottom:1px solid var(--border)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<span style="font-weight:700;font-size:.88rem">James T.</span>
+<span style="background:#f59e0b;color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:6px">FOLLOW UP</span>
+</div>
+<div style="font-size:.82rem;color:var(--text-mid)">"Hey mate, any update on that kitchen quote?"</div>
+</div>
+
+<!-- Message 3 -->
+<div style="padding:14px 0">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<span style="font-weight:700;font-size:.88rem">Dave R.</span>
+<span style="background:var(--text-light);color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:6px">LOW PRIORITY</span>
+</div>
+<div style="font-size:.82rem;color:var(--text-mid)">"Cheers for the work last week. Looks great 👍"</div>
+</div>
+</div>
+
+<!-- Features -->
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:24px">
+<div style="display:flex;align-items:center;gap:10px;font-size:.85rem"><span style="color:#4ade80;font-size:1.1rem">✓</span> AI analyses tone & urgency automatically</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:.85rem"><span style="color:#4ade80;font-size:1.1rem">✓</span> One-tap professional replies</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:.85rem"><span style="color:#4ade80;font-size:1.1rem">✓</span> Nothing sent without your approval</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:.85rem"><span style="color:#4ade80;font-size:1.1rem">✓</span> Works with any trade or service</div>
+</div>
+
+<button class="auth-btn" style="margin-top:28px" onclick="showPage('auth')">Start free trial</button>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page">
+<div class="container">
+<div class="dash">
+<h2>Hello, <span id="dash-name">professional</span> 👋</h2>
+<div style="margin:12px 0 20px"><span class="plan-badge" id="dash-plan-badge">FREE</span></div>
+<div id="upgrade-banner-container"></div>
+<div class="dash-card" onclick="goGenerate()"><h3>📝 Generate marketing</h3><p>Professional bio, ads and client responses</p></div>
+<div class="dash-card" id="dash-analyze" onclick="goAnalyze()"><h3>📊 Analyse client</h3><p>Paste a message and find out if the client is serious</p></div>
+<div class="dash-card" id="dash-tips" onclick="goTips()"><h3>💡 Tips</h3><p>Marketing, negotiation and how to earn more</p></div>
+<div class="dash-card" id="dash-quote" onclick="goQuote()"><h3>📄 PDF Quote</h3><p>Generate a professional quote and download as PDF</p></div>
+<div class="dash-card" id="dash-profile" onclick="goPublicProfile()"><h3>🌐 Your web page</h3><p>Create your public page with bio, services and WhatsApp button</p></div>
+<div class="dash-card" id="dash-wa" onclick="goWhatsApp()"><h3>💬 WhatsApp</h3><p>Connect WhatsApp Business and let AI suggest your replies</p></div>
+<div class="history-section" id="history-section"><h3>Latest generations</h3><div id="history-list"></div></div>
+</div>
+</div>
+</div>
+
+<!-- GENERATOR -->
+<div id="page-generator" class="page">
+<div class="container">
+<div class="form-page" id="form-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2 id="form-title">Your information</h2>
+<p class="subtitle" id="form-sub">Fill in your business details and AI does the rest.</p>
+<div class="form-group"><label>Professional or business name</label><input type="text" id="inp-name" placeholder="E.g. Mike's Plumbing, Smith Renovations..."></div>
+<div class="form-group"><label>Trade</label><select id="inp-trade"><option value="">Select...</option><optgroup label="Construction & trades"><option value="builder">Builder</option><option value="painter">Painter</option><option value="plumber">Plumber</option><option value="electrician">Electrician</option><option value="carpenter">Carpenter</option><option value="renovation">Full renovations</option><option value="hvac">HVAC</option><option value="locksmith">Locksmith</option><option value="gardener">Gardener</option></optgroup><optgroup label="Health & wellness"><option value="physiotherapist">Physiotherapist</option><option value="personal_trainer">Personal trainer</option><option value="nutritionist">Nutritionist</option><option value="psychologist">Psychologist</option><option value="dentist">Dentist</option></optgroup><optgroup label="Beauty & aesthetics"><option value="hairdresser">Hairdresser</option><option value="barber">Barber</option><option value="beautician">Beautician</option><option value="nail_tech">Nail technician</option></optgroup><optgroup label="Motor & transport"><option value="mechanic">Mechanic</option><option value="tow_truck">Tow truck / roadside</option><option value="driver">Driver / courier</option></optgroup><optgroup label="Creatives"><option value="photographer">Photographer</option><option value="videographer">Videographer</option><option value="designer">Graphic designer</option><option value="tattoo_artist">Tattoo artist</option></optgroup><optgroup label="Services"><option value="cleaner">Cleaner</option><option value="tutor">Tutor</option><option value="pet_groomer">Pet groomer</option><option value="vet">Veterinarian</option><option value="accountant">Accountant</option><option value="lawyer">Lawyer</option></optgroup><option value="other">Other</option></select></div>
+<div class="form-group" id="other-trade-group" style="display:none"><label>Specify your trade</label><input type="text" id="inp-other-trade" placeholder="E.g. Solar panel installer"></div>
+<div class="form-group"><label>Work area</label><input type="text" id="inp-zone" placeholder="E.g. London and surrounding areas"></div>
+<div class="form-group"><label>Main services</label><textarea id="inp-services" placeholder="E.g. Bathroom renovation, tiling, plastering, small repairs"></textarea><p class="hint">List up to 5 services you offer</p></div>
+<div class="form-group"><label>Years of experience</label><input type="number" id="inp-years" placeholder="E.g. 12" min="0"></div>
+<button class="generate-btn" id="gen-btn" onclick="generateContentStream()">Generate my marketing</button>
+</div>
+<div id="loading-section" style="display:none"><div class="loading"><div class="spinner"></div><p>Creating your marketing material...</p></div></div>
+<div id="results-section" class="results-section" style="display:none">
+<div class="back-row"><button class="back-btn" onclick="backToForm()">← Edit details</button></div>
+<h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Your marketing is ready</h2>
+<div class="result-block"><h3>Professional bio</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText('result-bio')">Copy</button></div>
+<div class="result-block"><h3>Ads</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText('result-ads')">Copy</button></div>
+<div id="wa-section"></div>
+</div>
+</div>
+</div>
+
+<!-- ANALYZER -->
+<div id="page-analyzer" class="page">
+<div class="container">
+<div class="analyzer-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2 id="analyzer-title">Compatibility meter</h2>
+<p class="subtitle" id="analyzer-sub">Paste a potential client's message and AI tells you what kind of client they are and how to reply.</p>
+<div id="analyzer-content"></div>
+</div>
+</div>
+</div>
+
+<!-- TIPS -->
+<div id="page-tips" class="page">
+<div class="container">
+<div class="tips-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2 id="tips-title">Tips to earn more</h2>
+<div id="tips-content"></div>
+</div>
+</div>
+</div>
+
+<!-- ACCOUNT -->
+<div id="page-account" class="page">
+<div class="container">
+<div class="account-section">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2>My account</h2>
+<div class="account-card"><h3>Email</h3><p id="acc-email">—</p></div>
+<div class="account-card"><h3>Current plan</h3><p id="acc-plan">—</p><div id="acc-upgrade-btn"></div></div>
+<div class="account-card"><h3>Generations made</h3><p id="acc-gens">—</p></div>
+<button id="manage-sub-btn" onclick="openPortal()" style="width:100%;padding:14px;background:var(--accent-glow);border:1px solid rgba(99,102,241,.2);border-radius:12px;font-family:inherit;font-size:.92rem;color:var(--accent);cursor:pointer;font-weight:600;transition:all .25s;display:none">Manage subscription</button>
+<button class="logout-btn" id="logout-btn" onclick="handleLogout()">Sign out</button>
+</div>
+</div>
+</div>
+
+<!-- QUOTE BUILDER -->
+<div id="page-quote" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2>Professional quote</h2>
+<p class="subtitle">Describe the job and AI generates an itemised quote. Download as PDF.</p>
+<div class="form-group"><label>Your name or business</label><input type="text" id="q-name" placeholder="E.g. Smith Renovations"></div>
+<div class="form-group"><label>Your trade</label><input type="text" id="q-trade" placeholder="E.g. Builder"></div>
+<div class="form-group"><label>Your phone</label><input type="text" id="q-phone" placeholder="E.g. +44 7123 456789"></div>
+<div class="form-group"><label>Client name</label><input type="text" id="q-client" placeholder="E.g. Sarah Johnson"></div>
+<div class="form-group"><label>Describe the job</label><textarea id="q-desc" rows="4" placeholder="E.g. Full bathroom renovation 6sqm, replace bath with walk-in shower, tile walls and floor, install vanity unit and mirror"></textarea></div>
+<button class="generate-btn" id="btn-quote" onclick="generateQuote()">Generate quote</button>
+<div id="quote-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>Generating quote...</p></div></div>
+<div id="quote-result" style="display:none">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px">
+<h3 style="font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--primary)" id="q-title"></h3>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem" id="q-table">
+<thead><tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:8px 0;color:var(--text-mid)">Item</th><th style="text-align:right;padding:8px 0;color:var(--text-mid)">Price</th></tr></thead>
+<tbody id="q-items"></tbody>
+<tfoot><tr style="border-top:2px solid var(--border)"><td style="padding:10px 0;font-weight:700;font-size:1rem">TOTAL</td><td style="padding:10px 0;font-weight:700;font-size:1rem;text-align:right;color:var(--accent)" id="q-total"></td></tr></tfoot>
+</table>
+<p style="font-size:.82rem;color:var(--text-light);margin-top:12px" id="q-notes"></p>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px">
+<button onclick="downloadQuotePDF()" style="flex:1;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer">Download PDF</button>
+<button onclick="editQuoteItems()" style="flex:1;padding:13px;background:transparent;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;color:var(--text)">Edit prices</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PUBLIC PROFILE -->
+<div id="page-public-profile" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2>Your public web page</h2>
+<p class="subtitle">Create a professional page to share with clients. Includes your bio, services and WhatsApp button.</p>
+<div class="form-group"><label>Your page URL</label><div style="display:flex;align-items:center;gap:4px"><span style="font-size:.88rem;color:var(--text-light)">oficioai.website/p/</span><input type="text" id="profile-slug" placeholder="john-plumber" style="flex:1"></div><p class="hint">Only letters, numbers and hyphens. Example: john-plumber</p></div>
+<div class="form-group"><label>Tagline</label><input type="text" id="profile-tagline" placeholder="E.g. Your trusted builder in London"></div>
+<div class="form-group"><label>Phone</label><input type="tel" id="profile-phone" placeholder="E.g. +44 7123 456789"></div>
+<div class="form-group"><label>WhatsApp (with prefix)</label><input type="tel" id="profile-whatsapp" placeholder="E.g. 447123456789"></div>
+<button class="generate-btn" onclick="savePublicProfile()">Create my page</button>
+<div id="profile-result"></div>
+</div>
+</div>
+</div>
+
+<!-- HISTORY DETAIL -->
+<div id="page-history" class="page">
+<div class="container">
+<div class="results-section" style="display:block">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px" id="history-detail-title">Generation</h2>
+<div id="history-detail-content"></div>
+</div>
+</div>
+</div>
+
+<footer role="contentinfo"><div class="container"><div style="margin-bottom:8px">OficioAI — Your AI marketing department</div><div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap"><a onclick="showPage('legal')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Legal notice</a><a onclick="showPage('terms')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Terms</a><a onclick="showPage('privacy')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Privacy</a><a onclick="showPage('cookies')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Cookies</a><a onclick="showPage('refund')" style="cursor:pointer;color:var(--text-light);text-decoration:underline;font-size:.75rem">Refunds</a></div></div></footer>
+
+<!-- WHATSAPP -->
+<div id="page-whatsapp" class="page">
+<div class="container">
+<div class="form-page">
+<div class="back-row"><button class="back-btn" onclick="showPage('dashboard')">← Dashboard</button></div>
+<h2>WhatsApp</h2>
+<p class="subtitle">Your client messages, with AI by your side.</p>
+<div id="wa-content"></div>
+</div>
+</div>
+</div>
+
+<div id="page-legal" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Back</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Legal notice</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Owner:</b> Kai Jorge</p><p><b>Activity:</b> AI-powered marketing content generation service</p><p><b>Website:</b> oficioai.website</p><p><b>Contact email:</b> oficioai.website@gmail.com</p><p style="margin-top:12px">In compliance with the Data Protection Act 2018 and UK GDPR, this website provides an AI-powered marketing content generation service for self-employed professionals and tradespeople.</p><p style="margin-top:12px"><b>Intellectual property:</b> The design, source code and OficioAI brand are owned by the owner. Content generated by AI for each user is the property of the user who generates it.</p><p style="margin-top:12px"><b>Limitation of liability:</b> OficioAI is a support tool that uses artificial intelligence to generate content suggestions. We do not guarantee specific commercial results. The user is solely responsible for the use they make of the generated content, including verifying its accuracy and suitability.</p><p style="margin-top:12px"><b>Jurisdiction:</b> Any disputes shall be subject to the courts of England and Wales.</p></div></div></div>
+
+<div id="page-terms" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Back</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Terms and conditions</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>1. Service:</b> OficioAI provides AI-powered marketing content generation tools. Generated content consists of suggestions that users should review before use.</p><p style="margin-top:12px"><b>2. Registration:</b> To access the service you must create an account with a valid email address. You are responsible for maintaining the security of your account and password.</p><p style="margin-top:12px"><b>3. Plans and payments:</b> We offer a limited free plan and monthly paid plans. Payments are processed securely through Stripe. Prices include VAT where applicable.</p><p style="margin-top:12px"><b>4. Subscriptions:</b> Subscriptions renew automatically each month. You can cancel at any time from your Stripe dashboard or by contacting us by email. Cancellation takes effect at the end of the current billing period.</p><p style="margin-top:12px"><b>5. Generated content:</b> Content that AI generates for you is your property. However, we do not guarantee that it is accurate, complete or suitable for all uses. You are responsible for reviewing it before publishing or using it.</p><p style="margin-top:12px"><b>6. Acceptable use:</b> You may not use OficioAI to generate content that is illegal, misleading, defamatory or that infringes the rights of third parties.</p><p style="margin-top:12px"><b>7. Availability:</b> We strive to keep the service available, but we do not guarantee uninterrupted operation. We may perform maintenance or updates without prior notice.</p><p style="margin-top:12px"><b>8. Changes:</b> We reserve the right to modify these terms. We will notify you of significant changes by email. Continued use of the service constitutes acceptance of the updated terms.</p><p style="margin-top:12px"><b>9. Intellectual property:</b> The OficioAI brand, design and code are owned by the owner. Content that AI generates for you is your property and you may use it freely.</p><p style="margin-top:12px"><b>10. WhatsApp connection:</b> The connection is optional and is made through the official WhatsApp platform by Meta. You need a WhatsApp Business account and must accept Meta's terms. You are responsible for having a legitimate basis for processing your clients' data and for complying with WhatsApp policies. OficioAI never sends a message without your approval. Meta may charge for messages sent through their platform at their current rates. You can disconnect your number at any time.</p><p style="margin-top:12px"><b>11. Governing law:</b> These terms are governed by the laws of England and Wales. Any disputes shall be subject to the courts of England and Wales.</p><p style="margin-top:12px"><b>Last updated:</b> October 2026</p></div></div></div>
+
+<div id="page-refund" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Back</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Refund policy</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Free trial:</b> You can try OficioAI for free before subscribing to any paid plan. We recommend using the free version to make sure the service is useful for you.</p><p style="margin-top:12px"><b>Cancellation:</b> You can cancel your subscription at any time. Cancellation takes effect at the end of the current billing period. No additional charges are made after cancellation.</p><p style="margin-top:12px"><b>Refunds:</b> If you are not satisfied with the service, you can request a full refund within the first 14 calendar days from the date of your first payment, in compliance with UK consumer protection regulations. To request a refund, send an email to oficioai.website@gmail.com with your registration email and the reason.</p><p style="margin-top:12px"><b>Exceptions:</b> No refunds will be issued after 14 days from payment, nor for subscription periods already consumed.</p><p style="margin-top:12px"><b>Process:</b> Refunds are processed through Stripe to the same payment method used. The refund period is 5-10 business days.</p><p style="margin-top:12px"><b>Contact:</b> For any questions about refunds, email oficioai.website@gmail.com.</p></div></div></div>
+
+<div id="page-privacy" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Back</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Privacy policy</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p><b>Data controller:</b> OficioAI</p><p><b>Data we collect:</b> Email and password (for your account), professional details you enter voluntarily (business name, trade, area, services) and payment data processed by Stripe.</p><p style="margin-top:12px"><b>Purpose:</b> Provision of AI content generation service and management of your account and subscription.</p><p style="margin-top:12px"><b>Legal basis:</b> Performance of the service contract and user consent, in accordance with the Data Protection Act 2018 and UK GDPR.</p><p style="margin-top:12px"><b>Storage:</b> Your data is stored on Supabase. Payments are processed by Stripe. We do not sell or share your data with third parties.</p><p style="margin-top:12px"><b>Your rights:</b> Under UK GDPR you have the right to access, rectify, erase, restrict and port your data. You can exercise these rights by emailing oficioai.website@gmail.com. You also have the right to lodge a complaint with the Information Commissioner's Office (ICO).</p><p style="margin-top:12px"><b>Retention:</b> Your data is retained while your account remains active. You can request deletion at any time.</p><p style="margin-top:12px"><b>WhatsApp connection (Pro plan, optional):</b> If you connect your WhatsApp Business number, we receive through the official WhatsApp platform (Meta Platforms Ireland Ltd.) the messages your clients send to that number: profile name, phone number and message content. We use them only to analyse them with AI, suggest a reply and send replies you approve. Regarding your clients' data, you are the data controller and OficioAI acts as a data processor. Messages are stored for a maximum of 90 days and are deleted when you disconnect your number. For analysis we use an AI provider (Anthropic), which processes the message text.</p></div></div></div>
+
+<div id="page-cookies" class="page"><div class="container" style="padding:40px 20px 60px;max-width:640px"><div class="back-row"><button class="back-btn" onclick="goHome()">← Back</button></div><h2 style="font-size:1.4rem;font-weight:700;margin:16px 0">Cookie policy</h2><div style="font-size:.88rem;color:var(--text-mid);line-height:1.8"><p>This website uses only strictly necessary technical cookies for the operation of the service:</p><p style="margin-top:12px"><b>Session cookies:</b> To keep you logged in. These are deleted when you close the browser or sign out.</p><p style="margin-top:12px"><b>Stripe cookies:</b> Required to process payments securely.</p><p style="margin-top:12px"><b>Meta (only if you connect WhatsApp):</b> When you click "Connect WhatsApp", Meta's login is loaded, which may use its own cookies necessary for that process. It is not loaded anywhere else on the site.</p><p style="margin-top:12px">We do not use advertising, analytics or third-party tracking cookies. As we only use strictly necessary cookies, no cookie consent banner is required under UK GDPR and the Privacy and Electronic Communications Regulations (PECR).</p></div></div></div>
+
+<script>
+// ========== CONFIG ==========
+const SUPABASE_URL = 'https://pbnlmjhpxvbohazrqzsj.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_2-IVhKvS8rSk0QlUNHPTig_L1M1QrYM';
+const STRIPE_BASIC = 'https://buy.stripe.com/3cI5kFeENdpb69W4uZ8Zq01';
+const STRIPE_PRO = 'https://buy.stripe.com/dRm6oJeENetf55SgdH8Zq00';
+
+var sb;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) { console.error('Supabase init error:', e); }
+
+let currentUser = null;
+let userProfile = null;
+let currentLang = 'en';
+let authMode = 'signup';
+
+const tradeNames = {en:{builder:'Builder',painter:'Painter',plumber:'Plumber',electrician:'Electrician',carpenter:'Carpenter',renovation:'Full renovations',hvac:'HVAC',locksmith:'Locksmith',gardener:'Gardener',physiotherapist:'Physiotherapist',personal_trainer:'Personal trainer',nutritionist:'Nutritionist',psychologist:'Psychologist',dentist:'Dentist',hairdresser:'Hairdresser',barber:'Barber',beautician:'Beautician',nail_tech:'Nail technician',mechanic:'Mechanic',tow_truck:'Tow truck / roadside',driver:'Driver / courier',photographer:'Photographer',videographer:'Videographer',designer:'Graphic designer',tattoo_artist:'Tattoo artist',cleaner:'Cleaner',tutor:'Tutor',pet_groomer:'Pet groomer',vet:'Veterinarian',accountant:'Accountant',lawyer:'Lawyer'}};
+
+const tips = {
+en:[
+{title:'How to ask for reviews',sub:'Reviews are your best free advertising.',detail:'When a happy client finishes, ask directly and send the Google review link via WhatsApp within 24 hours. Every 5 positive reviews works like a permanent ad.'},
+{title:'Before and after photos',sub:'A well-shown job is worth a thousand words.',detail:'Take 3-4 photos before starting, same angles after. Post with a short text: what you did, how long, what area. This content attracts the most new clients.'},
+{title:'Never quote without seeing the job',sub:'Blind quotes cost you money.',detail:'Reply: "To give a fair price I need to see the job. When works for a look? No commitment." Positions you as serious and filters bargain hunters.'},
+{title:'Create your Google Business profile',sub:'Free, and the first thing people see.',detail:'Go to business.google.com, create your profile with name, trade, area and phone. Upload work photos. You\'ll show up on the map.'},
+{title:'Written quotes close more jobs',sub:'A professional PDF sets you apart.',detail:'Send a PDF with your logo, work breakdown, materials and price. You look like a serious business. Clients trust you more.'},
+{title:'How to handle "too expensive"',sub:'Price isn\'t the problem — perceived value is.',detail:'Don\'t drop your price. Explain: "Includes quality materials, professional finish and guarantee. Peace of mind it\'s done right."'},
+{title:'Use WhatsApp Business',sub:'Free, professional features you don\'t know about.',detail:'Switch to WhatsApp Business. Set hours, catalog, quick replies, auto-away message. Saves time, looks professional.'}
+]};
+
+// ========== AUTH ==========
+async function checkSession() {
+  if (!sb) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      currentUser = session.user;
+      await loadProfile();
+      showLoggedInUI();
+      showPage('dashboard');
+    }
+  } catch(e) { console.error('Session check error:', e); }
+}
+
+async function loadProfile() {
+  if (!currentUser) return;
+  const { data } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  userProfile = data || { plan: 'free' };
+}
+
+async function handleAuth() {
+  const email = document.getElementById('auth-email').value.trim();
+  const pass = document.getElementById('auth-pass').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+
+  if (!email || pass.length < 6) { errEl.textContent = 'Valid email and password of 6+ characters required'; errEl.style.display = 'block'; return; }
+  if (authMode === 'signup' && !document.getElementById('auth-consent').checked) { errEl.textContent = 'You must accept the privacy policy and terms'; errEl.style.display = 'block'; return; }
+
+  document.getElementById('auth-btn').disabled = true;
+
+  if (authMode === 'signup') {
+    const { data, error } = await sb.auth.signUp({ email, password: pass });
+    if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; document.getElementById('auth-btn').disabled = false; return; }
+    if (data.user && !data.session) {
+      errEl.style.display = 'block'; errEl.style.background = '#f0fdf4'; errEl.style.color = '#166534';
+      errEl.textContent = 'Check your email to confirm your account.';
+      document.getElementById('auth-btn').disabled = false; return;
+    }
+    currentUser = data.user;
+  } else {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if (error) { errEl.textContent = 'Incorrect email or password'; errEl.style.display = 'block'; document.getElementById('auth-btn').disabled = false; return; }
+    currentUser = data.user;
+  }
+
+  await loadProfile();
+  showLoggedInUI();
+  showPage('dashboard');
+  document.getElementById('auth-btn').disabled = false;
+}
+
+function toggleAuthMode() {
+  authMode = authMode === 'signup' ? 'login' : 'signup';
+  document.getElementById('auth-title').textContent = authMode === 'signup' ? 'Create account' : 'Sign in';
+  document.getElementById('auth-sub').textContent = authMode === 'signup' ? 'Start free — no card required' : 'Welcome back';
+  document.getElementById('auth-btn').textContent = authMode === 'signup' ? 'Create account' : 'Sign in';
+  document.getElementById('auth-switch-text').textContent = authMode === 'signup' ? 'Already have an account?' : 'Don\'t have an account?';
+  document.getElementById('auth-switch-link').textContent = authMode === 'signup' ? 'Sign in' : 'Create one free';
+  document.getElementById('auth-error').style.display = 'none';
+  document.getElementById('forgot-link').style.display = authMode === 'login' ? 'block' : 'none';
+  document.getElementById('consent-group').style.display = authMode === 'signup' ? 'flex' : 'none';
+}
+
+async function handleForgotPassword() {
+  var email = document.getElementById('auth-email').value.trim();
+  var errEl = document.getElementById('auth-error');
+  if (!email) { errEl.textContent = 'Enter your email first'; errEl.style.display = 'block'; return; }
+  var { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://oficioai.website' });
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+  errEl.style.display = 'block'; errEl.style.background = '#f0fdf4'; errEl.style.color = '#166534';
+  errEl.textContent = 'We\'ve sent you an email to reset your password. Check your inbox.';
+}
+
+async function handleLogout() {
+  await sb.auth.signOut();
+  currentUser = null; userProfile = null;
+  showLoggedOutUI();
+  showPage('home');
+}
+
+function showLoggedInUI() {
+  document.getElementById('nav-logged-in').style.display = 'flex';
+  document.getElementById('nav-user-btn').style.display = 'block';
+  document.getElementById('nav-login-btn').style.display = 'none';
+  document.getElementById('nav-signup-btn').style.display = 'none';
+  document.getElementById('nav-ba-btn').style.display = 'none';
+  document.getElementById('nav-wa-btn').style.display = 'none';
+}
+
+function showLoggedOutUI() {
+  document.getElementById('nav-logged-in').style.display = 'none';
+  document.getElementById('nav-user-btn').style.display = 'none';
+  document.getElementById('nav-login-btn').style.display = 'block';
+  document.getElementById('nav-signup-btn').style.display = 'block';
+  document.getElementById('nav-ba-btn').style.display = 'block';
+  document.getElementById('nav-wa-btn').style.display = 'block';
+}
+
+// ========== NAVIGATION ==========
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  const nb = document.getElementById('nav-' + (id === 'generator' ? 'gen' : id === 'dashboard' ? 'dash' : id === 'analyzer' ? 'analyze' : id));
+  if (nb) nb.classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'dashboard') renderDashboard();
+  if (id === 'account') renderAccount();
+}
+
+function goHome() { showPage(currentUser ? 'dashboard' : 'home'); }
+
+function goGenerate() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('generator');
+}
+
+function goAnalyze() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('analyzer');
+  renderAnalyzer();
+}
+
+function goTips() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('tips');
+  renderTips();
+}
+
+function goUpgrade(plan) {
+  if (!currentUser) { showPage('auth'); return; }
+  var price = plan === 'pro' ? '27' : '18';
+  var planName = plan === 'pro' ? 'Pro' : 'Basic';
+  var features = plan === 'pro'
+    ? 'Everything in Basic + Client compatibility meter + Message analysis + Suggested replies'
+    : 'Unlimited bio & ads + WhatsApp replies + Tips + PDF quotes + Public web page';
+  var overlay = document.createElement('div');
+  overlay.id = 'stripe-confirm';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = '<div style="background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:32px;max-width:400px;width:100%;box-shadow:var(--shadow-xl);text-align:center"><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:6px">' + planName + ' Plan</h3><p style="font-size:2rem;font-weight:800;color:var(--accent);margin:12px 0">£' + price + '<span style="font-size:.85rem;font-weight:400;color:var(--text-mid)">/month</span></p><p style="font-size:.85rem;color:var(--text-mid);line-height:1.6;margin-bottom:16px">' + features + '</p><p style="font-size:.78rem;color:var(--text-light);margin-bottom:20px">🔒 Cancel anytime. 14-day refund guarantee.</p><button onclick="proceedToStripe(\'' + plan + '\')" style="width:100%;padding:14px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(99,102,241,.3);margin-bottom:10px">Continue to secure payment</button><button onclick="document.getElementById(\'stripe-confirm\').remove()" style="width:100%;padding:12px;background:none;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.9rem;color:var(--text-mid);cursor:pointer">Go back</button></div>';
+  overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+}
+
+function proceedToStripe(plan) {
+  var url = plan === 'pro' ? STRIPE_PRO : STRIPE_BASIC;
+  window.open(url + '?client_reference_id=' + currentUser.id, '_blank');
+  document.getElementById('stripe-confirm').remove();
+}
+
+// ========== DASHBOARD ==========
+async function renderDashboard() {
+  if (!userProfile) await loadProfile();
+  const p = userProfile?.plan || 'free';
+  const name = userProfile?.business_name || currentUser?.email?.split('@')[0] || 'profesional';
+
+  document.getElementById('dash-name').textContent = name;
+  const badge = document.getElementById('dash-plan-badge');
+  badge.textContent = p === 'free' ? 'FREE' : p === 'basic' ? 'BASIC' : 'PRO';
+  badge.className = 'plan-badge ' + p;
+
+  // Upgrade banner
+  const bannerEl = document.getElementById('upgrade-banner-container');
+  if (p === 'free') {
+    bannerEl.innerHTML = '<div class="upgrade-banner"><h3>Unlock your full potential</h3><p>Generate unlimited marketing, WhatsApp replies and professional tips</p><button onclick="goUpgrade(\'basic\')">Upgrade to Basic — £18/month</button></div>';
+  } else if (p === 'basic') {
+    bannerEl.innerHTML = '<div class="upgrade-banner"><h3>Analyse your clients with AI</h3><p>Find out which clients are serious and how to respond to close more jobs</p><button onclick="goUpgrade(\'pro\')">Upgrade to Pro — £27/month</button></div>';
+  } else {
+    bannerEl.innerHTML = '';
+  }
+
+  // Lock cards
+  const analyzeCard = document.getElementById('dash-analyze');
+  const tipsCard = document.getElementById('dash-tips');
+  analyzeCard.className = p === 'pro' ? 'dash-card' : 'dash-card locked';
+  analyzeCard.onclick = p === 'pro' ? () => goAnalyze() : () => goUpgrade('pro');
+  tipsCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  tipsCard.onclick = (p === 'basic' || p === 'pro') ? () => goTips() : () => goUpgrade('basic');
+  var quoteCard = document.getElementById('dash-quote');
+  quoteCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  quoteCard.onclick = (p === 'basic' || p === 'pro') ? () => goQuote() : () => goUpgrade('basic');
+  var profileCard = document.getElementById('dash-profile');
+  profileCard.className = (p === 'basic' || p === 'pro') ? 'dash-card' : 'dash-card locked';
+  profileCard.onclick = (p === 'basic' || p === 'pro') ? () => goPublicProfile() : () => goUpgrade('basic');
+  var waCard = document.getElementById('dash-wa');
+  if (waCard) { waCard.className = p === 'pro' ? 'dash-card' : 'dash-card locked'; waCard.onclick = p === 'pro' ? () => goWhatsApp() : () => goUpgrade('pro'); }
+
+  // Load history
+  const { data: gens } = await sb.from('generations').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(5);
+  const listEl = document.getElementById('history-list');
+  if (gens && gens.length > 0) {
+    document.getElementById('history-section').style.display = 'block';
+    listEl.innerHTML = gens.map(g => {
+      const date = new Date(g.created_at).toLocaleDateString('en-GB');
+      const type = g.type === 'marketing' ? '📝 Marketing' : '📊 Análisis';
+      const preview = g.output.substring(0, 80) + '...';
+      return `<div class="history-item" onclick="showHistory('${g.id}')"><div class="meta">${type} — ${date}</div><div class="preview">${preview}</div></div>`;
+    }).join('');
+  } else {
+    document.getElementById('history-section').style.display = 'none';
+  }
+}
+
+async function showHistory(id) {
+  const { data } = await sb.from('generations').select('*').eq('id', id).single();
+  if (!data) return;
+  document.getElementById('history-detail-title').textContent = data.type === 'marketing' ? 'Generated marketing' : 'Client analysis';
+  document.getElementById('history-detail-content').innerHTML = `<div class="result-block"><div class="content">${data.output.replace(/</g,'&lt;')}</div><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>`;
+  showPage('history');
+}
+
+// ========== GENERATOR ==========
+document.getElementById('inp-trade').addEventListener('change', function() {
+  document.getElementById('other-trade-group').style.display = this.value === 'other' ? 'block' : 'none';
+});
+
+async function generateContent() {
+  const name = document.getElementById('inp-name').value.trim();
+  const tradeVal = document.getElementById('inp-trade').value;
+  const otherTrade = document.getElementById('inp-other-trade').value.trim();
+  const zone = document.getElementById('inp-zone').value.trim();
+  const services = document.getElementById('inp-services').value.trim();
+  const years = document.getElementById('inp-years').value.trim();
+  if (!name || !tradeVal || !zone || !services) { alert('Please fill in at least name, trade, area and services.'); return; }
+  const oficio = tradeVal === 'other' ? otherTrade : (tradeNames.en[tradeVal] || tradeVal);
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, trade: oficio, zone, services, years, lang: currentLang, userId: currentUser?.id })
+    });
+    const data = await response.json();
+
+    if (data.error === 'free_limit') {
+      document.getElementById('loading-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      document.getElementById('results-section').innerHTML = `
+        <div class="lock-overlay">
+          <h3>You've reached the free plan limit</h3>
+          <p>Upgrade to Basic for unlimited marketing, WhatsApp replies and professional tips.</p>
+          <button onclick="goUpgrade('basic')">Upgrade to Basic — £18/month</button>
+        </div>`;
+      return;
+    }
+    if (data.error) throw new Error(data.error);
+    const text = data.text;
+
+    const bioMatch = text.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
+    const adsMatch = text.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
+    const waMatch = text.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
+
+    document.getElementById('result-bio').textContent = bioMatch ? bioMatch[1].trim() : text;
+    document.getElementById('result-ads').textContent = adsMatch ? adsMatch[1].trim() : '';
+
+    const p = userProfile?.plan || 'free';
+    const waEl = document.getElementById('wa-section');
+    if (p === 'basic' || p === 'pro') {
+      const waText = waMatch ? waMatch[1].trim() : '';
+      waEl.innerHTML = `<div class="result-block"><h3>WhatsApp replies</h3><div class="content" id="result-wa">${waText.replace(/</g,'&lt;')}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="copy-btn" onclick="copyText('result-wa')">Copy</button><button class="copy-btn" onclick="showWaSend()" style="background:#25D366;color:#fff">Send via WhatsApp</button></div></div>`;
+    } else {
+      waEl.innerHTML = `<div class="lock-overlay"><p>🔒 WhatsApp replies are available on the Basic plan</p><button onclick="goUpgrade('basic')">Unlock — £18/month</button></div>`;
+    }
+
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'block';
+  } catch (err) {
+    console.error(err);
+    alert('Error generating. Please try again.');
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
+  }
+}
+
+function backToForm() {
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('results-section').innerHTML = `
+    <div class="back-row"><button class="back-btn" onclick="backToForm()">← Edit details</button></div>
+    <h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Your marketing is ready</h2>
+    <div class="result-block"><h3>Professional bio</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText('result-bio')">Copy</button></div>
+    <div class="result-block"><h3>Ads</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText('result-ads')">Copy</button></div>
+    <div id="wa-section"></div>`;
+  document.getElementById('form-section').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// ========== ANALYZER ==========
+function renderAnalyzer() {
+  var p = userProfile?.plan || 'free';
+  var el = document.getElementById('analyzer-content');
+  if (p !== 'pro') {
+    el.innerHTML = '<div class="lock-overlay"><h3>🔒 Pro feature</h3><p>The compatibility meter is available on the Pro plan. Analyse client messages and find out who is serious.</p><button onclick="goUpgrade(\'pro\')">Unlock — £27/month</button></div>';
+    return;
+  }
+  el.innerHTML = '<div class="form-group"><label>Your trade and services</label><textarea id="analyzer-context" rows="2" placeholder="E.g. I\'m a painter in London. I do interiors, exteriors and lacquer."></textarea></div><div class="form-group"><label>Client message</label><textarea id="analyzer-msg" rows="4" placeholder="Paste the client message here..."></textarea></div><button class="generate-btn" id="btn-analyze" onclick="analyzeClient()">Analyse client</button><div id="analysis-loading" style="display:none"><div class="loading"><div class="spinner"></div><p>Analysing the message...</p></div></div><div id="analysis-results" style="display:none"><div class="gauge-container"><div class="gauge-score" id="gauge-score">—</div><div class="gauge-label" id="gauge-label"></div><div class="gauge-bar"><div class="gauge-fill" id="gauge-fill" style="width:0%"></div></div></div><div class="analysis-block"><h3>Analysis</h3><div class="content" id="analysis-detail"></div></div><div class="analysis-block" style="margin-top:12px"><h3>Suggested reply</h3><div class="content" id="analysis-response"></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="copy-btn" onclick="copyText(\'analysis-response\')">Copy reply</button><button class="copy-btn" onclick="showWaSend(\'analysis-response\')" style="background:#25D366;color:#fff">Send via WhatsApp</button></div></div></div>';
+}
+
+async function analyzeClient() {
+  const context = document.getElementById('analyzer-context').value.trim();
+  const msg = document.getElementById('analyzer-msg').value.trim();
+  if (!context || !msg) { alert('Fill in your trade and paste the client message.'); return; }
+
+  document.getElementById('btn-analyze').disabled = true;
+  document.getElementById('analysis-loading').style.display = 'block';
+  document.getElementById('analysis-results').style.display = 'none';
+
+  try {
+    const response = await fetch('/api/analyze', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ context, message: msg, lang: currentLang, userId: currentUser?.id })
+    });
+    const data = await response.json();
+    if (data.error) throw new Error(data.error);
+    const text = data.text;
+
+    const scoreMatch = text.match(/SCORE[:\s]*(\d+)/i) || text.match(/PUNTUACI[ÓO]N[:\s]*(\d+)/i);
+    const levelMatch = text.match(/LEVEL[:\s]*(\w+)/i) || text.match(/NIVEL[:\s]*(\w+)/i);
+    const analysisMatch = text.match(/(?:ANALYSIS|AN[ÁA]LISIS)[:\s]*([\s\S]*?)(?=\n\s*(?:SUGGESTED REPLY|RESPUESTA SUGERIDA))/i);
+    const responseMatch = text.match(/(?:SUGGESTED REPLY|RESPUESTA SUGERIDA)[:\s]*([\s\S]*?)$/i);
+
+    const score = scoreMatch ? parseInt(scoreMatch[1]) : 50;
+    const level = levelMatch ? levelMatch[1].toUpperCase() : 'MEDIUM';
+    const isLow = level==='LOW'||level==='BAJO';
+    const isMid = level==='MEDIUM'||level==='MEDIO';
+    const isHigh = level==='HIGH'||level==='ALTO';
+
+    document.getElementById('gauge-score').textContent = score + '%';
+    document.getElementById('gauge-label').textContent = isLow?'Low compatibility':isMid?'Medium compatibility':isHigh?'High compatibility':'Excellent compatibility';
+    const fill = document.getElementById('gauge-fill');
+    const color = score<30?'var(--gauge-red)':score<55?'var(--gauge-orange)':score<80?'var(--gauge-green)':'var(--gauge-great)';
+    fill.style.width = '0%'; fill.style.background = color;
+    document.getElementById('gauge-score').style.color = color;
+    document.getElementById('gauge-label').style.color = color;
+    setTimeout(() => { fill.style.width = score + '%'; }, 100);
+
+    document.getElementById('analysis-detail').textContent = analysisMatch ? analysisMatch[1].trim() : text;
+    document.getElementById('analysis-response').textContent = responseMatch ? responseMatch[1].trim() : '';
+
+    document.getElementById('analysis-loading').style.display = 'none';
+    document.getElementById('analysis-results').style.display = 'block';
+  } catch (err) {
+    console.error(err);
+    alert('Error analysing. Please try again.');
+    document.getElementById('analysis-loading').style.display = 'none';
+  }
+  document.getElementById('btn-analyze').disabled = false;
+}
+
+// ========== TIPS ==========
+function renderTips() {
+  const p = userProfile?.plan || 'free';
+  const el = document.getElementById('tips-content');
+  if (p === 'free') {
+    el.innerHTML = `<div class="lock-overlay"><h3>🔒 Basic feature</h3><p>Professional tips are available from the Basic plan.</p><button onclick="goUpgrade('basic')">Unlock — £18/month</button></div>`;
+    return;
+  }
+  const t = tips.en;
+  el.innerHTML = t.map(tip => `<div class="tip-card" onclick="this.classList.toggle('open')"><h3>${tip.title}</h3><p>${tip.sub}</p><div class="tip-detail">${tip.detail}</div></div>`).join('');
+}
+
+// ========== ACCOUNT ==========
+async function renderAccount() {
+  if (!userProfile) await loadProfile();
+  document.getElementById('acc-email').textContent = currentUser?.email || '—';
+  const p = userProfile?.plan || 'free';
+  const planText = p === 'free' ? 'Free' : p === 'basic' ? 'Basic (£18/month)' : 'Pro (£27/month)';
+  document.getElementById('acc-plan').textContent = planText;
+
+  const btnEl = document.getElementById('acc-upgrade-btn');
+  if (p === 'free') btnEl.innerHTML = '<button class="btn-primary" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer" onclick="goUpgrade(\'basic\')">Upgrade to Basic</button>';
+  else if (p === 'basic') btnEl.innerHTML = '<button class="btn-accent" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer" onclick="goUpgrade(\'pro\')">Upgrade to Pro</button>';
+  else btnEl.innerHTML = '';
+
+  const { count } = await sb.from('generations').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id);
+  document.getElementById('acc-gens').textContent = count + ' generations';
+
+  // Show manage subscription button for paid plans
+  var subBtn = document.getElementById('manage-sub-btn');
+  if (p === 'basic' || p === 'pro') {
+    subBtn.style.display = 'block';
+    subBtn.textContent = 'Manage subscription';
+  } else {
+    subBtn.style.display = 'none';
+  }
+}
+
+async function openPortal() {
+  var btn = document.getElementById('manage-sub-btn');
+  var origText = btn.textContent;
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+  try {
+    var res = await fetch('/api/create-portal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: currentUser.email })
+    });
+    var data = await res.json();
+    if (data.url) window.open(data.url, '_blank');
+    else alert('No subscription found. Contact oficioai.website@gmail.com');
+  } catch(e) {
+    alert('Error. Contact oficioai.website@gmail.com');
+  }
+  btn.textContent = origText;
+  btn.disabled = false;
+}
+
+// ========== UTILS ==========
+function showWaSend(sourceId) {
+  var text = document.getElementById(sourceId || 'result-wa').textContent;
+  var overlay = document.createElement('div');
+  overlay.id = 'wa-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = '<div style="background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:400px;width:100%;box-shadow:var(--shadow-xl)">'
+    + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><div style="width:40px;height:40px;border-radius:12px;background:#25D366;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></div><h3 style="font-size:1.1rem;font-weight:800">Send via WhatsApp</h3></div>'
+    + '<div style="margin-bottom:16px"><label style="display:block;font-size:.82rem;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px">Client phone number</label><input type="tel" id="wa-phone" placeholder="E.g. +44 7123 456789" style="width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:var(--surface);color:var(--text)"></div>'
+    + '<div style="margin-bottom:16px"><label style="display:block;font-size:.82rem;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px">Message preview</label><textarea id="wa-text" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.9rem;background:var(--surface);color:var(--text);min-height:100px;resize:vertical">' + text + '</textarea></div>'
+    + '<p style="font-size:.78rem;color:var(--text-light);margin-bottom:16px">WhatsApp will open with this message ready to send.</p>'
+    + '<button onclick="sendWa()" style="width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>Open WhatsApp</button>'
+    + '<button onclick="document.getElementById(\'wa-modal\').remove()" style="width:100%;padding:12px;background:none;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:.9rem;color:var(--text-mid);cursor:pointer;margin-top:8px">Cancel</button>'
+    + '</div>';
+  overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+  document.getElementById('wa-phone').focus();
+}
+
+function sendWa() {
+  var phone = document.getElementById('wa-phone').value.replace(/[\s\-\(\)]/g, '');
+  var text = document.getElementById('wa-text').value;
+  if (!phone) { document.getElementById('wa-phone').style.borderColor = '#ef4444'; return; }
+  if (!phone.startsWith('+')) phone = '+44' + phone;
+  phone = phone.replace('+', '');
+  var url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+  document.getElementById('wa-modal').remove();
+}
+
+function copyText(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).parentElement.querySelector('.copy-btn');
+    const orig = btn.textContent; btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
+
+var UI_TEXT = {
+  en: {
+    nav_panel: 'Dashboard', nav_gen: 'Generate', nav_analyze: 'Analyse', nav_tips: 'Tips',
+    enter: 'Sign in', my_account: 'My account',
+    hero_title: 'Your clients are looking for you.<br><em>But they can\'t find you.</em>',
+    hero_sub: 'AI that generates your complete marketing in 1 minute. Professional bio, ads, client responses — ready to copy and publish.',
+    hero_cta: 'See how it works',
+    demo_title: 'See how it works', demo_sub: 'No account needed — hit the button and watch AI in action',
+    demo_placeholder: 'E.g. Photographer, Hairdresser, Builder...', demo_btn: 'Generate',
+    demo_hint: 'Type your trade and watch AI generate marketing in real time',
+    how_title: 'How it works',
+    step1_t: 'Fill in your details', step1_d: 'Name, trade, area and services. That\'s it.',
+    step2_t: 'AI does the work', step2_d: 'Generates your bio, ready-to-post ads and WhatsApp replies.',
+    step3_t: 'Copy, paste and win', step3_d: 'Post on social media, classifieds or reply to clients in seconds.',
+    pricing: 'Plans', free: 'Free', basic: 'Basic', popular: 'Popular',
+    auth_signup: 'Create account', auth_login: 'Sign in',
+    auth_sub_signup: 'Start free — no card required', auth_sub_login: 'Welcome back',
+    form_title: 'Your information', form_sub: 'Fill in your business details and AI does the rest.',
+    generate_btn: 'Generate my marketing', back_panel: '← Dashboard',
+    analyzer_title: 'Compatibility meter', analyzer_sub: 'Paste a potential client\'s message and AI tells you what kind of client they are.',
+    analyze_btn: 'Analyse client', tips_title: 'Tips to earn more',
+    quote_title: 'Professional quote', quote_sub: 'Describe the job and AI generates an itemised quote. Download as PDF.',
+    quote_btn: 'Generate quote', download_pdf: 'Download PDF', edit_prices: 'Edit prices',
+    profile_title: 'Your public web page', profile_sub: 'Create a professional page you can share with clients.',
+    profile_btn: 'Create my page', logout: 'Sign out', copy: 'Copy'
+  }
+};
+
+/* Translation system removed — site is English-only */
+
+// ========== PRE-FILL FORM ==========
+async function prefillForm() {
+  if (!userProfile) return;
+  if (userProfile.business_name) document.getElementById('inp-name').value = userProfile.business_name;
+  if (userProfile.zone) document.getElementById('inp-zone').value = userProfile.zone;
+  if (userProfile.services) document.getElementById('inp-services').value = userProfile.services;
+  if (userProfile.years_experience) document.getElementById('inp-years').value = userProfile.years_experience;
+  if (userProfile.trade) {
+    const sel = document.getElementById('inp-trade');
+    const opts = Array.from(sel.options);
+    const match = opts.find(o => tradeNames.en[o.value] === userProfile.trade);
+    if (match) sel.value = match.value;
+  }
+}
+
+// ========== LIVE DEMO ==========
+function runDemoFromInput() {
+  var trade = document.getElementById('demo-trade').value.trim();
+  if (!trade) { document.getElementById('demo-trade').focus(); return; }
+  runDemo(trade, trade + ' Pro', 'Your area', 'Professional ' + trade.toLowerCase() + ' services', '10');
+}
+
+async function runDemo(trade, name, zone, services, years) {
+  var out = document.getElementById('demo-output');
+  out.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="spinner" style="width:20px;height:20px;margin:0"></div><span style="font-size:.85rem;color:var(--text-mid)">Generating marketing for ' + trade + '...</span></div><div id="demo-stream" style="font-size:.85rem;color:var(--text);line-height:1.7;white-space:pre-wrap"></div>';
+
+  try {
+    var response = await fetch('/api/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, trade: trade, zone: zone, services: services, years: years, lang: currentLang })
+    });
+    var data = await response.json();
+    if (data.error) throw new Error(data.error);
+
+    var streamEl = document.getElementById('demo-stream');
+    var text = data.text;
+    var i = 0;
+    out.querySelector('.spinner').parentElement.remove();
+
+    function typeChar() {
+      if (i < text.length) {
+        streamEl.textContent += text[i];
+        i++;
+        setTimeout(typeChar, 8);
+      } else {
+        streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:var(--accent);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer">Create my free account</button></div>');
+      }
+    }
+    typeChar();
+  } catch(err) {
+    // Fallback — show a pre-built demo so the user always sees something
+    var fallback = '📝 PROFESSIONAL BIO:\n' + name + '. ' + trade + ' in ' + zone + '. ' + years + ' years of experience delivering quality work. Reliable, clean finishes, fair prices. Ask for a free quote.\n\n📢 AD:\nLooking for a ' + trade.toLowerCase() + ' in ' + zone + '? ' + years + ' years of experience. Professional results, quality materials, no shortcuts. Free quote — call today.\n\n💬 WHATSAPP REPLY:\nHi, thanks for reaching out. To give you an accurate price I\'d need to see the job. When works for you? No commitment.';
+    var streamEl = document.getElementById('demo-stream');
+    if (out.querySelector('.spinner')) out.querySelector('.spinner').parentElement.remove();
+    var i = 0;
+    function typeChar() {
+      if (i < fallback.length) {
+        streamEl.textContent += fallback[i];
+        i++;
+        setTimeout(typeChar, 8);
+      } else {
+        streamEl.insertAdjacentHTML('afterend', '<div style="margin-top:16px;text-align:center"><button onclick="showPage(\'auth\')" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(99,102,241,.3)">Create my free account</button></div>');
+      }
+    }
+    typeChar();
+  }
+}
+
+// ========== GENERATE WITH TYPING EFFECT ==========
+async function generateContentStream() {
+  var name = document.getElementById('inp-name').value.trim();
+  var tradeVal = document.getElementById('inp-trade').value;
+  var otherTrade = document.getElementById('inp-other-trade').value.trim();
+  var zone = document.getElementById('inp-zone').value.trim();
+  var services = document.getElementById('inp-services').value.trim();
+  var years = document.getElementById('inp-years').value.trim();
+  if (!name || !tradeVal || !zone || !services) { alert('Fill in at least name, trade, area and services.'); return; }
+  var oficio = tradeVal === 'other' ? otherTrade : (tradeNames.en[tradeVal] || tradeVal);
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
+
+  try {
+    var response = await fetch('/api/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, trade: oficio, zone: zone, services: services, years: years, lang: currentLang, userId: currentUser?.id })
+    });
+    var data = await response.json();
+
+    if (data.error === 'free_limit') {
+      document.getElementById('loading-section').style.display = 'none';
+      document.getElementById('results-section').style.display = 'block';
+      document.getElementById('results-section').innerHTML = '<div class="lock-overlay"><h3>You have reached the free plan limit</h3><p>Upgrade to Basic for unlimited marketing.</p><button onclick="goUpgrade(\'basic\')">Upgrade to Basic — £18/month</button></div>';
+      return;
+    }
+    if (data.error) throw new Error(data.error);
+
+    var text = data.text;
+    var bioMatch = text.match(/(?:PROFESSIONAL BIO|BIO PROFESIONAL)[:\s]*([\s\S]*?)(?=\n\s*(?:2\.|ADS|ANUNCIOS))/i);
+    var adsMatch = text.match(/(?:ADS|ANUNCIOS)[:\s]*([\s\S]*?)(?=\n\s*(?:3\.|WHATSAPP|RESPUESTAS))/i);
+    var waMatch = text.match(/(?:WHATSAPP REPLIES|RESPUESTAS WHATSAPP)[:\s]*([\s\S]*?)$/i);
+
+    var p = userProfile?.plan || 'free';
+    var html = '<div class="back-row"><button class="back-btn" onclick="backToForm()">← Edit details</button></div><h2 style="font-size:1.35rem;font-weight:700;margin:6px 0 22px">Your marketing is ready</h2>';
+    html += '<div class="result-block"><h3>Professional bio</h3><div class="content" id="result-bio"></div><button class="copy-btn" onclick="copyText(\'result-bio\')">Copy</button></div>';
+    html += '<div class="result-block"><h3>Ads</h3><div class="content" id="result-ads"></div><button class="copy-btn" onclick="copyText(\'result-ads\')">Copy</button></div>';
+    if (p === 'basic' || p === 'pro') {
+      html += '<div class="result-block"><h3>WhatsApp replies</h3><div class="content" id="result-wa"></div><button class="copy-btn" onclick="copyText(\'result-wa\')">Copy</button></div>';
+    } else {
+      html += '<div class="lock-overlay"><p>🔒 WhatsApp replies are available on the Basic plan</p><button onclick="goUpgrade(\'basic\')">Unlock — £18/month</button></div>';
+    }
+
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'block';
+    document.getElementById('results-section').innerHTML = html;
+
+    // Typing effect
+    function typeInto(elId, text, cb) {
+      var el = document.getElementById(elId);
+      if (!el || !text) { if (cb) cb(); return; }
+      var i = 0;
+      function t() {
+        if (i < text.length) { el.textContent += text[i]; i++; setTimeout(t, 6); }
+        else { if (cb) cb(); }
+      }
+      t();
+    }
+
+    var bioText = bioMatch ? bioMatch[1].trim() : '';
+    var adsText = adsMatch ? adsMatch[1].trim() : '';
+    var waText = waMatch ? waMatch[1].trim() : '';
+
+    typeInto('result-bio', bioText, function() {
+      typeInto('result-ads', adsText, function() {
+        if (p === 'basic' || p === 'pro') typeInto('result-wa', waText);
+      });
+    });
+
+  } catch(err) {
+    console.error(err);
+    alert('Error generating. Please try again.');
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
+  }
+}
+
+// ========== QUOTE BUILDER ==========
+var currentQuote = null;
+
+function goQuote() {
+  if (!currentUser) { showPage('auth'); return; }
+  var p = userProfile?.plan || 'free';
+  if (p === 'free') { goUpgrade('basic'); return; }
+  showPage('quote');
+  // Prefill from profile
+  if (userProfile?.business_name) document.getElementById('q-name').value = userProfile.business_name;
+  if (userProfile?.trade) document.getElementById('q-trade').value = userProfile.trade;
+  if (userProfile?.phone) document.getElementById('q-phone').value = userProfile.phone;
+}
+
+async function generateQuote() {
+  var trade = document.getElementById('q-trade').value.trim();
+  var desc = document.getElementById('q-desc').value.trim();
+  if (!trade || !desc) { alert('Fill in your trade and the job description.'); return; }
+
+  document.getElementById('btn-quote').disabled = true;
+  document.getElementById('quote-loading').style.display = 'block';
+  document.getElementById('quote-result').style.display = 'none';
+
+  try {
+    var response = await fetch('/api/generate-quote', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ trade: trade, description: desc, userId: currentUser?.id, lang: currentLang })
+    });
+    var data = await response.json();
+    if (data.error === 'plan_required') { goUpgrade('basic'); return; }
+    if (data.error) throw new Error(data.error);
+
+    currentQuote = data.quote;
+    document.getElementById('q-title').textContent = currentQuote.title || 'Quote';
+
+    var total = 0;
+    var itemsHtml = '';
+    for (var i = 0; i < currentQuote.items.length; i++) {
+      var item = currentQuote.items[i];
+      total += item.price;
+      itemsHtml += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0">' + item.description + '</td><td style="padding:8px 0;text-align:right;font-weight:600">£' + item.price + '</td></tr>';
+    }
+    document.getElementById('q-items').innerHTML = itemsHtml;
+    document.getElementById('q-total').textContent = '£' + total;
+    document.getElementById('q-notes').textContent = (currentQuote.notes || '') + ' ' + (currentQuote.validity || '');
+
+    document.getElementById('quote-loading').style.display = 'none';
+    document.getElementById('quote-result').style.display = 'block';
+  } catch(err) {
+    console.error(err);
+    alert('Error generating. Please try again.');
+    document.getElementById('quote-loading').style.display = 'none';
+  }
+  document.getElementById('btn-quote').disabled = false;
+}
+
+function editQuoteItems() {
+  if (!currentQuote) return;
+  var items = currentQuote.items;
+  for (var i = 0; i < items.length; i++) {
+    var newPrice = prompt(items[i].description + ' — Current price: £' + items[i].price + '\nNew price:', items[i].price);
+    if (newPrice !== null) items[i].price = parseInt(newPrice) || items[i].price;
+  }
+  // Re-render
+  var total = 0;
+  var itemsHtml = '';
+  for (var i = 0; i < items.length; i++) {
+    total += items[i].price;
+    itemsHtml += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0">' + items[i].description + '</td><td style="padding:8px 0;text-align:right;font-weight:600">£' + items[i].price + '</td></tr>';
+  }
+  document.getElementById('q-items').innerHTML = itemsHtml;
+  document.getElementById('q-total').textContent = '£' + total;
+}
+
+function downloadQuotePDF() {
+  if (!currentQuote) return;
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF();
+  var name = document.getElementById('q-name').value.trim() || 'Professional';
+  var phone = document.getElementById('q-phone').value.trim();
+  var client = document.getElementById('q-client').value.trim() || 'Client';
+  var today = new Date().toLocaleDateString('en-GB');
+
+  // Header - accent bar
+  doc.setFillColor(79, 70, 229);
+  doc.rect(0, 0, 210, 4, 'F');
+
+  // Business name
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(17, 24, 39);
+  doc.text(name, 20, 28);
+
+  // Contact
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  if (phone) doc.text(phone, 20, 36);
+
+  // PRESUPUESTO title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(79, 70, 229);
+  doc.text('QUOTE', 150, 20);
+
+  // Date and client
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(107, 114, 128);
+  doc.text('Date: ' + today, 150, 28);
+  doc.text('Client: ' + client, 150, 36);
+
+  // Divider
+  doc.setDrawColor(229, 231, 235);
+  doc.line(20, 45, 190, 45);
+
+  // Title
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.setTextColor(17, 24, 39);
+  doc.text(currentQuote.title || 'Quote', 20, 58);
+
+  // Table header
+  var y = 70;
+  doc.setFillColor(249, 250, 251);
+  doc.rect(20, y - 6, 170, 10, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(107, 114, 128);
+  doc.text('ITEM', 22, y);
+  doc.text('PRICE', 178, y, { align: 'right' });
+
+  // Items
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(55, 65, 81);
+  var total = 0;
+  y += 12;
+
+  for (var i = 0; i < currentQuote.items.length; i++) {
+    var item = currentQuote.items[i];
+    total += item.price;
+    doc.text(item.description, 22, y);
+    doc.setFont('helvetica', 'bold');
+    doc.text('£' + item.price, 178, y, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setDrawColor(243, 244, 246);
+    doc.line(20, y + 4, 190, y + 4);
+    y += 12;
+  }
+
+  // Total
+  y += 4;
+  doc.setFillColor(249, 250, 251);
+  doc.rect(120, y - 6, 70, 12, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(17, 24, 39);
+  doc.text('TOTAL', 122, y);
+  doc.setTextColor(79, 70, 229);
+  doc.text('£' + total, 178, y, { align: 'right' });
+
+  // Notes
+  if (currentQuote.notes || currentQuote.validity) {
+    y += 24;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(156, 163, 175);
+    var notes = (currentQuote.notes || '') + ' ' + (currentQuote.validity || '');
+    var splitNotes = doc.splitTextToSize(notes, 170);
+    doc.text(splitNotes, 20, y);
+  }
+
+  // Footer
+  doc.setFontSize(7);
+  doc.setTextColor(156, 163, 175);
+  doc.text('Generated with OficioAI', 105, 285, { align: 'center' });
+
+  // Bottom bar
+  doc.setFillColor(79, 70, 229);
+  doc.rect(0, 293, 210, 4, 'F');
+
+  doc.save('quote-' + client.toLowerCase().replace(/\s+/g, '-') + '.pdf');
+}
+
+// ========== PUBLIC PROFILE ==========
+function goPublicProfile() {
+  if (!currentUser) { showPage('auth'); return; }
+  var p = userProfile?.plan || 'free';
+  if (p === 'free') { goUpgrade('basic'); return; }
+  showPage('public-profile');
+}
+
+async function savePublicProfile() {
+  var slug = document.getElementById('profile-slug').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  var phone = document.getElementById('profile-phone').value.trim();
+  var whatsapp = document.getElementById('profile-whatsapp').value.trim();
+  var tagline = document.getElementById('profile-tagline').value.trim();
+  if (!slug) { alert('Enter a name for your URL'); return; }
+
+  var response = await fetch('/api/profile', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId: currentUser.id, slug: slug, phone: phone, whatsapp: whatsapp, tagline: tagline })
+  });
+  var data = await response.json();
+  if (data.error === 'slug_taken') { alert('That URL is already taken, try another'); return; }
+  if (data.url) {
+    document.getElementById('profile-result').innerHTML = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;text-align:center"><p style="font-size:.88rem;color:var(--text-mid);margin-bottom:8px">Tu página pública está lista:</p><a href="' + data.url + '" target="_blank" style="font-size:1rem;font-weight:700;color:var(--accent)">' + data.url + '</a></div>';
+    await loadProfile();
+  }
+}
+
+// ========== INIT ==========
+if (sb) {
+  try {
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        currentUser = session.user;
+        await loadProfile();
+        showLoggedInUI();
+        prefillForm();
+      }
+    });
+  } catch(e) { console.error('Auth listener error:', e); }
+}
+
+checkSession();
+/* applyTranslations removed — English-only */
+</script>
+<script>
+/* ================= FILM LAYER ================= */
+(function() {
+  /* TEXT_MAP push block removed — English-only */
+
+  /* ---- Hero: película en bucle ---- */
+  var stage = document.getElementById('fh-stage'), scene = document.getElementById('fh-scene'), cam = document.getElementById('fh-cam');
+  if (!stage || !scene || !cam) return;
+  var W = 760, H = 470, timers = [], running = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function fit() { var s = stage.clientWidth / W; scene.style.transform = 'scale(' + s + ')'; }
+  window.addEventListener('resize', fit); fit();
+
+  function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+  function q(s) { return scene.querySelector(s); }
+  function qa(s) { return scene.querySelectorAll(s); }
+  function shot(x, y, s, dur, ease, blur) {
+    cam.style.transition = 'transform ' + dur + 'ms ' + (ease || 'cubic-bezier(.22,.8,.2,1)') + ', filter ' + Math.round(dur * .6) + 'ms ease';
+    cam.style.transform = 'translate(' + (W / 2 - x * s) + 'px,' + (H / 2 - y * s) + 'px) scale(' + s + ')';
+    if (blur) { cam.style.filter = 'blur(' + blur + 'px)'; at(dur * .45, function() { cam.style.filter = 'blur(0)'; }); }
+  }
+  function whip(x, y, s) { shot(x, y, s, 620, 'cubic-bezier(.75,0,.15,1)', 5); }
+
+  var plain = 'I\'m a painter in Manchester. Write me a bio and ads to get clients this month.';
+  var html = 'I\'m a <span class="fk c">painter</span> in <span class="fk y">Manchester</span>. Write me a <span class="fk p">bio</span> and <span class="fk p">ads</span> to get <span class="fk g">clients</span> this month.';
+
+  function reset() {
+    timers.forEach(function(t) { clearTimeout(t); clearInterval(t); }); timers = [];
+    var pr = q('#fw-prompt'); pr.innerHTML = ''; pr.classList.remove('lit');
+    q('#fw-steps').classList.remove('lit');
+    qa('.fw-st').forEach(function(s) { s.classList.remove('in', 'done'); });
+    qa('.fw-tr').forEach(function(r) { r.classList.remove('in'); var t = r.querySelector('.fw-tag'); t.textContent = '…'; t.classList.remove('ok'); });
+    q('#fw-cnt').textContent = '0 / 4';
+    var hl = q('#fw-hl'); hl.style.opacity = 0; hl.style.top = '0px';
+    q('#fw-msub').textContent = 'Renovate the bathroom this month';
+    q('#fw-reply').classList.remove('in');
+    cam.style.transition = 'none'; cam.style.filter = 'none';
+    cam.style.transform = 'translate(0px,0px) scale(1)';
+  }
+
+  function staticFrame() {
+    reset();
+    q('#fw-prompt').innerHTML = html; q('#fw-prompt').classList.add('lit'); q('#fw-steps').classList.add('lit');
+    qa('.fw-st').forEach(function(s) { s.classList.add('in', 'done'); });
+    qa('.fw-tr').forEach(function(r) { r.classList.add('in'); var t = r.querySelector('.fw-tag'); t.textContent = 'Ready'; t.classList.add('ok'); });
+    q('#fw-cnt').textContent = '4 / 4';
+    var hl = q('#fw-hl'); hl.style.opacity = 1; hl.style.top = '42px'; q('#fw-msub').textContent = 'Serious client · reply today';
+    q('#fw-reply').classList.add('in');
+  }
+
+  function loop() {
+    reset();
+    var lang = 'en';
+    at(60, function() { shot(240, 120, 1.75, 0); });
+    at(120, function() { shot(300, 110, 1.6, 2200); });
+    at(500, function() {
+      var i = 0, el = q('#fw-prompt');
+      var iv = setInterval(function() {
+        i++; el.innerHTML = plain.slice(0, i) + '<span class="fw-caret"></span>';
+        if (i >= plain.length) { clearInterval(iv); el.innerHTML = html; el.classList.add('lit'); }
+      }, 28);
+      timers.push(iv);
+    });
+    at(3000, function() { shot(310, 175, 1.55, 1600); });
+    qa('.fw-st').forEach(function(s, i) {
+      at(3100 + i * 380, function() { s.classList.add('in'); });
+      at(3450 + i * 380, function() { s.classList.add('done'); q('#fw-steps').classList.add('lit'); });
+    });
+    at(5000, function() { whip(615, 105, 1.7); });
+    qa('.fw-tr').forEach(function(r, i) {
+      at(5450 + i * 280, function() { r.classList.add('in'); var t = r.querySelector('.fw-tag'); t.textContent = 'Ready'; t.classList.add('ok'); q('#fw-cnt').textContent = (i + 1) + ' / 4'; });
+    });
+    at(7000, function() { whip(615, 300, 1.9); });
+    at(7450, function() { var h = q('#fw-hl'); h.style.opacity = 1; });
+    at(7850, function() { q('#fw-hl').style.top = '42px'; q('#fw-msub').textContent = 'Serious client · reply today'; });
+    at(9200, function() { whip(310, 370, 1.7); q('#fw-reply').classList.add('in'); });
+    at(9800, function() { shot(320, 365, 1.8, 1800); });
+    at(11800, function() { shot(380, 235, 1, 1600, 'cubic-bezier(.65,0,.35,1)'); });
+    at(15200, function() { if (running) loop(); });
+  }
+
+  function startIfVisible() {
+    var home = document.getElementById('page-home');
+    var visible = home && home.classList.contains('active') && !document.hidden;
+    if (visible && !running) { running = true; loop(); }
+    if (!visible && running) { running = false; reset(); }
+  }
+
+  if (reduce) { staticFrame(); return; }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es) {
+      es.forEach(function(e) {
+        if (e.isIntersecting) startIfVisible();
+        else if (running) { running = false; reset(); staticFrame(); }
+      });
+    }, { threshold: .25 }).observe(stage);
+  } else { startIfVisible(); }
+  document.addEventListener('visibilitychange', startIfVisible);
+  var mo = new MutationObserver(function() { fit(); startIfVisible(); });
+  var home = document.getElementById('page-home'); if (home) mo.observe(home, { attributes: true, attributeFilter: ['class'] });
+})();
+
+/* ================= COUNTER ANIMATION ================= */
+(function(){
+  var el = document.querySelector('.sp-num[data-target]');
+  if (!el) return;
+  var target = parseInt(el.dataset.target, 10), done = false;
+  function animate() {
+    if (done) return; done = true;
+    var start = 0, dur = 1800, t0 = performance.now();
+    (function step(now) {
+      var p = Math.min((now - t0) / dur, 1);
+      p = 1 - Math.pow(1 - p, 3); // ease out
+      el.textContent = Math.round(start + (target - start) * p) + '+';
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(e, o) { if (e[0].isIntersecting) { animate(); o.disconnect(); } }, { threshold: .3 }).observe(el);
+  } else { animate(); }
+})();
+
+/* ================= WHATSAPP (app) ================= */
+var WA = { status: null, session: null };
+
+async function waToken() {
+  try { var s = await sb.auth.getSession(); return s?.data?.session?.access_token || null; } catch (e) { return null; }
+}
+async function waApi(path, opts) {
+  opts = opts || {};
+  var t = await waToken();
+  var r = await fetch(path, { method: opts.method || 'GET', headers: Object.assign({ 'Content-Type': 'application/json' }, t ? { Authorization: 'Bearer ' + t } : {}), body: opts.body ? JSON.stringify(opts.body) : undefined });
+  var j = {}; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) { var err = new Error(j.message || j.error || ('HTTP ' + r.status)); err.code = j.error; throw err; }
+  return j;
+}
+function waEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+/* waT removed — English-only */
+
+function goWhatsApp() {
+  if (!currentUser) { showPage('auth'); return; }
+  showPage('whatsapp');
+  renderWhatsApp();
+}
+
+async function renderWhatsApp() {
+  var el = document.getElementById('wa-content');
+  var plan = userProfile?.plan || 'free';
+  if (plan !== 'pro') {
+    el.innerHTML = '<div class="lock-overlay"><h3>Pro plan feature</h3><p>Connect WhatsApp Business and let AI analyse every new message and suggest your reply.</p><button onclick="goUpgrade(\'pro\')">Upgrade to Pro</button></div>';
+    return;
+  }
+  el.innerHTML = '<div class="loading"><div class="spinner"></div><p>Checking your connection…</p></div>';
+  try { WA.status = await waApi('/api/whatsapp-status'); }
+  catch (e) { WA.status = { meta_ready: false, connected: false }; }
+  var s = WA.status;
+
+  if (!s.connected) {
+    var req = '<ul class="wa-req"><li>You need the <b>WhatsApp Business</b> app (not the regular one) on your work number.</li><li>You will keep using the app on your phone as usual.</li><li>Nothing is sent without your approval.</li></ul>';
+    if (!s.meta_ready) {
+      el.innerHTML = '<div class="wa-panel"><h3>WhatsApp connection is coming soon</h3><p>We are finishing approval with Meta. Once ready, you will connect your number from here in two minutes.</p>' + req + '<button class="wa-ghost" style="margin-left:0" onclick="goAnalyze()">Meanwhile, analyse a message manually</button></div>';
+      return;
+    }
+    el.innerHTML = '<div class="wa-panel"><h3>Connect your WhatsApp Business</h3><p>A Meta window will open. Log in with Facebook, choose your WhatsApp Business number and confirm it with the code you receive.</p>' + req + '<button class="wa-btn" id="wa-connect-btn" onclick="connectWhatsApp()">Connect WhatsApp</button><p id="wa-msg" style="margin-top:12px"></p></div>';
+    return;
+  }
+
+  el.innerHTML = '<div class="wa-panel wa-status"><div><b>' + waEsc(s.verified_name || 'Your number') + '</b><br><span style="color:#9ca3af;font-size:.88rem">' + waEsc(s.display_phone || '') + ' · connected</span></div><button class="wa-ghost" style="margin:0" onclick="disconnectWhatsApp()">Disconnect</button></div><div id="wa-inbox"><div class="loading"><div class="spinner"></div></div></div>';
+  loadWaInbox();
+}
+
+async function loadWaInbox() {
+  var box = document.getElementById('wa-inbox');
+  var res = await sb.from('wa_messages').select('*').eq('user_id', currentUser.id).order('received_at', { ascending: false }).limit(30);
+  var rows = res.data || [];
+  if (!rows.length) { box.innerHTML = '<div class="wa-panel" style="margin-top:12px"><p>No messages yet. When a client writes to you, it will appear here with its analysis.</p></div>'; return; }
+  box.innerHTML = rows.map(function(m) {
+    var sc = m.score == null ? '' : '<span class="wa-score ' + (m.score >= 70 ? 'h' : m.score >= 40 ? 'm' : 'l') + '">' + m.score + '%</span>';
+    var open = (Date.now() - new Date(m.received_at).getTime()) < 24 * 3600 * 1000;
+    var sug = m.suggestion || '';
+    var wa = 'https://wa.me/' + encodeURIComponent(m.from_number) + '?text=' + encodeURIComponent(sug);
+    var acts = m.replied_at
+      ? '<span class="wa-done">Replied</span>'
+      : (open ? '<button class="wa-send" onclick="sendWa(\'' + m.id + '\', this)">Send</button>' : '<span class="wa-done" style="color:#fde68a">Over 24 h: reply from your app</span>')
+        + '<a class="wa-open" href="' + wa + '" target="_blank" rel="noopener">Open in WhatsApp</a>';
+    return '<div class="wa-item" data-id="' + m.id + '"><div class="top"><span class="fw-av" style="width:30px;height:30px;font-size:.7rem;background:#475569">' + waEsc((m.contact_name || '?').slice(0, 2).toUpperCase()) + '</span><div class="who">' + waEsc(m.contact_name || m.from_number) + '<small>+' + waEsc(m.from_number) + ' · ' + new Date(m.received_at).toLocaleString() + '</small></div>' + sc + '</div>'
+      + '<div class="msg">' + waEsc(m.body) + '</div>'
+      + (m.verdict ? '<div class="verdict"><b style="color:#e5e7eb">' + waEsc(m.verdict) + '</b> · ' + waEsc(m.reason || '') + '</div>' : '<div class="verdict">Analysing…</div>')
+      + (m.replied_at ? '' : '<textarea id="wa-t-' + m.id + '">' + waEsc(sug) + '</textarea>')
+      + '<div class="acts">' + acts + '</div></div>';
+  }).join('');
+}
+
+async function sendWa(id, btn) {
+  var t = document.getElementById('wa-t-' + id); var text = t ? t.value.trim() : '';
+  if (!text) return;
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try { await waApi('/api/whatsapp-send', { method: 'POST', body: { message_id: id, text: text } }); loadWaInbox(); }
+  catch (e) {
+    btn.disabled = false; btn.textContent = 'Send';
+    alert(e.code === 'window_closed' ? 'More than 24 h since their last message. Reply from your WhatsApp Business app.' : 'Could not send. Try again.');
+  }
+}
+
+async function disconnectWhatsApp() {
+  if (!confirm('Disconnect WhatsApp? Messages stored in OficioAI will be deleted.')) return;
+  try { await waApi('/api/whatsapp-connect', { method: 'DELETE' }); } catch (e) {}
+  renderWhatsApp();
+}
+
+function loadFbSdk(appId, version) {
+  return new Promise(function(resolve, reject) {
+    if (window.FB) return resolve(window.FB);
+    window.fbAsyncInit = function() { FB.init({ appId: appId, autoLogAppEvents: true, xfbml: false, version: version }); resolve(window.FB); };
+    var s = document.createElement('script'); s.async = true; s.defer = true; s.crossOrigin = 'anonymous';
+    s.src = 'https://connect.facebook.net/en_GB/sdk.js'; s.onerror = function() { reject(new Error('sdk')); };
+    document.head.appendChild(s);
+  });
+}
+
+function connectWhatsApp() {
+  var s = WA.status || {}, msg = document.getElementById('wa-msg'), btn = document.getElementById('wa-connect-btn');
+  if (!s.app_id || !s.config_id) return;
+  btn.disabled = true; msg.textContent = 'Opening Meta…';
+  WA.session = null;
+  function onMsg(ev) {
+    if (!/facebook\.com$/.test(new URL(ev.origin).hostname)) return;
+    try {
+      var d = typeof ev.data === 'string' ? JSON.parse(ev.data) : ev.data;
+      if (d && d.type === 'WA_EMBEDDED_SIGNUP' && d.data && d.data.phone_number_id) WA.session = d.data;
+    } catch (e) {}
+  }
+  window.addEventListener('message', onMsg);
+  loadFbSdk(s.app_id, s.graph_version || 'v23.0').then(function(FB) {
+    // Check these parameters against Meta's Embedded Signup documentation when configuring.
+    FB.login(function(resp) {
+      var code = resp && resp.authResponse && resp.authResponse.code;
+      if (!code) { btn.disabled = false; msg.textContent = 'Connection cancelled.'; window.removeEventListener('message', onMsg); return; }
+      var tries = 0;
+      (function waitSession() {
+        if (!WA.session && tries++ < 20) return setTimeout(waitSession, 250);
+        window.removeEventListener('message', onMsg);
+        if (!WA.session) { btn.disabled = false; msg.textContent = 'Meta did not return the number. Please try again.'; return; }
+        msg.textContent = 'Saving the connection…';
+        waApi('/api/whatsapp-connect', { method: 'POST', body: { code: code, waba_id: WA.session.waba_id, phone_number_id: WA.session.phone_number_id } })
+          .then(function() { renderWhatsApp(); })
+          .catch(function(e) { btn.disabled = false; msg.textContent = 'Could not connect: ' + e.message; });
+      })();
+    }, {
+      config_id: s.config_id,
+      response_type: 'code',
+      override_default_response_type: true,
+      extras: { setup: {}, featureType: 'whatsapp_business_app_onboarding', sessionInfoVersion: '3' }
+    });
+  }).catch(function() { btn.disabled = false; msg.textContent = 'Could not load Meta. Disable your ad blocker and try again.'; });
+}
+</script>
+</body>
+</html>
